@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IF Instrument III — Quarterly Report Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#111010;--cream:#f8f6f2;--rule:#d8d4ce;--accent:#8b2500;--blue:#1a3d78;--green:#1a6b3c;--gold:#a87c20;--mono:'IBM Plex Mono',monospace;--serif:'Crimson Pro',Georgia,serif;--sans:'Source Sans 3',system-ui,sans-serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:11pt;}
+body{background:#141210;color:#f0ede8;font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;}
+nav{background:#0c0a08;border-bottom:1px solid rgba(255,255,255,.07);padding:.6rem 2rem;display:flex;align-items:center;gap:1.5rem;position:sticky;top:0;z-index:100;}
+.nb{font-family:var(--mono);font-size:8pt;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;}
+.nb strong{color:#d4a820;}
+.nl{display:flex;gap:.4rem;margin-left:auto;}
+.nl a{font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);text-decoration:none;padding:.25rem .55rem;border:1px solid rgba(255,255,255,.08);border-radius:2px;transition:all .2s;}
+.nl a:hover,.nl a.active{color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.2);}
+.shell{max-width:860px;margin:0 auto;padding:3rem 2rem 5rem;}
+.inst-tag{font-family:var(--mono);font-size:7.5pt;letter-spacing:.22em;text-transform:uppercase;color:#d4a820;margin-bottom:.6rem;}
+h1{font-family:var(--serif);font-size:26pt;font-weight:400;color:rgba(255,255,255,.9);line-height:1.15;margin-bottom:.4rem;}
+.sub{font-family:var(--serif);font-size:12pt;font-style:italic;color:rgba(255,255,255,.4);margin-bottom:2rem;}
+/* View toggle */
+.view-toggle{display:flex;gap:0;border:1px solid rgba(255,255,255,.12);border-radius:3px;overflow:hidden;margin-bottom:2rem;max-width:400px;}
+.vt{flex:1;padding:.55rem 1rem;font-family:var(--mono);font-size:7.5pt;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:rgba(255,255,255,.4);border:none;cursor:pointer;transition:all .2s;}
+.vt.active{background:rgba(212,168,32,.15);color:#d4a820;}
+/* Stage selector */
+.stage-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin-bottom:2rem;}
+.stage-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:3px;padding:1rem;cursor:pointer;transition:all .2s;text-align:center;}
+.stage-btn:hover{border-color:rgba(212,168,32,.4);}
+.stage-btn.active{background:rgba(212,168,32,.1);border-color:#d4a820;}
+.sb-num{font-family:var(--mono);font-size:7.5pt;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.3rem;}
+.sb-name{font-family:var(--serif);font-size:11pt;font-weight:500;color:rgba(255,255,255,.8);}
+.stage-btn.active .sb-num{color:#d4a820;}
+/* Section */
+.sec{margin-bottom:2rem;}
+.sec-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1.1rem;padding-bottom:.4rem;border-bottom:1px solid rgba(255,255,255,.1);}
+.sh-n{font-family:var(--mono);font-size:9pt;color:#d4a820;}
+.sh-t{font-family:var(--serif);font-size:13pt;font-weight:500;color:rgba(255,255,255,.88);}
+/* Inputs */
+.frow{margin-bottom:1rem;}
+label{display:block;font-family:var(--mono);font-size:7.5pt;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.4rem;}
+input[type=text],input[type=number],textarea,select{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:3px;color:rgba(255,255,255,.85);font-family:var(--sans);font-size:9.5pt;padding:.6rem .85rem;}
+input[type=text]:focus,input[type=number]:focus,textarea:focus,select:focus{outline:none;border-color:rgba(212,168,32,.5);}
+textarea{resize:vertical;min-height:60px;}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.2);}
+/* Layer scores */
+.layer-grid{display:grid;gap:.6rem;margin-bottom:1.25rem;}
+.layer-row{display:grid;grid-template-columns:2.5rem 1fr auto auto;gap:.75rem;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:.65rem 1rem;}
+.lr-n{font-family:var(--mono);font-size:8.5pt;color:rgba(255,255,255,.4);}
+.lr-name{font-size:9pt;color:rgba(255,255,255,.7);}
+.lr-sel{display:flex;gap:.4rem;}
+.ls-btn{font-family:var(--mono);font-size:7pt;letter-spacing:.08em;padding:.25rem .5rem;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.4);border-radius:2px;cursor:pointer;transition:all .15s;}
+.ls-btn:hover{border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.7);}
+.ls-btn.s-red.active{background:rgba(139,37,0,.4);border-color:#8b2500;color:#e8806a;}
+.ls-btn.s-amber.active{background:rgba(168,124,32,.3);border-color:#d4a820;color:#d4a820;}
+.ls-btn.s-green.active{background:rgba(26,107,60,.3);border-color:#3a9b5c;color:#5ab870;}
+/* KPI row */
+.kpi-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin-bottom:1.5rem;}
+.kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:.85rem;}
+.kpi-l{font-family:var(--mono);font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:.4rem;}
+.kpi input{background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.15);border-radius:0;padding:.2rem 0;font-family:var(--mono);font-size:13pt;color:#d4a820;width:100%;}
+.kpi input:focus{outline:none;border-color:#d4a820;}
+/* Submit */
+.submit-btn{display:block;width:100%;background:#a87c20;color:#fff;font-family:var(--mono);font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;padding:.85rem 2rem;border:none;border-radius:3px;cursor:pointer;margin-top:2rem;transition:background .2s;}
+.submit-btn:hover{background:#8a6418;}
+/* Report card output */
+.report-card{display:none;margin-top:2.5rem;}
+.report-card.visible{display:block;animation:fadeIn .4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.rc-header{background:#0c0a08;border:1px solid rgba(255,255,255,.1);border-radius:4px 4px 0 0;padding:1.5rem;}
+.rc-meta{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;}
+.rc-title{font-family:var(--serif);font-size:18pt;font-weight:600;color:rgba(255,255,255,.9);}
+.rc-qtr{font-family:var(--mono);font-size:8pt;color:rgba(255,255,255,.4);}
+.rc-body{background:#1a1714;border:1px solid rgba(255,255,255,.1);border-top:none;border-radius:0 0 4px 4px;padding:1.75rem;}
+.crl-progress{margin-bottom:1.5rem;}
+.cp-label{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.6rem;}
+.cp-track{display:flex;gap:2px;}
+.cp-step{flex:1;height:6px;border-radius:1px;background:rgba(255,255,255,.1);}
+.cp-step.done{background:#d4a820;}
+.cp-step.current{background:#f4c27a;}
+.cp-nums{display:flex;justify-content:space-between;font-family:var(--mono);font-size:6.5pt;color:rgba(255,255,255,.2);margin-top:.3rem;}
+.layer-scorecard{margin-bottom:1.5rem;}
+.lsc-row{display:grid;grid-template-columns:4rem 1fr auto;gap:.75rem;align-items:center;padding:.55rem 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.lsc-row:last-child{border:none;}
+.lsc-n{font-family:var(--mono);font-size:8pt;color:rgba(255,255,255,.35);}
+.lsc-name{font-size:9pt;color:rgba(255,255,255,.65);}
+.lsc-badge{font-family:var(--mono);font-size:7pt;letter-spacing:.1em;padding:.2rem .5rem;border-radius:2px;}
+.b-red{background:rgba(139,37,0,.3);color:#e8806a;} .b-amber{background:rgba(168,124,32,.25);color:#d4a820;} .b-green{background:rgba(26,107,60,.25);color:#5ab870;}
+.rc-kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin-bottom:1.5rem;}
+.rc-kpi{background:rgba(255,255,255,.04);padding:.75rem;border-radius:3px;text-align:center;}
+.rk-l{font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.3rem;}
+.rk-v{font-family:var(--mono);font-size:13pt;color:#d4a820;}
+.priorities{border-top:1px solid rgba(255,255,255,.08);padding-top:1.25rem;}
+.pri-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.75rem;}
+.pri-item{display:flex;gap:.7rem;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:9pt;color:rgba(255,255,255,.55);line-height:1.6;}
+.pri-item:last-child{border:none;}
+.pri-item::before{content:'→';font-family:var(--mono);font-size:8pt;color:#d4a820;flex-shrink:0;margin-top:.1rem;}
+.investor-note{background:rgba(26,61,120,.12);border:1px solid rgba(26,61,120,.3);border-radius:3px;padding:1rem 1.25rem;margin-top:1.25rem;display:none;}
+.investor-note.visible{display:block;}
+.in-label{font-family:var(--mono);font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:#6a90c8;margin-bottom:.5rem;}
+.in-label+p{font-size:9pt;color:rgba(255,255,255,.5);line-height:1.6;}
+.print-btn{font-family:var(--mono);font-size:7.5pt;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1rem;background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);border-radius:2px;cursor:pointer;margin-top:1.25rem;}
+.print-btn:hover{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8);}
+@media print{nav,.submit-btn,.view-toggle,.stage-row,.print-btn{display:none!important;}.report-card{display:block!important;}.shell{padding:0;}.rc-body{background:#fff;color:#1a1410;}.rc-header{background:#1a1410;}}
+@media(max-width:580px){.kpi-row,.rc-kpis{grid-template-columns:1fr 1fr;}.stage-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nb" href="if_index.html"><strong>IF</strong> · Innovation Friction</a>
+  <div class="nl">
+    <a href="instrument1.html">I</a><a href="instrument2.html">II</a>
+    <a href="instrument3.html" class="active">III · Report</a>
+    <a href="instrument4.html">IV</a><a href="instrument5.html">V</a>
+  </div>
+</nav>
+<div class="shell">
+  <div class="inst-tag">Instrument III · Quarterly Report Card</div>
+  <h1>Quarterly Report Card</h1>
+  <p class="sub">30 minutes. Every quarter. Every board meeting.</p>
+
+  <div class="view-toggle">
+    <button class="vt active" onclick="setView('founder')">Founder View</button>
+    <button class="vt" onclick="setView('investor')">Investor View</button>
+  </div>
+
+  <!-- STAGE SELECTOR -->
+  <div style="font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:.75rem;">Current Stage</div>
+  <div class="stage-row">
+    <div class="stage-btn active" onclick="setStage(0)"><div class="sb-num">CRL 1–4</div><div class="sb-name">Problem Validation</div></div>
+    <div class="stage-btn" onclick="setStage(1)"><div class="sb-num">CRL 5–7</div><div class="sb-name">Commercial Proof</div></div>
+    <div class="stage-btn" onclick="setStage(2)"><div class="sb-num">CRL 8–9</div><div class="sb-name">Scale Proof</div></div>
+  </div>
+
+  <!-- META -->
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n">META</span><span class="sh-t">Quarter Details</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+      <div class="frow"><label>Company / Venture Name</label><input type="text" id="co-name" placeholder="Your company name"></div>
+      <div class="frow"><label>Quarter and Year</label><input type="text" id="qtr" placeholder="e.g. Q2 2026"></div>
+      <div class="frow"><label>Current CRL Level</label>
+        <select id="crl-sel">
+          <option value="1">CRL 1 · Problem identified</option>
+          <option value="2">CRL 2 · Pain validated</option>
+          <option value="3">CRL 3 · Co-design partner</option>
+          <option value="4">CRL 4 · Pilot completed</option>
+          <option value="5">CRL 5 ★ · First revenue</option>
+          <option value="6">CRL 6 · Repeatable sale</option>
+          <option value="7">CRL 7 · Predictable pipeline</option>
+          <option value="8">CRL 8 · Expansion revenue</option>
+          <option value="9">CRL 9 · Category definition</option>
+        </select>
+      </div>
+      <div class="frow"><label>CRL Change This Quarter</label>
+        <select id="crl-change">
+          <option value="2">Advanced 2+ levels — ahead of plan</option>
+          <option value="1">Advanced 1 level — on track</option>
+          <option value="0">Held same level — blocked</option>
+          <option value="-1">Regressed — market/pivot change</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER SCORECARD -->
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n">LAYERS</span><span class="sh-t">Five Failure Layer Status</span></div>
+    <div class="layer-grid">
+      <div class="layer-row"><div class="lr-n">L1</div><div class="lr-name">Problem — urgent funded pain confirmed</div><div class="lr-sel" id="l1"></div><div></div></div>
+      <div class="layer-row"><div class="lr-n">L2</div><div class="lr-name">Access — reachable before capital depleted</div><div class="lr-sel" id="l2"></div><div></div></div>
+      <div class="layer-row"><div class="lr-n">L3</div><div class="lr-name">Trust — reference customer reducing μ_human</div><div class="lr-sel" id="l3"></div><div></div></div>
+      <div class="layer-row"><div class="lr-n">L4</div><div class="lr-name">Process — procurement pathway cleared</div><div class="lr-sel" id="l4"></div><div></div></div>
+      <div class="layer-row"><div class="lr-n">L5</div><div class="lr-name">Adoption — post-signature usage confirmed</div><div class="lr-sel" id="l5"></div><div></div></div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n">KPIs</span><span class="sh-t">Key Metrics This Quarter</span></div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-l">Revenue (€)</div><input type="number" id="kpi-rev" placeholder="0"></div>
+      <div class="kpi"><div class="kpi-l">Active Customers</div><input type="number" id="kpi-cust" placeholder="0"></div>
+      <div class="kpi"><div class="kpi-l">Pipeline (€)</div><input type="number" id="kpi-pipe" placeholder="0"></div>
+    </div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-l">Runway (months)</div><input type="number" id="kpi-run" placeholder="0"></div>
+      <div class="kpi"><div class="kpi-l">Burn Rate (€/mo)</div><input type="number" id="kpi-burn" placeholder="0"></div>
+      <div class="kpi"><div class="kpi-l">Win Rate (%)</div><input type="number" id="kpi-wr" placeholder="0"></div>
+    </div>
+  </div>
+
+  <!-- NARRATIVE -->
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n">NARRATIVE</span><span class="sh-t">Quarter in Summary</span></div>
+    <div class="frow"><label>Biggest friction eliminated this quarter</label><textarea id="n-win" placeholder="Which failure layer did you make the most progress on? What specifically changed?"></textarea></div>
+    <div class="frow"><label>Dominant friction remaining — what is blocking you most?</label><textarea id="n-block" placeholder="Which layer is your active constraint right now? What are the specific obstacles?"></textarea></div>
+    <div class="frow"><label>90-day priority — one sentence</label><input type="text" id="n-priority" placeholder="The single most important action in the next 90 days is..."></div>
+  </div>
+
+  <button class="submit-btn" onclick="generateReport()">Generate Report Card →</button>
+
+  <!-- REPORT OUTPUT -->
+  <div class="report-card" id="report-card">
+    <div class="rc-header">
+      <div class="rc-meta">
+        <div>
+          <div class="rc-qtr" id="rc-qtr-label">—</div>
+          <div class="rc-title" id="rc-co-name">—</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--mono);font-size:8.5pt;color:#d4a820;" id="rc-crl-label">CRL —</div>
+          <div style="font-family:var(--mono);font-size:7.5pt;color:rgba(255,255,255,.3);margin-top:.2rem;">Innovation Friction Report Card</div>
+        </div>
+      </div>
+      <div class="crl-progress" style="margin-top:1.25rem;">
+        <div class="cp-label">CRL Progression</div>
+        <div class="cp-track" id="cp-track"></div>
+        <div class="cp-nums"><span>CRL 1</span><span>2</span><span>3</span><span>4</span><span>5★</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-kpis" id="rc-kpis"></div>
+      <div style="margin-bottom:1.25rem;">
+        <div style="font-family:var(--mono);font-size:7.5pt;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.75rem;">Five Failure Layer Status</div>
+        <div class="layer-scorecard" id="rc-layers"></div>
+      </div>
+      <div class="priorities" id="rc-priorities"></div>
+      <div class="investor-note" id="investor-note">
+        <div class="in-label">Investor Summary</div>
+        <p id="investor-text"></p>
+      </div>
+      <button class="print-btn" onclick="window.print()">Print / Export →</button>
+    </div>
+  </div>
+
+</div>
+<script>
+let currentView='founder', currentStage=0;
+const layerStatus={};
+
+// Init layer buttons
+[1,2,3,4,5].forEach(i=>{
+  const el=document.getElementById('l'+i);
+  el.innerHTML=`
+    <button class="ls-btn s-red" onclick="setLayer(${i},'red')">Active risk</button>
+    <button class="ls-btn s-amber" onclick="setLayer(${i},'amber')">Partial</button>
+    <button class="ls-btn s-green" onclick="setLayer(${i},'green')">Eliminated</button>`;
+});
+
+function setLayer(n,val){
+  layerStatus[n]=val;
+  const el=document.getElementById('l'+n);
+  el.querySelectorAll('.ls-btn').forEach(b=>b.classList.remove('active'));
+  el.querySelector('.s-'+val).classList.add('active');
+}
+
+function setView(v){
+  currentView=v;
+  document.querySelectorAll('.vt').forEach((b,i)=>b.classList.toggle('active',i===(v==='investor'?1:0)));
+  document.getElementById('investor-note').classList.toggle('visible',v==='investor'&&document.getElementById('report-card').classList.contains('visible'));
+}
+
+function setStage(s){
+  currentStage=s;
+  document.querySelectorAll('.stage-btn').forEach((b,i)=>b.classList.toggle('active',i===s));
+}
+
+function generateReport(){
+  const co=document.getElementById('co-name').value||'Your Venture';
+  const qtr=document.getElementById('qtr').value||'Q — ——';
+  const crl=+document.getElementById('crl-sel').value;
+  const crlChg=+document.getElementById('crl-change').value;
+  const rev=document.getElementById('kpi-rev').value;
+  const cust=document.getElementById('kpi-cust').value;
+  const pipe=document.getElementById('kpi-pipe').value;
+  const run=document.getElementById('kpi-run').value;
+  const burn=document.getElementById('kpi-burn').value;
+  const wr=document.getElementById('kpi-wr').value;
+  const nWin=document.getElementById('n-win').value;
+  const nBlock=document.getElementById('n-block').value;
+  const nPri=document.getElementById('n-priority').value;
+
+  document.getElementById('rc-qtr-label').textContent='Innovation Friction Report Card · '+qtr;
+  document.getElementById('rc-co-name').textContent=co;
+  document.getElementById('rc-crl-label').textContent='CRL '+crl+' · '+(crlChg>0?'↑'+crlChg+' this quarter':crlChg<0?'↓ Regression':'Held');
+
+  // CRL progress track
+  document.getElementById('cp-track').innerHTML=Array.from({length:9},(_,i)=>
+    `<div class="cp-step ${i+1<crl?'done':i+1===crl?'current':''}"></div>`).join('');
+
+  // KPIs
+  const kpis=[
+    {l:'ARR / Revenue',v:rev?'€'+Number(rev).toLocaleString():'—'},
+    {l:'Customers',v:cust||'—'},
+    {l:'Pipeline',v:pipe?'€'+Number(pipe).toLocaleString():'—'},
+    {l:'Runway',v:run?run+' mo':'—'},
+    {l:'Burn Rate',v:burn?'€'+Number(burn).toLocaleString()+'/mo':'—'},
+    {l:'Win Rate',v:wr?wr+'%':'—'}
+  ];
+  document.getElementById('rc-kpis').innerHTML=kpis.slice(0,3).map(k=>
+    `<div class="rc-kpi"><div class="rk-l">${k.l}</div><div class="rk-v">${k.v}</div></div>`).join('');
+
+  // Layers
+  const layerNames=['Problem','Access','Trust','Process','Adoption'];
+  document.getElementById('rc-layers').innerHTML=layerNames.map((n,i)=>{
+    const s=layerStatus[i+1]||'amber';
+    const bc=s==='red'?'b-red':s==='amber'?'b-amber':'b-green';
+    const bt=s==='red'?'ACTIVE RISK':s==='amber'?'IN PROGRESS':'ELIMINATED';
+    return `<div class="lsc-row"><div class="lsc-n">L${i+1}</div><div class="lsc-name">${n}</div><div class="lsc-badge ${bc}">${bt}</div></div>`;
+  }).join('');
+
+  // Priorities
+  const redLayers=Object.entries(layerStatus).filter(([,v])=>v==='red').map(([k])=>layerNames[+k-1]);
+  const pris=[];
+  if(nPri) pris.push(nPri);
+  if(redLayers.length) pris.push(`Critical: resolve active risk in Layer — ${redLayers.join(', ')}`);
+  if(crl<5) pris.push('CRL 5 (first real revenue) is your primary milestone — everything else is secondary');
+  if(run&&+run<12) pris.push('Runway below 12 months — capital efficiency and next raise must be prioritised');
+  if(nBlock) pris.push(`Unblock: ${nBlock.slice(0,120)}${nBlock.length>120?'...':''}`);
+  document.getElementById('rc-priorities').innerHTML=`<div class="pri-label">90-Day Priorities</div>`+pris.slice(0,5).map(p=>`<div class="pri-item">${p}</div>`).join('');
+
+  // Investor note
+  const invText=`${co} is at CRL ${crl} as of ${qtr}. ${crlChg>0?`Advanced ${crlChg} CRL level${crlChg>1?'s':''} this quarter — ahead of plan.`:crlChg===0?'CRL held this quarter; active friction identified.':'CRL regression this quarter; pivot or path change under evaluation.'} ${rev?'Revenue: €'+Number(rev).toLocaleString()+'. ':'Pre-revenue. '}${run?'Runway: '+run+' months. ':''}Primary constraint: ${nBlock?nBlock.slice(0,100):'friction identification in progress'}. Next 90-day focus: ${nPri||'see priorities above'}.`;
+  document.getElementById('investor-text').textContent=invText;
+  document.getElementById('investor-note').classList.toggle('visible',currentView==='investor');
+
+  document.getElementById('report-card').classList.add('visible');
+  document.getElementById('report-card').scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>
