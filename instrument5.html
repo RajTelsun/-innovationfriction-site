@@ -4,150 +4,91 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IF Instrument V — Crisis Diagnostic</title>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink:#0e0d0b;--ink2:#2a2520;--ink3:#4a4540;--muted:#6b6560;--faint:#9a9590;
-  --rule:#d8d4ce;--rule2:#e8e4de;--cream:#f5f2ed;--page:#ffffff;
-  --accent:#8b2500;--accent2:#c45a30;
-  --blue:#1a3d78;--green:#1a6b3c;--gold:#a87c20;
-  --serif:'Crimson Pro',Georgia,serif;
-  --sans:'Source Sans 3',system-ui,sans-serif;
-  --mono:'IBM Plex Mono','Courier New',monospace;
-}
+:root{--ink:#111010;--cream:#f8f6f2;--rule:#d8d4ce;--accent:#1a6b3c;--blue:#1a3d78;--green:#1a6b3c;--gold:#a87c20;--red:#8b2500;--mono:'IBM Plex Mono',monospace;--serif:'Crimson Pro',Georgia,serif;--sans:'Source Sans 3',system-ui,sans-serif;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{font-size:11pt;scroll-behavior:smooth;}
-body{font-family:var(--sans);font-weight:300;line-height:1.7;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;min-height:100vh;}
+html{font-size:11pt;}
+body{background:#0e1410;color:#f0ede8;font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;}
+nav{background:#080e0a;border-bottom:1px solid rgba(255,255,255,.07);padding:.6rem 2rem;display:flex;align-items:center;gap:1.5rem;position:sticky;top:0;z-index:100;}
+.nb{font-family:var(--mono);font-size:8pt;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;}
+.nb strong{color:#3a9b5c;}
+.nl{display:flex;gap:.4rem;margin-left:auto;}
+.nl a{font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);text-decoration:none;padding:.25rem .55rem;border:1px solid rgba(255,255,255,.08);border-radius:2px;transition:all .2s;}
+.nl a:hover,.nl a.active{color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.2);}
+.shell{max-width:760px;margin:0 auto;padding:3rem 2rem 5rem;}
+.inst-tag{font-family:var(--mono);font-size:7.5pt;letter-spacing:.22em;text-transform:uppercase;color:#3a9b5c;margin-bottom:.6rem;}
+h1{font-family:var(--serif);font-size:26pt;font-weight:400;color:rgba(255,255,255,.9);line-height:1.15;margin-bottom:.4rem;}
+.sub{font-family:var(--serif);font-size:12pt;font-style:italic;color:rgba(255,255,255,.38);margin-bottom:.75rem;}
+.urgency-bar{background:rgba(139,37,0,.2);border:1px solid rgba(139,37,0,.4);border-radius:3px;padding:.85rem 1.25rem;margin-bottom:2rem;}
+.urgency-bar p{font-family:var(--mono);font-size:8pt;letter-spacing:.08em;color:rgba(255,255,255,.55);}
+.urgency-bar strong{color:#e87a5a;}
+/* Crisis type selector */
+.crisis-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:2rem;}
+.crisis-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:3px;padding:1.1rem;cursor:pointer;-webkit-tap-highlight-color:rgba(26,107,60,.2);transition:all .2s;text-align:left;}
+.crisis-btn:hover{border-color:rgba(255,255,255,.25);}
+.crisis-btn.selected{background:rgba(26,107,60,.12);border-color:#3a9b5c;}
+.cb-icon{font-size:18pt;margin-bottom:.3rem;}
+.cb-title{font-family:var(--serif);font-size:12pt;font-weight:600;color:rgba(255,255,255,.85);margin-bottom:.2rem;}
+.cb-desc{font-size:8.5pt;color:rgba(255,255,255,.4);line-height:1.45;}
+/* Q&A */
+.q-block{margin-bottom:1.5rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:3px;padding:1.1rem 1.25rem;}
+.q-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.4rem;}
+.q-text{font-family:var(--serif);font-size:12.5pt;color:rgba(255,255,255,.85);margin-bottom:.75rem;line-height:1.4;}
+.q-opts{display:grid;gap:.45rem;}
+.qo{display:flex;align-items:flex-start;gap:.65rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:.65rem .85rem;cursor:pointer;transition:all .15s;}
+.qo:hover{border-color:rgba(255,255,255,.2);}
+.qo.selected{background:rgba(26,107,60,.12);border-color:#3a9b5c;}
+.qo-dot{width:.6rem;height:.6rem;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);flex-shrink:0;margin-top:.3rem;}
+.qo.selected .qo-dot{background:#3a9b5c;border-color:#3a9b5c;}
+.qo-text{font-size:9pt;color:rgba(255,255,255,.65);line-height:1.5;}
+/* Buttons */
+.btn-row{display:flex;gap:.75rem;margin-top:2rem;}
+.btn{font-family:var(--mono);font-size:8pt;letter-spacing:.12em;text-transform:uppercase;padding:.65rem 1.4rem;border:none;border-radius:2px;cursor:pointer;transition:all .2s;}
+.btn-diag{background:#1a6b3c;color:#fff;}
+.btn-diag:hover{background:#145530;}
+.btn-reset{background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);}
+.btn-reset:hover{background:rgba(255,255,255,.12);}
+/* Result */
+.diag-result{display:none;margin-top:2.5rem;}
+.diag-result.visible{display:block;animation:fadeIn .4s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-nav{background:#ffffff;border-bottom:1px solid #d8d4ce;padding:.65rem 2rem;display:flex;align-items:center;gap:1.5rem;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.05);}
-.nb{text-decoration:none;display:flex;align-items:baseline;gap:.15rem;}
-.nb-inn{font-family:'Crimson Pro',Georgia,serif;font-size:14.5pt;font-weight:700;color:#0e0d0c;}
-.nb-fri{font-family:'Crimson Pro',Georgia,serif;font-size:14.5pt;font-weight:500;font-style:italic;color:#8b2500;}
-.nl{display:flex;gap:.4rem;margin-left:auto;flex-wrap:wrap;}
-.nl a{font-family:'IBM Plex Mono',monospace;font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:#6b6560;text-decoration:none;padding:.25rem .6rem;border:1px solid #d8d4ce;border-radius:2px;transition:all .2s;}
-.nl a:hover,.nl a.active{color:#0e0d0c;border-color:#8b2500;background:#fff8f5;}
-.shell{max-width:760px;margin:0 auto;padding:3rem 2rem 5rem;}
-.inst-tag{font-family:var(--mono);font-size:7.5pt;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
-h1{font-family:var(--serif);font-size:26pt;font-weight:400;color:var(--ink);line-height:1.15;margin-bottom:.4rem;}
-.sub{font-family:var(--serif);font-size:12pt;font-style:italic;color:var(--muted);margin-bottom:2.5rem;}
-.prog{display:flex;gap:0;margin-bottom:2.5rem;border:1.5px solid var(--ink);}
-.ps{flex:1;padding:.5rem .25rem;text-align:center;font-family:var(--mono);font-size:7pt;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-right:1px solid var(--rule);transition:all .3s;cursor:pointer;}
-.ps:last-child{border-right:none;}
-.ps.active{background:rgba(139,37,0,.08);color:var(--accent);border-bottom:2px solid var(--accent);}
-.ps.done{background:rgba(26,107,60,.08);color:var(--green);}
-.step{display:none;}
-.step.visible{display:block;animation:fadeIn .35s ease;}
-.step-header{margin-bottom:1.5rem;}
-.step-num{font-family:var(--mono);font-size:7.5pt;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
-.step-q{font-family:var(--serif);font-size:17pt;font-weight:500;color:var(--ink);line-height:1.3;margin-bottom:.5rem;}
-.step-hint{font-size:9.5pt;color:var(--muted);font-style:italic;}
-.opts{display:grid;gap:.75rem;margin:1.5rem 0;}
-.opt{background:var(--page);border:1.5px solid var(--rule);padding:1.1rem 1.25rem;cursor:pointer;-webkit-tap-highlight-color:rgba(139,37,0,.1);transition:all .2s;display:flex;gap:1rem;align-items:flex-start;}
-.opt:hover{border-color:var(--ink2);}
-.opt.selected{background:#fff8f5;border-color:var(--accent);}
-.opt-dot{width:.7rem;height:.7rem;border-radius:50%;border:1.5px solid var(--rule);flex-shrink:0;margin-top:.3rem;transition:all .2s;}
-.opt.selected .opt-dot{background:var(--accent);border-color:var(--accent);}
-.opt-title{font-family:var(--sans);font-size:10pt;font-weight:500;color:var(--ink);margin-bottom:.2rem;}
-.opt-desc{font-size:8.5pt;color:var(--muted);line-height:1.5;}
-.slider-wrap{margin:1.5rem 0;}
-.slider-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:7.5pt;color:var(--muted);margin-bottom:.5rem;}
-input[type=range]{width:100%;-webkit-appearance:none;height:3px;background:var(--rule2);outline:none;border-radius:2px;}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;}
-.slider-val{text-align:center;font-family:var(--mono);font-size:11pt;color:var(--accent);margin-top:.5rem;}
-textarea{width:100%;background:var(--page);border:1px solid var(--rule);color:var(--ink);font-family:var(--sans);font-size:9.5pt;line-height:1.6;padding:.85rem 1rem;resize:vertical;min-height:80px;margin-top:1rem;}
-textarea:focus{outline:none;border-color:var(--accent);}
-textarea::placeholder{color:var(--faint);}
-.btn-row{display:flex;gap:.75rem;margin-top:2rem;align-items:center;}
-.btn{font-family:var(--mono);font-size:8pt;letter-spacing:.12em;text-transform:uppercase;padding:.65rem 1.4rem;border:none;cursor:pointer;transition:all .2s;}
-.btn-next{background:var(--accent);color:#fff;}
-.btn-next:hover{background:#6a1a00;}
-.btn-back{background:transparent;color:var(--muted);border:1px solid var(--rule);}
-.btn-back:hover{border-color:var(--ink);color:var(--ink);}
-.btn-submit{background:var(--green);color:#fff;}
-.btn-submit:hover{background:#145530;}
-.result{display:none;}
-.result.visible{display:block;animation:fadeIn .4s ease;}
-.path-card{padding:2rem;margin-bottom:1.5rem;border:1.5px solid;}
-.path-a{background:#fff8f5;border-color:var(--accent);}
-.path-b{background:#f0f4fb;border-color:var(--blue);}
-.path-c{background:#f0faf4;border-color:var(--green);}
-.path-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.5rem;}
-.path-a .path-label{color:var(--accent);}
-.path-b .path-label{color:var(--blue);}
-.path-c .path-label{color:var(--green);}
-.path-name{font-family:var(--serif);font-size:18pt;font-weight:600;color:var(--ink);margin-bottom:.75rem;}
-.path-why{font-size:9.5pt;line-height:1.7;color:var(--ink2);margin-bottom:1.25rem;}
-.next-actions{border-top:1px solid var(--rule);padding-top:1rem;}
-.na-label{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;}
-.na-list{list-style:none;padding:0;}
-.na-list li{font-size:9pt;color:var(--ink2);line-height:1.6;padding:.25rem 0;display:flex;gap:.6rem;border-bottom:1px dotted var(--rule);}
-.na-list li:last-child{border:none;}
-.na-list li::before{content:'→';font-family:var(--mono);font-size:8pt;color:var(--accent);flex-shrink:0;margin-top:.1rem;}
-.friction-summary{background:var(--page);border:1px solid var(--rule);padding:1.25rem;margin-bottom:1.5rem;}
-.fs-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.85rem;}
-.fs-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
-.fs-item{display:flex;align-items:center;gap:.75rem;}
-.fs-var{font-family:var(--mono);font-size:9pt;color:var(--accent);min-width:4rem;}
-.fs-bar-wrap{flex:1;height:6px;background:var(--rule2);border-radius:3px;overflow:hidden;}
-.fs-bar{height:100%;border-radius:3px;}
-.fs-low .fs-bar{background:var(--green);width:30%;}
-.fs-med .fs-bar{background:var(--gold);width:60%;}
-.fs-high .fs-bar{background:var(--accent);width:90%;}
-.fs-val{font-family:var(--mono);font-size:7.5pt;min-width:2.5rem;text-align:right;}
-.fs-low .fs-val{color:var(--green);}
-.fs-med .fs-val{color:var(--gold);}
-.fs-high .fs-val{color:var(--accent);}
-footer{border-top:1px solid #d8d4ce;padding:2rem;text-align:center;margin-top:3rem;}
-footer p{font-family:var(--mono);font-size:7pt;letter-spacing:.08em;color:var(--muted);line-height:1.9;}
-footer a{color:var(--accent);text-decoration:none;}
-@media(max-width:620px){h1{font-size:20pt;} .fs-grid{grid-template-columns:1fr;}}
-
-.shell{max-width:760px;margin:0 auto;padding:3rem 2rem 5rem;}
-.crisis-banner{background:#fff8f5;border:1.5px solid var(--accent);padding:1rem 1.25rem;margin-bottom:2rem;}
-.crisis-banner p{font-size:9pt;color:#6b3020;line-height:1.6;}
-.crisis-banner strong{color:var(--accent);}
-.sec{margin-bottom:2rem;}
-.sec-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;padding-bottom:.5rem;border-bottom:1.5px solid var(--rule);}
-.sec-num{font-family:var(--mono);font-size:9pt;color:var(--green);font-weight:500;}
-.sec-title{font-family:var(--serif);font-size:14pt;font-weight:600;color:var(--ink);}
-.frow{margin-bottom:1.25rem;}
-label{display:block;font-family:var(--mono);font-size:7.5pt;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
-input[type=text],select,textarea{width:100%;background:var(--page);border:1px solid var(--rule);color:var(--ink);font-family:var(--sans);font-size:10pt;padding:.65rem .85rem;transition:border-color .2s;}
-input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:var(--green);}
-.radio-group{display:grid;gap:.5rem;margin-top:.3rem;}
-.radio-opt{display:flex;align-items:flex-start;gap:.7rem;background:var(--page);border:1px solid var(--rule);padding:.75rem 1rem;cursor:pointer;transition:all .18s;-webkit-tap-highlight-color:rgba(26,107,60,.1);}
-.radio-opt:hover{border-color:var(--green);background:#f0faf4;}
-.radio-opt.selected{border-color:var(--green);background:#f0faf4;}
-.radio-opt input{margin-top:.25rem;accent-color:var(--green);flex-shrink:0;}
-.ro-title{font-size:9.5pt;font-weight:500;color:var(--ink);margin-bottom:.1rem;}
-.ro-desc{font-size:8.5pt;color:var(--muted);line-height:1.5;}
-.submit-btn{display:block;width:100%;background:var(--green);color:#fff;font-family:var(--mono);font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;padding:.85rem 2rem;border:none;cursor:pointer;margin-top:2.5rem;transition:background .2s;}
-.submit-btn:hover{background:#145530;}
-.result-panel{display:none;margin-top:2.5rem;border:2px solid var(--ink);overflow:hidden;}
-.result-panel.visible{display:block;}
-.rp-head{background:var(--ink);padding:1.5rem;display:flex;align-items:center;gap:1rem;}
-.rp-verdict{font-family:var(--serif);font-size:18pt;font-weight:600;color:#6fd89a;}
-.rp-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,242,237,.4);}
-.rp-body{padding:1.5rem;background:var(--page);}
-.rp-section{margin-bottom:1.5rem;}
-.rp-stitle{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;}
-.rp-text{font-size:9.5pt;line-height:1.7;color:var(--ink2);}
-.protocol-list{list-style:none;padding:0;}
-.protocol-list li{font-size:9pt;color:var(--ink2);line-height:1.6;padding:.4rem 0;display:flex;gap:.75rem;border-bottom:1px dotted var(--rule);}
-.protocol-list li:last-child{border:none;}
-.week-num{font-family:var(--mono);font-size:8pt;color:var(--green);min-width:4.5rem;flex-shrink:0;}
-.action-list{list-style:none;padding:0;}
-.action-list li{font-size:9pt;color:var(--ink2);line-height:1.6;padding:.35rem 0;display:flex;gap:.6rem;border-bottom:1px dotted var(--rule);}
-.action-list li:last-child{border:none;}
-.action-list li::before{content:'→';font-family:var(--mono);color:var(--green);flex-shrink:0;}
+.verdict-card{border-radius:4px;overflow:hidden;margin-bottom:1.5rem;}
+.vc-head{padding:1.5rem;}
+.vc-continue .vc-head{background:rgba(26,107,60,.3);border:1.5px solid #3a9b5c;}
+.vc-pivot .vc-head{background:rgba(168,124,32,.25);border:1.5px solid #d4a820;}
+.vc-change .vc-head{background:rgba(139,37,0,.25);border:1.5px solid #c45a30;}
+.vc-signal{font-family:var(--mono);font-size:7.5pt;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.35rem;}
+.vc-continue .vc-signal{color:#5ab870;} .vc-pivot .vc-signal{color:#d4a820;} .vc-change .vc-signal{color:#e87a5a;}
+.vc-verdict{font-family:var(--serif);font-size:20pt;font-weight:600;color:rgba(255,255,255,.92);}
+.vc-body{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-top:none;border-radius:0 0 4px 4px;padding:1.5rem;}
+.vc-diagnosis{font-size:9.5pt;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:1.25rem;}
+.layer-reactivated{background:rgba(139,37,0,.2);border:1px solid rgba(139,37,0,.4);border-radius:3px;padding:.85rem 1.1rem;margin-bottom:1.25rem;}
+.lr-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.15em;text-transform:uppercase;color:#e87a5a;margin-bottom:.35rem;}
+.lr-text{font-size:9.5pt;color:rgba(255,255,255,.65);line-height:1.6;}
+.protocol-30{margin-bottom:1.25rem;}
+.p30-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.15em;text-transform:uppercase;color:#3a9b5c;margin-bottom:.75rem;}
+.p30-week{margin-bottom:.75rem;}
+.pw-num{font-family:var(--mono);font-size:7.5pt;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:.3rem;}
+.pw-actions{list-style:none;padding:0;}
+.pw-actions li{display:flex;gap:.65rem;padding:.35rem 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:9pt;color:rgba(255,255,255,.58);line-height:1.55;}
+.pw-actions li:last-child{border:none;}
+.pw-actions li::before{content:'→';font-family:var(--mono);font-size:8pt;color:#3a9b5c;flex-shrink:0;margin-top:.1rem;}
+.truth-box{background:rgba(26,61,120,.15);border:1px solid rgba(26,61,120,.35);border-radius:3px;padding:1rem 1.25rem;margin-top:1.25rem;}
+.tb-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.14em;text-transform:uppercase;color:#6a90c8;margin-bottom:.5rem;}
+.tb-text{font-size:9.5pt;color:rgba(255,255,255,.55);line-height:1.6;}
+@media(max-width:500px){.crisis-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 <nav>
-  <a class="nb" href="index.html"><span class="nb-inn">Innovation</span><span class="nb-fri">&nbsp;Friction</span></a>
-  <div class="nl"><a href="index.html">Home</a><a href="instrument1.html">I</a><a href="instrument2.html">II</a><a href="instrument3.html">III</a><a href="instrument4.html">IV</a><a href="instrument5.html" class="active">V</a></div>
+  <a class="nb" href="if_index.html"><strong>IF</strong> · Innovation Friction</a>
+  <div class="nl">
+    <a href="instrument1.html">I</a><a href="instrument2.html">II</a>
+    <a href="instrument3.html">III</a><a href="instrument4.html">IV</a>
+    <a href="instrument5.html" class="active">V · Crisis</a>
+  </div>
 </nav>
-
 <div class="shell">
   <div class="inst-tag">Instrument V · Crisis Diagnostic</div>
   <h1>Crisis Diagnostic</h1>
@@ -157,7 +98,7 @@ input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:var
   </div>
 
   <!-- CRISIS TYPE -->
-  <div style="font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:#8b8580;margin-bottom:.75rem;">Step 1 · What type of crisis are you in?</div>
+  <div style="font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:.75rem;">Step 1 · What type of crisis are you in?</div>
   <div class="crisis-grid">
     <div class="crisis-btn" onclick="selectCrisis('customer')" id="ct-customer">
       <div class="cb-icon">🔴</div>
@@ -183,7 +124,7 @@ input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:var
 
   <!-- Q&A SECTION -->
   <div id="questions-section" style="display:none;">
-    <div style="font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:#8b8580;margin-bottom:1.25rem;">Step 2 · Five rapid questions</div>
+    <div style="font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:1.25rem;">Step 2 · Five rapid questions</div>
     <div id="q-container"></div>
     <div class="btn-row">
       <button class="btn btn-diag" onclick="generateDiagnosis()">Generate Diagnosis →</button>
@@ -218,179 +159,6 @@ input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:var
   </div>
 
 </div>
-<script>
-let crisisType='';
-const answers={};
-
-const questionSets={
-  customer:{
-    q:[
-      {text:'When did you first notice the adoption problem — before or after contract signature?',opts:['Before — adoption was slow from the first week of implementation','After — they purchased but usage never reached the promised level','At renewal — they declined to renew citing value not demonstrated']},
-      {text:'Did you define measurable success criteria before the contract was signed?',opts:['Yes — criteria were agreed and documented','Partially — vague success criteria, no specific metrics','No — success was not formally defined before signature']},
-      {text:'Is your primary champion still in their role?',opts:['Yes — same champion throughout','No — champion changed role or left the organisation','Unclear — multiple stakeholders, no clear single champion']},
-      {text:'What did the customer say was the reason?',opts:['Value not demonstrated — no measurable outcome delivered','Integration too complex — product harder to use than expected','Internal priority changed — budget reallocated','Political — new decision-maker reversed the purchase']},
-      {text:'Do you have a second customer in the same segment who can serve as a reference?',opts:['Yes — we have at least one strong reference customer','Partial — some references but not in the same segment','No — this was our primary or only customer in this segment']}
-    ]
-  },
-  capital:{
-    q:[
-      {text:'What triggered the capital crisis?',opts:['Round failed — investors declined after due diligence','Investor withdrew — term sheet signed but investor pulled out','Runway shorter than needed — burn exceeded plan','Next milestone not hit — investors tied funding to milestone not reached']},
-      {text:'What is your current CRL level?',opts:['CRL 1–3 — pre-revenue, validation stage','CRL 4–5 — pilot or first revenue stage','CRL 6–7 — repeatable sales emerging','CRL 8–9 — growth stage']},
-      {text:'Why did investors decline (if applicable)?',opts:['No revenue traction — CRL 5 not yet reached','Team credibility concerns — commercial capability questioned','Market size concerns — TAM questioned','Technical risk — product not sufficiently de-risked']},
-      {text:'How many months of runway remain?',opts:['More than 12 months — adequate buffer','6–12 months — significant pressure','Less than 6 months — critical']},
-      {text:'Do you have paying customers or signed LOIs?',opts:['Yes — paying revenue in bank','LOI or MOU only — intent but not payment','No revenue or signed commercial commitments']}
-    ]
-  },
-  technology:{
-    q:[
-      {text:'At what stage was the technology failure discovered?',opts:['During pilot — product underperformed against the agreed success criteria','During integration — technical compatibility issue discovered','In production — worked in testing but failed at scale or in the field','In the sale — performance claims could not be demonstrated in customer demo']},
-      {text:'Is this a gap in the technology itself or in the implementation?',opts:['Core technology gap — fundamental capability limitation','Implementation gap — technology works but deployment failed','Performance gap — works but not at the speed/scale/accuracy promised','Integration gap — does not connect with customer\'s existing systems']},
-      {text:'Can the gap be closed with additional development?',opts:['Yes — 3–6 months of focused development would close it','Possibly — uncertain; requires more investigation','No — fundamental technical barrier that cannot be overcome with current approach']},
-      {text:'Did you over-promise in the sales process?',opts:['No — failure was unexpected given our development data','Partially — we knew performance was borderline but proceeded','Yes — the gap between promise and delivery was foreseeable']},
-      {text:'What is the customer\'s position?',opts:['Patient — they understand deep tech timelines and will wait','Impatient — they need this resolved within 90 days','Terminated — they have cancelled or signalled intent to cancel']}
-    ]
-  },
-  market:{
-    q:[
-      {text:'When did the market signal change?',opts:['Suddenly — pipeline dried up in the last 30 days','Gradually — conversion rate has been declining for 2+ quarters','It was always slow — we may have over-estimated urgency from the start']},
-      {text:'Are prospects acknowledging the problem but not buying — or denying the problem exists?',opts:['Acknowledging but not buying — Layer 2/4 friction (access or process)','Agreeing it\'s interesting but not urgently needed — Layer 1 weakness','Denying the problem — Layer 1 failure; fundamental market thesis needs revisiting']},
-      {text:'How many customer conversations have you had in the last 90 days?',opts:['20+ with new prospects — broad exposure to the market signal','5–19 — limited sample, could be noise','Fewer than 5 — signal may not be representative']},
-      {text:'Has the competitive landscape changed?',opts:['Yes — a new competitor or incumbent has changed the value proposition','Partially — indirect substitutes are addressing the problem differently','No — competitive dynamics unchanged']},
-      {text:'Do you have paying customers who are still happy?',opts:['Yes — existing customers are satisfied and growing','Partial — mixed results; some happy, some not','No — no paying customers yet, or all showing dissatisfaction']}
-    ]
-  }
-};
-
-function selectCrisis(type){
-  crisisType=type;
-  Object.keys(questionSets).forEach(k=>document.getElementById('ct-'+k).classList.toggle('selected',k===type));
-  renderQuestions(type);
-  document.getElementById('questions-section').style.display='block';
-  document.getElementById('questions-section').scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-function renderQuestions(type){
-  const qs=questionSets[type].q;
-  document.getElementById('q-container').innerHTML=qs.map((q,i)=>`
-    <div class="q-block">
-      <div class="q-label">Question ${i+1} of 5</div>
-      <div class="q-text">${q.text}</div>
-      <div class="q-opts">${q.opts.map((o,j)=>`
-        <div class="qo" onclick="selectQ(${i},${j})">
-          <div class="qo-dot" id="dot-${i}-${j}"></div>
-          <div class="qo-text">${o}</div>
-        </div>`).join('')}
-      </div>
-    </div>`).join('');
-}
-
-function selectQ(qi,oi){
-  answers[qi]=oi;
-  const qs=questionSets[crisisType].q;
-  qs[qi].opts.forEach((_,j)=>{
-    const el=document.getElementById('q-container').querySelectorAll('.q-block')[qi].querySelectorAll('.qo')[j];
-    el.classList.toggle('selected',j===oi);
-  });
-}
-
-function generateDiagnosis(){
-  const a=answers;
-  let signal, verdict, vcClass, diagnosis, layer, protocol, honestQ;
-
-  if(crisisType==='customer'){
-    const late=a[0]===2;const noSuccess=a[1]===2;const champGone=a[1]===1;const political=a[3]===3;const noRef=a[4]===2;
-    layer=late?'Layer 5 — Post-Adoption Failure: the contract was signed but the value delivery system failed':a[0]===1?'Layer 5 — Adoption: usage never established; product delivered but not used':'Layer 3 — Trust: political change eliminated the champion who anchored the purchase';
-    if(political){signal='PIVOT SIGNAL';verdict='Re-engineer the commercial model';vcClass='vc-pivot';diagnosis='A political change inside the customer has reversed a decision that was sound on technical and commercial merit. This is not a product failure — it is a champion dependency failure. Layer 3 (Trust) has re-activated because your μ_human reduction was tied to a single person. The engineering response is to restructure your commercial approach to build institutional trust rather than individual champion trust.';}
-    else if(noSuccess){signal='ELIMINATE';verdict='Define success before next contract';vcClass='vc-continue';diagnosis='This failure is preventable with a process change. The absence of measurable success criteria before signature means there was no agreed definition of value delivery. Layer 5 (Adoption) has re-activated because the adoption problem was not engineered before it occurred. The fix is a standard success criteria template that must be completed before every contract is signed.';}
-    else{signal='CONTINUE';verdict='Re-engage with corrective action';vcClass='vc-continue';diagnosis='The failure is specific and recoverable. Layer 5 has re-activated but the root cause is identifiable. Apply the 30-day protocol immediately.';}
-    protocol=[
-      {week:'Days 1–7',actions:['Request an urgent meeting with the most senior accessible stakeholder — frame as a value review, not a complaint call','Document specifically what success would have looked like vs what was delivered — use their own data, not yours','Identify whether a new champion can be cultivated if the original has left or lost influence']},
-      {week:'Days 8–21',actions:['Propose a specific remediation plan with measurable outcomes in 30 days — make it "safe to approve if it fails"','Over-resource this account — your CTO or most senior technical person should personally own the remediation','Begin parallel qualification of a reference customer in the same segment who can replace this one if needed']},
-      {week:'Days 22–30',actions:['Conduct a formal post-mortem on the Layer 5 failure: what process change prevents this recurring?','Update your contract template to require measurable success criteria as a signed schedule','Brief your board with specific corrective actions rather than a general update']}
-    ];
-    honestQ='If this customer had signed with a clear success criteria document, would you have been able to deliver? If yes — this is a process failure, recoverable. If no — this is a product-market fit signal that requires deeper investigation.';
-  }
-
-  else if(crisisType==='capital'){
-    const milestoneNotHit=a[0]===3;const crl=a[1];const noRev=a[4]===2;const criticalRun=a[3]===2;
-    if(criticalRun){signal='CRITICAL — ACT NOW';verdict='Capital crisis — 30-day protocol immediate';vcClass='vc-change';}
-    else if(milestoneNotHit&&noRev){signal='PIVOT SIGNAL';verdict='Milestone reset required';vcClass='vc-pivot';}
-    else{signal='CONTINUE';verdict='Bridge and accelerate CRL';vcClass='vc-continue';}
-    layer='C_capital — The capital friction variable has become binding. When C_required ÷ C_available approaches 1.0, the company fails regardless of technology quality or market opportunity. This is not a market failure — it is a capital timing failure.';
-    diagnosis=criticalRun?'Runway below 6 months is an existential event. Every action in the next 30 days must serve one of two purposes: extend runway, or accelerate revenue. Everything else — product development, hiring, market expansion — is secondary to these two priorities until the ratio improves.':noRev?'Investors declined because CRL 5 (first real revenue) has not been reached. The most capital-efficient action available is to close one paying customer before any further fundraising activity. One invoice dramatically changes the investor conversation — not because of the revenue amount, but because of what it proves.':'The capital crisis is serious but recoverable with focused action on the 30-day protocol.';
-    protocol=[
-      {week:'Days 1–7',actions:['Map every possible source of near-term capital: bridge from existing investors, revenue-based financing, grants, strategic partnership advance payments','Identify the one customer most likely to pay in the next 30–60 days — over-resource their close process','Reduce burn to minimum viable level — this is not the time for nice-to-haves']},
-      {week:'Days 8–21',actions:['Have a direct conversation with your most supportive existing investor about bridge financing — ask directly, do not hint','If fundraising failed: get specific feedback on exactly what must be true for them to invest — treat this as a design brief','Consider a structured partnership that provides capital in exchange for commercial rights — reduces equity dilution, extends runway']},
-      {week:'Days 22–30',actions:['CRL 5 is your single most important milestone — cancel everything else that does not directly serve this goal','Prepare a capital efficiency narrative for your board: cost-per-CRL-level and what it costs to reach CRL 5','If runway reaches less than 3 months without a credible bridge in place: begin controlled wind-down assessment rather than uncontrolled failure']}
-    ];
-    honestQ='Do you have a paying customer in the next 60 days? If yes — raise on that. If no — what specifically would need to be true to get one, and can you do it in 30 days?';
-  }
-
-  else if(crisisType==='technology'){
-    const inProd=a[0]===2;const fundamental=a[2]===2;const overPromised=a[3]===1;const customerLeft=a[4]===2;
-    if(fundamental){signal='CHANGE PATH';verdict='Fundamental technical barrier identified';vcClass='vc-change';}
-    else if(overPromised&&customerLeft){signal='PIVOT SIGNAL';verdict='Commercial model and narrative must change';vcClass='vc-pivot';}
-    else{signal='CONTINUE';verdict='Recoverable with focused technical action';vcClass='vc-continue';}
-    layer=fundamental?'The numerator (Technology Quality) has failed to meet the minimum threshold required for Layer 3 (Trust) to function. No commercial engineering can compensate for a fundamental technology gap — the physics of the numerator must be addressed first.':'Layer 5 (Adoption) with root cause in the numerator: the technology works but the performance claims created unrealistic expectations that the delivered product could not meet.';
-    diagnosis=fundamental?'A fundamental technical barrier changes everything. The honest assessment must precede all other actions: is this barrier closeable in a timeframe compatible with your capital position? If yes, the path is to reduce commercial activity, accelerate R&D, and manage customer expectations through the gap. If no, this may require a pivot to a different application of the underlying technology where the barrier does not exist.':overPromised?'The gap between promise and delivery is a commercial model problem as much as a technical one. The Three Truths framework applies: buyers evaluated on Layer 2 (outcome) but your claims were made at Layer 1 (technology). Rebuild the commercial narrative around what you can demonstrably deliver today, not what you expect to deliver at TRL 9.':'The technology failure is specific, bounded, and recoverable. Apply the 30-day protocol with a clear technical owner and measurable milestones.';
-    protocol=[
-      {week:'Days 1–7',actions:['Convene an honest technical assessment — not a blame exercise, a diagnostic: what exactly failed, by how much, and what is the fix timeline','Brief your most trusted customer contact before they brief you — proactive transparency reduces μ_human significantly','Stop all sales activity that depends on the capability in question — do not create new commitments you cannot yet keep']},
-      {week:'Days 8–21',actions:['Set a specific, measurable technical milestone for Day 30 — not "improve performance" but "achieve X accuracy on test set Y"','Redesign the customer success criteria for affected deployments — renegotiate if necessary, with a clear remediation timeline','Assess whether the technical gap changes your beachhead segment — a segment with lower performance requirements may be your bridge']},
-      {week:'Days 22–30',actions:['Report to board with a specific technical fix plan, timeline, and capital requirements — no vagueness','If the fix is not achievable in 90 days: assess pivot to a different application where the gap does not exist','Rewrite your Grandma Test sentence to reflect what you can actually deliver today']}
-    ];
-    honestQ='Is this a gap in the technology, or a gap between what you promised and what the technology can currently do? If the technology works but you over-promised — fix the narrative. If the technology does not work — fix the technology before the next commercial commitment.';
-  }
-
-  else if(crisisType==='market'){
-    const denial=a[1]===2;const alwaysSlow=a[0]===2;const noCustomers=a[4]===2;const competitive=a[3]===0;
-    if(denial||alwaysSlow){signal='CHANGE PATH';verdict='Layer 1 failure — market thesis must be revisited';vcClass='vc-change';}
-    else if(competitive){signal='PIVOT SIGNAL';verdict='Reframe competitive positioning';vcClass='vc-pivot';}
-    else{signal='CONTINUE';verdict='Friction identified — beachhead segment may need adjustment';vcClass='vc-continue';}
-    layer=denial?'Layer 1 (Problem) — the foundational layer has re-activated. Buyers are not confirming the urgency of the problem. This is a market thesis failure, not an execution failure. No amount of sales execution can convert a problem the market does not feel urgently.':competitive?'Layer 2 (Access) with Layer 3 (Trust) implications — competitive change has altered the μ_human landscape. Buyers who were moving now have an alternative that reduces the switching cost argument.':'Layers 1–2 showing stress signals. Urgency may be real but access is blocked by a friction variable not yet fully diagnosed.';
-    diagnosis=denial?'When buyers deny the problem or find it interesting but non-urgent, the market thesis requires urgent re-examination. This is not a messaging problem — better messaging does not create urgency that does not exist. The correct response is 30 deep customer conversations conducted as discovery, not sales, to understand whether the problem is real in a different segment, at a different price point, or triggered by a different event.':alwaysSlow?'The signal that it was always slow is the most important diagnostic finding. This suggests the original customer validation may have been insufficient — urgency was assumed or inferred rather than confirmed in 20+ buyer conversations with budget authority. The correct response is to return to CRL 2 activities before any further commercial investment.':'The market crisis is real but the data is not yet sufficient to determine whether this is a thesis failure or a segment/timing issue. The 30-day protocol focuses on generating enough data to distinguish between the two.';
-    protocol=[
-      {week:'Days 1–7',actions:['Conduct 10 discovery conversations in 7 days — not sales calls, discovery: "Walk me through your biggest operational problem right now"','Do not mention your product in any of these conversations — you are measuring the market, not pitching it','Document whether the problem you are solving appears in their top 3 without prompting']},
-      {week:'Days 8–21',actions:['Analyse the pattern from the 10 conversations: is the problem real but urgency is timing-dependent, or is the problem itself less acute than assumed?','Revisit the Signal-Friction Matrix — is there a different segment where the same technology addresses an urgent problem with lower N_legacy?','If competitive landscape has changed: map the new landscape and identify what you can do that competitors cannot'],
-      },
-      {week:'Days 22–30',actions:['Present findings to board with a clear hypothesis: is this a segment problem (fixable) or a market thesis problem (requires pivot)?','If thesis problem: do not raise capital until the thesis is rebuilt on new evidence — investors will wait for clarity','If segment problem: define the new beachhead segment explicitly and name 5 companies in it']}
-    ];
-    honestQ='In your last 20 customer conversations, how many times did the buyer bring up the problem you are solving without you prompting them? If the answer is fewer than 10: the problem may not be urgent enough in your current segment.';
-  }
-
-  // Render
-  document.getElementById('vc-signal').textContent=signal;
-  document.getElementById('vc-verdict').textContent=verdict;
-  document.getElementById('verdict-card').className='verdict-card '+vcClass;
-  document.getElementById('vc-head').className='vc-head';
-  document.getElementById('vc-diagnosis').textContent=diagnosis;
-  document.getElementById('lr-text').textContent=layer;
-  document.getElementById('protocol-content').innerHTML=protocol.map(w=>`
-    <div class="p30-week">
-      <div class="pw-num">${w.week}</div>
-      <ul class="pw-actions">${w.actions.map(a=>`<li>${a}</li>`).join('')}</ul>
-    </div>`).join('');
-  document.getElementById('honest-q').textContent=honestQ;
-  document.getElementById('diag-result').classList.add('visible');
-  document.getElementById('diag-result').scrollIntoView({behavior:'smooth',block:'start'});
-}
-
-function resetTool(){
-  crisisType='';
-  Object.keys(answers).forEach(k=>delete answers[k]);
-  Object.keys(questionSets).forEach(k=>{const el=document.getElementById('ct-'+k);if(el)el.classList.remove('selected');});
-  document.getElementById('questions-section').style.display='none';
-  document.getElementById('questions-section').scrollIntoView!==undefined;
-  document.getElementById('diag-result').classList.remove('visible');
-  document.getElementById('q-container').innerHTML='';
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-</script>
-
-<footer>
-  <p>© 2026 Rajesh SHARMA · Innovation Friction Framework · <a href="index.html">innovationfriction.com</a><br>
-  SSRN Working Paper: Innovation Friction — A Practitioner Framework for Deep Tech Commercialisation<br>
-  <a href="mailto:raj@telsunventures.com">raj@telsunventures.com</a> · <a href="if_index.html">← All Instruments</a></p>
-</footer>
 <script>
 let crisisType='';
 const answers={};
