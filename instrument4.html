@@ -4,104 +4,158 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IF Instrument IV — Corporate Innovation Canvas</title>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#111010;--cream:#f8f6f2;--rule:#d8d4ce;--accent:#1a3d78;--blue:#1a3d78;--green:#1a6b3c;--gold:#a87c20;--mono:'IBM Plex Mono',monospace;--serif:'Crimson Pro',Georgia,serif;--sans:'Source Sans 3',system-ui,sans-serif;}
+:root{
+  --ink:#0e0d0b;--ink2:#2a2520;--ink3:#4a4540;--muted:#6b6560;--faint:#9a9590;
+  --rule:#d8d4ce;--rule2:#e8e4de;--cream:#f5f2ed;--page:#ffffff;
+  --accent:#8b2500;--accent2:#c45a30;
+  --blue:#1a3d78;--green:#1a6b3c;--gold:#a87c20;
+  --serif:'Crimson Pro',Georgia,serif;
+  --sans:'Source Sans 3',system-ui,sans-serif;
+  --mono:'IBM Plex Mono','Courier New',monospace;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{font-size:11pt;}
-body{background:#f2f0ec;color:#1a1410;font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;}
-nav{background:#1a1410;border-bottom:1px solid rgba(255,255,255,.07);padding:.6rem 2rem;display:flex;align-items:center;gap:1.5rem;position:sticky;top:0;z-index:100;}
-.nb{font-family:var(--mono);font-size:8pt;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;}
-.nb strong{color:#4a7ab8;}
-.nl{display:flex;gap:.4rem;margin-left:auto;}
-.nl a{font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);text-decoration:none;padding:.25rem .55rem;border:1px solid rgba(255,255,255,.08);border-radius:2px;transition:all .2s;}
-.nl a:hover,.nl a.active{color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.2);}
-.shell{max-width:860px;margin:0 auto;padding:3rem 2rem 5rem;}
-.inst-tag{font-family:var(--mono);font-size:7.5pt;letter-spacing:.22em;text-transform:uppercase;color:#1a3d78;margin-bottom:.6rem;}
-h1{font-family:var(--serif);font-size:26pt;font-weight:400;color:#1a1410;line-height:1.15;margin-bottom:.4rem;}
-.sub{font-family:var(--serif);font-size:12pt;font-style:italic;color:#6b6560;margin-bottom:.75rem;}
-.context-note{background:#eef4fc;border:1.5px solid #1a3d78;border-radius:3px;padding:1rem 1.25rem;margin-bottom:2.5rem;}
-.context-note p{font-size:9pt;color:#1a2a50;line-height:1.65;}
-.context-note strong{color:#1a3d78;}
-/* Section */
-.sec{margin-bottom:2rem;}
-.sec-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1.1rem;padding-bottom:.45rem;border-bottom:1.5px solid var(--rule);}
-.sh-n{font-family:var(--mono);font-size:9pt;color:#1a3d78;font-weight:500;}
-.sh-t{font-family:var(--serif);font-size:14pt;font-weight:600;color:#1a1410;}
-.sh-sub{font-family:var(--mono);font-size:7.5pt;letter-spacing:.1em;color:#9a9590;margin-left:auto;}
-/* Inputs */
-.frow{margin-bottom:1rem;}
-label{display:block;font-family:var(--mono);font-size:7.5pt;letter-spacing:.13em;text-transform:uppercase;color:#6b6560;margin-bottom:.4rem;}
-input[type=text],textarea,select{width:100%;background:#fff;border:1px solid #ccc9c3;border-radius:3px;color:#1a1410;font-family:var(--sans);font-size:10pt;padding:.65rem .85rem;transition:border-color .2s;}
-input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:#1a3d78;}
-textarea{resize:vertical;min-height:70px;}
-.radio-group{display:grid;gap:.5rem;margin-top:.3rem;}
-.radio-opt{display:flex;align-items:flex-start;gap:.7rem;background:#fff;border:1px solid #ccc9c3;border-radius:3px;padding:.75rem 1rem;cursor:pointer;transition:all .18s;}
-.radio-opt:hover{border-color:#1a3d78;background:#eef4fc;}
-.radio-opt.selected{border-color:#1a3d78;background:#eef4fc;}
-.radio-opt input{margin-top:.25rem;accent-color:#1a3d78;flex-shrink:0;}
-.ro-title{font-size:9.5pt;font-weight:500;color:#1a1410;margin-bottom:.1rem;}
-.ro-desc{font-size:8.5pt;color:#6b6560;line-height:1.5;}
-/* Sponsor risk matrix */
-.sponsor-matrix{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem;}
-.sm-cell{background:#fff;border:1px solid #ccc9c3;border-radius:3px;padding:.85rem 1rem;}
-.sm-label{font-family:var(--mono);font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:#9a9590;margin-bottom:.4rem;}
-.sm-rate{display:flex;gap:.3rem;margin-top:.35rem;}
-.rate-btn{padding:.25rem .5rem;font-family:var(--mono);font-size:7pt;letter-spacing:.08em;border:1px solid #ccc9c3;background:transparent;color:#6b6560;cursor:pointer;border-radius:2px;transition:all .15s;}
-.rate-btn:hover{border-color:#1a3d78;color:#1a3d78;}
-.rate-btn.active{background:#1a3d78;border-color:#1a3d78;color:#fff;}
-/* Build/buy/partner */
-.bbp{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin-bottom:1rem;}
-.bbp-card{background:#fff;border:1px solid #ccc9c3;border-radius:3px;padding:1rem;cursor:pointer;transition:all .2s;text-align:center;}
-.bbp-card:hover{border-color:#1a3d78;}
-.bbp-card.selected{border-color:#1a3d78;background:#eef4fc;}
-.bc-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.12em;text-transform:uppercase;color:#9a9590;margin-bottom:.25rem;}
-.bc-title{font-family:var(--serif);font-size:11.5pt;font-weight:600;color:#1a1410;margin-bottom:.3rem;}
-.bc-desc{font-size:8pt;color:#6b6560;line-height:1.45;}
-/* Submit */
-.submit-btn{display:block;width:100%;background:#1a3d78;color:#fff;font-family:var(--mono);font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;padding:.85rem 2rem;border:none;border-radius:3px;cursor:pointer;margin-top:2.5rem;transition:background .2s;}
-.submit-btn:hover{background:#122d60;}
-/* Result */
-.result-panel{display:none;margin-top:2.5rem;border:2px solid #1a1410;border-radius:4px;overflow:hidden;}
-.result-panel.visible{display:block;animation:fadeIn .4s ease;}
+html{font-size:11pt;scroll-behavior:smooth;}
+body{font-family:var(--sans);font-weight:300;line-height:1.7;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;min-height:100vh;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.rp-head{background:#1a1410;padding:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
-.rp-title{font-family:var(--serif);font-size:16pt;font-weight:600;color:rgba(255,255,255,.9);}
-.rp-badge{font-family:var(--mono);font-size:8pt;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .85rem;border-radius:2px;}
-.rb-internal{background:rgba(26,61,120,.4);color:#6a90c8;}
-.rb-external{background:rgba(26,107,60,.3);color:#5ab870;}
-.rb-hybrid{background:rgba(168,124,32,.25);color:#d4a820;}
-.rp-body{background:#fff;padding:1.75rem;}
-.risk-summary{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem;}
-.rs-item{border-radius:3px;padding:.85rem 1rem;}
-.rs-high{background:#fdf4f2;border:1px solid #e8b0a0;}
-.rs-med{background:#fefaef;border:1px solid #e8d8a0;}
-.rs-low{background:#f0f8f2;border:1px solid #a8d8b8;}
-.rs-label{font-family:var(--mono);font-size:7pt;letter-spacing:.13em;text-transform:uppercase;margin-bottom:.25rem;}
-.rs-high .rs-label{color:#8b2500;} .rs-med .rs-label{color:#a87c20;} .rs-low .rs-label{color:#1a6b3c;}
-.rs-text{font-size:9pt;color:#3a3835;line-height:1.55;}
-.findings-corp{margin-bottom:1.5rem;}
-.fc-title{font-family:var(--serif);font-size:12pt;font-weight:600;color:#1a1410;margin-bottom:.75rem;}
-.finding{display:flex;gap:.75rem;padding:.55rem 0;border-bottom:1px dotted var(--rule);}
-.finding:last-child{border:none;}
-.f-dot{width:.6rem;height:.6rem;border-radius:50%;flex-shrink:0;margin-top:.35rem;}
-.f-go .f-dot{background:#1a6b3c;} .f-risk .f-dot{background:#a87c20;} .f-stop .f-dot{background:#8b2500;}
-.f-text{font-size:9.5pt;line-height:1.6;color:#3a3835;}
-.actions-list{list-style:none;padding:0;}
-.actions-list li{display:flex;gap:.7rem;padding:.5rem 0;border-bottom:1px dotted var(--rule);font-size:9pt;color:#3a3835;line-height:1.6;}
-.actions-list li:last-child{border:none;}
-.actions-list li::before{content:'→';font-family:var(--mono);font-size:8pt;color:#1a3d78;flex-shrink:0;margin-top:.1rem;}
-@media(max-width:580px){.sponsor-matrix,.risk-summary{grid-template-columns:1fr;}.bbp{grid-template-columns:1fr;}}
+nav{background:#ffffff;border-bottom:1px solid #d8d4ce;padding:.65rem 2rem;display:flex;align-items:center;gap:1.5rem;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.05);}
+.nb{text-decoration:none;display:flex;align-items:baseline;gap:.15rem;}
+.nb-inn{font-family:'Crimson Pro',Georgia,serif;font-size:14.5pt;font-weight:700;color:#0e0d0c;}
+.nb-fri{font-family:'Crimson Pro',Georgia,serif;font-size:14.5pt;font-weight:500;font-style:italic;color:#8b2500;}
+.nl{display:flex;gap:.4rem;margin-left:auto;flex-wrap:wrap;}
+.nl a{font-family:'IBM Plex Mono',monospace;font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:#6b6560;text-decoration:none;padding:.25rem .6rem;border:1px solid #d8d4ce;border-radius:2px;transition:all .2s;}
+.nl a:hover,.nl a.active{color:#0e0d0c;border-color:#8b2500;background:#fff8f5;}
+.shell{max-width:760px;margin:0 auto;padding:3rem 2rem 5rem;}
+.inst-tag{font-family:var(--mono);font-size:7.5pt;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
+h1{font-family:var(--serif);font-size:26pt;font-weight:400;color:var(--ink);line-height:1.15;margin-bottom:.4rem;}
+.sub{font-family:var(--serif);font-size:12pt;font-style:italic;color:var(--muted);margin-bottom:2.5rem;}
+.prog{display:flex;gap:0;margin-bottom:2.5rem;border:1.5px solid var(--ink);}
+.ps{flex:1;padding:.5rem .25rem;text-align:center;font-family:var(--mono);font-size:7pt;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-right:1px solid var(--rule);transition:all .3s;cursor:pointer;}
+.ps:last-child{border-right:none;}
+.ps.active{background:rgba(139,37,0,.08);color:var(--accent);border-bottom:2px solid var(--accent);}
+.ps.done{background:rgba(26,107,60,.08);color:var(--green);}
+.step{display:none;}
+.step.visible{display:block;animation:fadeIn .35s ease;}
+.step-header{margin-bottom:1.5rem;}
+.step-num{font-family:var(--mono);font-size:7.5pt;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+.step-q{font-family:var(--serif);font-size:17pt;font-weight:500;color:var(--ink);line-height:1.3;margin-bottom:.5rem;}
+.step-hint{font-size:9.5pt;color:var(--muted);font-style:italic;}
+.opts{display:grid;gap:.75rem;margin:1.5rem 0;}
+.opt{background:var(--page);border:1.5px solid var(--rule);padding:1.1rem 1.25rem;cursor:pointer;-webkit-tap-highlight-color:rgba(139,37,0,.1);transition:all .2s;display:flex;gap:1rem;align-items:flex-start;}
+.opt:hover{border-color:var(--ink2);}
+.opt.selected{background:#fff8f5;border-color:var(--accent);}
+.opt-dot{width:.7rem;height:.7rem;border-radius:50%;border:1.5px solid var(--rule);flex-shrink:0;margin-top:.3rem;transition:all .2s;}
+.opt.selected .opt-dot{background:var(--accent);border-color:var(--accent);}
+.opt-title{font-family:var(--sans);font-size:10pt;font-weight:500;color:var(--ink);margin-bottom:.2rem;}
+.opt-desc{font-size:8.5pt;color:var(--muted);line-height:1.5;}
+.slider-wrap{margin:1.5rem 0;}
+.slider-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:7.5pt;color:var(--muted);margin-bottom:.5rem;}
+input[type=range]{width:100%;-webkit-appearance:none;height:3px;background:var(--rule2);outline:none;border-radius:2px;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;}
+.slider-val{text-align:center;font-family:var(--mono);font-size:11pt;color:var(--accent);margin-top:.5rem;}
+textarea{width:100%;background:var(--page);border:1px solid var(--rule);color:var(--ink);font-family:var(--sans);font-size:9.5pt;line-height:1.6;padding:.85rem 1rem;resize:vertical;min-height:80px;margin-top:1rem;}
+textarea:focus{outline:none;border-color:var(--accent);}
+textarea::placeholder{color:var(--faint);}
+.btn-row{display:flex;gap:.75rem;margin-top:2rem;align-items:center;}
+.btn{font-family:var(--mono);font-size:8pt;letter-spacing:.12em;text-transform:uppercase;padding:.65rem 1.4rem;border:none;cursor:pointer;transition:all .2s;}
+.btn-next{background:var(--accent);color:#fff;}
+.btn-next:hover{background:#6a1a00;}
+.btn-back{background:transparent;color:var(--muted);border:1px solid var(--rule);}
+.btn-back:hover{border-color:var(--ink);color:var(--ink);}
+.btn-submit{background:var(--green);color:#fff;}
+.btn-submit:hover{background:#145530;}
+.result{display:none;}
+.result.visible{display:block;animation:fadeIn .4s ease;}
+.path-card{padding:2rem;margin-bottom:1.5rem;border:1.5px solid;}
+.path-a{background:#fff8f5;border-color:var(--accent);}
+.path-b{background:#f0f4fb;border-color:var(--blue);}
+.path-c{background:#f0faf4;border-color:var(--green);}
+.path-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.5rem;}
+.path-a .path-label{color:var(--accent);}
+.path-b .path-label{color:var(--blue);}
+.path-c .path-label{color:var(--green);}
+.path-name{font-family:var(--serif);font-size:18pt;font-weight:600;color:var(--ink);margin-bottom:.75rem;}
+.path-why{font-size:9.5pt;line-height:1.7;color:var(--ink2);margin-bottom:1.25rem;}
+.next-actions{border-top:1px solid var(--rule);padding-top:1rem;}
+.na-label{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;}
+.na-list{list-style:none;padding:0;}
+.na-list li{font-size:9pt;color:var(--ink2);line-height:1.6;padding:.25rem 0;display:flex;gap:.6rem;border-bottom:1px dotted var(--rule);}
+.na-list li:last-child{border:none;}
+.na-list li::before{content:'→';font-family:var(--mono);font-size:8pt;color:var(--accent);flex-shrink:0;margin-top:.1rem;}
+.friction-summary{background:var(--page);border:1px solid var(--rule);padding:1.25rem;margin-bottom:1.5rem;}
+.fs-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.85rem;}
+.fs-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.fs-item{display:flex;align-items:center;gap:.75rem;}
+.fs-var{font-family:var(--mono);font-size:9pt;color:var(--accent);min-width:4rem;}
+.fs-bar-wrap{flex:1;height:6px;background:var(--rule2);border-radius:3px;overflow:hidden;}
+.fs-bar{height:100%;border-radius:3px;}
+.fs-low .fs-bar{background:var(--green);width:30%;}
+.fs-med .fs-bar{background:var(--gold);width:60%;}
+.fs-high .fs-bar{background:var(--accent);width:90%;}
+.fs-val{font-family:var(--mono);font-size:7.5pt;min-width:2.5rem;text-align:right;}
+.fs-low .fs-val{color:var(--green);}
+.fs-med .fs-val{color:var(--gold);}
+.fs-high .fs-val{color:var(--accent);}
+footer{border-top:1px solid #d8d4ce;padding:2rem;text-align:center;margin-top:3rem;}
+footer p{font-family:var(--mono);font-size:7pt;letter-spacing:.08em;color:var(--muted);line-height:1.9;}
+footer a{color:var(--accent);text-decoration:none;}
+@media(max-width:620px){h1{font-size:20pt;} .fs-grid{grid-template-columns:1fr;}}
+
+.shell{max-width:860px;margin:0 auto;padding:3rem 2rem 5rem;}
+.sec{margin-bottom:2rem;}
+.sec-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;padding-bottom:.5rem;border-bottom:1.5px solid var(--rule);}
+.sec-num{font-family:var(--mono);font-size:9pt;color:var(--blue);font-weight:500;}
+.sec-title{font-family:var(--serif);font-size:14pt;font-weight:600;color:var(--ink);}
+.sec-for{font-family:var(--mono);font-size:7.5pt;color:var(--faint);margin-left:auto;}
+.frow{margin-bottom:1.25rem;}
+label{display:block;font-family:var(--mono);font-size:7.5pt;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+input[type=text],select,textarea{width:100%;background:var(--page);border:1px solid var(--rule);color:var(--ink);font-family:var(--sans);font-size:10pt;padding:.65rem .85rem;transition:border-color .2s;}
+input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);}
+.radio-group{display:grid;gap:.5rem;margin-top:.3rem;}
+.radio-opt{display:flex;align-items:flex-start;gap:.7rem;background:var(--page);border:1px solid var(--rule);padding:.75rem 1rem;cursor:pointer;transition:all .18s;-webkit-tap-highlight-color:rgba(26,61,120,.1);}
+.radio-opt:hover{border-color:var(--blue);background:#f0f4fb;}
+.radio-opt.selected{border-color:var(--blue);background:#f0f4fb;}
+.radio-opt input{margin-top:.25rem;accent-color:var(--blue);flex-shrink:0;}
+.ro-title{font-size:9.5pt;font-weight:500;color:var(--ink);margin-bottom:.1rem;}
+.ro-desc{font-size:8.5pt;color:var(--muted);line-height:1.5;}
+.slider-group{background:var(--page);border:1px solid var(--rule);padding:1rem 1.1rem;margin-bottom:.6rem;}
+.sg-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;}
+.sg-var{font-family:var(--mono);font-size:9pt;color:var(--blue);}
+.sg-desc{font-size:8.5pt;color:var(--muted);}
+.sg-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:7pt;color:var(--faint);margin-bottom:.3rem;}
+.sg-val{font-family:var(--mono);font-size:9pt;color:var(--blue);text-align:center;margin-top:.35rem;}
+input[type=range]::-webkit-slider-thumb{background:var(--blue);}
+.submit-btn{display:block;width:100%;background:var(--blue);color:#fff;font-family:var(--mono);font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;padding:.85rem 2rem;border:none;cursor:pointer;margin-top:2.5rem;transition:background .2s;}
+.submit-btn:hover{background:#0e2550;}
+.result-panel{display:none;margin-top:2.5rem;border:2px solid var(--ink);overflow:hidden;}
+.result-panel.visible{display:block;}
+.rp-head{background:var(--ink);padding:1.5rem;display:flex;align-items:center;gap:1rem;}
+.rp-verdict{font-family:var(--serif);font-size:18pt;font-weight:600;color:#8ab4f8;}
+.rp-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,242,237,.4);}
+.rp-body{padding:1.5rem;background:var(--page);}
+.rp-section{margin-bottom:1.5rem;}
+.rp-stitle{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;}
+.rp-text{font-size:9.5pt;line-height:1.7;color:var(--ink2);}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem;}
+.risk-item{background:var(--cream);border:1px solid var(--rule);padding:.85rem;}
+.risk-label{font-family:var(--mono);font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:.3rem;}
+.risk-val{font-family:var(--mono);font-size:11pt;color:var(--ink);}
+.risk-val.high{color:var(--accent);}
+.risk-val.med{color:var(--gold);}
+.risk-val.low{color:var(--green);}
+.action-list{list-style:none;padding:0;}
+.action-list li{font-size:9pt;color:var(--ink2);line-height:1.6;padding:.35rem 0;display:flex;gap:.6rem;border-bottom:1px dotted var(--rule);}
+.action-list li:last-child{border:none;}
+.action-list li::before{content:'→';font-family:var(--mono);color:var(--blue);flex-shrink:0;}
 </style>
 </head>
 <body>
 <nav>
-  <a class="nb" href="if_index.html"><strong>IF</strong> · Innovation Friction</a>
-  <div class="nl">
-    <a href="instrument1.html">I</a><a href="instrument2.html">II</a><a href="instrument3.html">III</a>
-    <a href="instrument4.html" class="active">IV · Corporate</a><a href="instrument5.html">V</a>
-  </div>
+  <a class="nb" href="index.html"><span class="nb-inn">Innovation</span><span class="nb-fri">&nbsp;Friction</span></a>
+  <div class="nl"><a href="index.html">Home</a><a href="instrument1.html">I</a><a href="instrument2.html">II</a><a href="instrument3.html">III</a><a href="instrument4.html" class="active">IV</a><a href="instrument5.html">V</a></div>
 </nav>
+
 <div class="shell">
   <div class="inst-tag">Instrument IV · Corporate Innovation Canvas</div>
   <h1>Corporate Innovation Canvas</h1>
@@ -264,7 +318,7 @@ textarea{resize:vertical;min-height:70px;}
   <div class="result-panel" id="result-panel">
     <div class="rp-head">
       <div>
-        <div style="font-family:var(--mono);font-size:7pt;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.35rem;">Corporate Innovation Canvas · IF Instrument IV</div>
+        <div style="font-family:var(--mono);font-size:7pt;letter-spacing:.18em;text-transform:uppercase;color:#8b8580;margin-bottom:.35rem;">Corporate Innovation Canvas · IF Instrument IV</div>
         <div class="rp-title" id="rp-title">—</div>
       </div>
       <div class="rp-badge" id="rp-badge">—</div>
@@ -280,6 +334,85 @@ textarea{resize:vertical;min-height:70px;}
   </div>
 </div>
 
+<script>
+let bbpChoice='';
+const rateVals={};
+
+function rateBtn(group, btn, val){
+  rateVals[group]=val;
+  document.getElementById(group).querySelectorAll('.rate-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function selectBBP(choice){
+  bbpChoice=choice;
+  ['build','buy','partner'].forEach(c=>document.getElementById('bbp-'+c).classList.toggle('selected',c===choice));
+}
+
+function generateCorporate(){
+  var iMuEl=document.querySelector('input[name=i-mu]:checked'); var iMu=iMuEl?iMuEl.value:2;
+  var iNlEl=document.querySelector('input[name=i-nl]:checked'); var iNl=iNlEl?iNlEl.value:2;
+  var iTcEl=document.querySelector('input[name=i-tc]:checked'); var iTc=iTcEl?iTcEl.value:2;
+  var iCcEl=document.querySelector('input[name=i-cc]:checked'); var iCc=iCcEl?iCcEl.value:2;
+  var totalIF=+iMu+ +iNl+ +iTc+ +iCc;
+  var cl1El=document.querySelector('input[name=cl1]:checked'); var cl1=cl1El?cl1El.value:'partial';
+  var cl3El=document.querySelector('input[name=cl3]:checked'); var cl3=cl3El?cl3El.value:'partial';
+  var orgEl=document.querySelector('input[name=org-type]:checked'); var orgType=orgEl?orgEl.value:'large';
+  var roleEl=document.querySelector('input[name=role]:checked'); var role=roleEl?roleEl.value:'mid';
+
+  // Path recommendation
+  let path, pathCls, pathLabel;
+  if(+iMu===1&&+iNl<=2&&+iTc<=2){path='Internal Build';pathCls='rb-internal';pathLabel='Internal Path Viable';}
+  else if(+iTc===3||+iCc===3||+iNl===3){path='Partner / Pilot First';pathCls='rb-hybrid';pathLabel='Start with Pilot';}
+  else{path='Hybrid — Pilot leading to Build';pathCls='rb-hybrid';pathLabel='Phased Approach';}
+
+  document.getElementById('rp-title').textContent=path;
+  document.getElementById('rp-badge').textContent=pathLabel;
+  document.getElementById('rp-badge').className='rp-badge '+pathCls;
+
+  // Risk summary
+  const risks=[
+    {label:'Sponsor Risk',level:rateVals.sr3==='High'||rateVals.sr4==='No'?'high':rateVals.sr3==='Med'?'med':'low',text:rateVals.sr3==='High'?'Sponsor departure risk is high — secure political insurance via a second sponsor immediately':rateVals.sr4==='No'?'No secondary sponsor — single point of failure; political vulnerability is high':'Sponsor position appears stable'},
+    {label:'Internal IF Score',level:totalIF>=10?'high':totalIF>=7?'med':'low',text:`Combined internal friction score ${totalIF}/12. ${totalIF>=10?'Very high — pilot approach strongly recommended over direct internal build.':totalIF>=7?'Moderate — careful sequencing required.':'Manageable — internal build is viable with correct sponsorship.'}`},
+    {label:'Layer 1 Status',level:cl1==='yes'?'low':cl1==='partial'?'med':'high',text:cl1==='yes'?'Leadership has acknowledged the problem — executive pull exists':cl1==='partial'?'Mid-level acknowledgement only — must escalate to board level before budget commitment':'Problem not yet acknowledged at leadership — highest risk; validate with sponsor before proceeding'},
+    {label:'Build/Buy/Partner',level:bbpChoice?'low':'med',text:bbpChoice?`${bbpChoice.charAt(0).toUpperCase()+bbpChoice.slice(1)} selected — ${bbpChoice==='partner'?'lowest risk entry; preserves optionality':bbpChoice==='buy'?'requires integration budget and formal approval process':'requires full internal resource commitment and governance approval'}`:'Vehicle not yet selected — determine before approaching sponsor'}
+  ];
+  document.getElementById('risk-summary').innerHTML=risks.map(r=>`<div class="rs-item rs-${r.level}"><div class="rs-label">${r.label}</div><div class="rs-text">${r.text}</div></div>`).join('');
+
+  // Findings
+  const findings=[];
+  if(cl1==='yes') findings.push({cls:'f-go',t:'Leadership acknowledgement confirmed — executive pull reduces μ_human significantly'});
+  else findings.push({cls:'f-stop',t:'Layer 1 not confirmed at leadership — budget commitment is vulnerable without this'});
+  if(+iMu===1) findings.push({cls:'f-go',t:'Strong executive sponsor — political protection is in place'});
+  else if(+iMu===3) findings.push({cls:'f-stop',t:'No confirmed sponsor — this initiative is politically exposed; secure sponsorship before proceeding'});
+  if(+iNl===3) findings.push({cls:'f-risk',t:'High legacy friction — existing teams or vendors will resist; change management is a critical workstream'});
+  if(+iTc===3) findings.push({cls:'f-risk',t:'Budget cycle is long — structure the initiative in phases that fit within discretionary spending first'});
+  if(rateVals.sr4==='No') findings.push({cls:'f-stop',t:'No secondary sponsor — identify and cultivate a backup immediately; single sponsor is the most common corporate innovation failure mode'});
+  if(cl3==='yes') findings.push({cls:'f-go',t:'Internal track record confirmed — credibility reduces the trust friction with your stakeholder committee'});
+  else findings.push({cls:'f-risk',t:'No internal reference — build credibility through a small, visible quick win before requesting the full budget'});
+  document.getElementById('findings-corp').innerHTML=`<div class="fc-title">Assessment Findings</div>`+findings.map(f=>`<div class="finding ${f.cls}"><div class="f-dot"></div><div class="f-text">${f.t}</div></div>`).join('');
+
+  // Actions
+  const actions=[];
+  if(cl1!=='yes') actions.push('Validate the problem at board/C-suite level before any budget request — schedule a discovery conversation, not a pitch');
+  if(+iMu===3||+iMu===2) actions.push('Secure a named executive sponsor before the next step — without one, any budget approval is politically fragile');
+  if(rateVals.sr4==='No') actions.push('Identify and cultivate a secondary sponsor as political insurance against sponsor change');
+  if(+iTc>=2) actions.push('Structure Phase 1 to fit within current discretionary budget — run the pilot without a formal budget cycle, then use results to justify the larger allocation');
+  if(bbpChoice==='partner'||!bbpChoice) actions.push('Start with a time-limited, scope-limited pilot with a carefully chosen external partner — design it to be "safe to approve if it fails"');
+  if(+iNl===3) actions.push('Map internal stakeholders who are threatened by this initiative and develop a specific engagement plan for each before the initiative is announced');
+  actions.push('Prepare your internal Grandma Test sentence and test it with three senior colleagues outside your function before the formal proposal');
+  if(role==='mid') actions.push('Do not proceed to a formal proposal without your sponsor present in the room — proposals presented upward without a sponsor present are routinely declined');
+  document.getElementById('corp-actions').innerHTML=actions.map(a=>`<li>${a}</li>`).join('');
+  document.getElementById('result-panel').classList.add('visible');
+  document.getElementById('result-panel').scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+
+<footer>
+  <p>© 2026 Rajesh SHARMA · Innovation Friction Framework · <a href="index.html">innovationfriction.com</a><br>
+  SSRN Working Paper: Innovation Friction — A Practitioner Framework for Deep Tech Commercialisation<br>
+  <a href="mailto:raj@telsunventures.com">raj@telsunventures.com</a> · <a href="if_index.html">← All Instruments</a></p>
+</footer>
 <script>
 let bbpChoice='';
 const rateVals={};
