@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Innovation Friction — Complete Instrument Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   SHARED BASE STYLES
+   ============================================= */
+:root{
+  --ink:#111010;--ink-muted:#3a3835;--cream:#f8f6f2;--rule:#d8d4ce;
+  --accent:#8b2500;--blue:#1a3d78;--green:#1a6b3c;--gold:#a87c20;
+  --mono:'IBM Plex Mono',monospace;--serif:'Crimson Pro',Georgia,serif;--sans:'Source Sans 3',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:11pt;}
+body{font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* NAV */
+nav{background:#0c0a08;border-bottom:1px solid rgba(255,255,255,.07);padding:.55rem 1.25rem;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:100;flex-wrap:wrap;}
+.nb{font-family:var(--mono);font-size:7.5pt;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;cursor:pointer;white-space:nowrap;}
+.nb strong{color:#c45a30;}
+.nl{display:flex;gap:.35rem;margin-left:auto;flex-wrap:wrap;}
+.nl button{font-family:var(--mono);font-size:6.5pt;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);background:transparent;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:.25rem .5rem;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:rgba(255,255,255,.1);}
+.nl button:hover,.nl button.active{color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.22);}
+
+/* PAGE SECTIONS */
+.page{display:none;}
+.page.active{display:block;animation:fadeIn .3s ease;}
+.shell{max-width:860px;margin:0 auto;padding:2.5rem 1.25rem 5rem;}
+.shell-narrow{max-width:760px;margin:0 auto;padding:2.5rem 1.25rem 5rem;}
+
+/* =============================================
+   INDEX PAGE (dark background)
+   ============================================= */
+#page-index{background:#141210;color:#f0ede8;}
+.hero{padding:4rem 1.25rem 2.5rem;max-width:820px;margin:0 auto;text-align:center;}
+.ht{font-family:var(--mono);font-size:7pt;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1.25rem;}
+.hero h1{font-family:var(--serif);font-size:38pt;font-weight:300;color:rgba(255,255,255,.9);line-height:1.08;margin-bottom:.4rem;}
+.hero h1 em{color:#c45a30;font-style:italic;font-weight:500;}
+.hero-sub{font-family:var(--serif);font-size:12pt;font-style:italic;font-weight:300;color:rgba(255,255,255,.38);margin-bottom:2rem;line-height:1.5;}
+.eq-pill{display:inline-block;font-family:var(--mono);font-size:8pt;color:rgba(255,255,255,.6);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:.75rem 1.5rem;border-radius:3px;line-height:2.2;}
+.eq-n{color:#f4c27a;}.eq-d{color:#f08c5a;}
+.jtrack-wrap{max-width:820px;margin:2.5rem auto 0;padding:0 1.25rem 2rem;}
+.jl{font-family:var(--mono);font-size:7pt;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:center;margin-bottom:1.5rem;}
+.jtrack{display:flex;align-items:flex-start;gap:0;position:relative;}
+.jtrack::before{content:'';position:absolute;top:.9rem;left:10%;right:10%;height:1px;background:linear-gradient(to right,#c45a30,#1a3d78,#1a6b3c);opacity:.3;z-index:0;}
+.js{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1;}
+.jd{width:.85rem;height:.85rem;border-radius:50%;border:2px solid;margin-bottom:.5rem;background:#141210;flex-shrink:0;}
+.j1 .jd{border-color:#c45a30;}.j2 .jd{border-color:#c47818;}.j3 .jd{border-color:var(--gold);}.j4 .jd{border-color:var(--blue);}.j5 .jd{border-color:var(--green);}
+.jn{font-family:var(--mono);font-size:6pt;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.3);text-align:center;line-height:1.4;}
+.idx-cards{max-width:820px;margin:0 auto;padding:.75rem 1.25rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.idx-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:1.5rem;display:flex;flex-direction:column;cursor:pointer;-webkit-tap-highlight-color:rgba(255,255,255,.05);transition:all .22s;}
+.idx-card:hover,.idx-card:active{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);transform:translateY(-2px);}
+.ic-num{font-family:var(--mono);font-size:7pt;letter-spacing:.17em;text-transform:uppercase;margin-bottom:.6rem;}
+.ic1 .ic-num{color:#c45a30;}.ic2 .ic-num{color:#c47818;}.ic3 .ic-num{color:var(--gold);}.ic4 .ic-num{color:#4a7ab8;}.ic5 .ic-num{color:#3a9b5c;}
+.ic-title{font-family:var(--serif);font-size:13.5pt;font-weight:600;color:rgba(255,255,255,.88);line-height:1.2;margin-bottom:.35rem;}
+.ic-for{font-family:var(--mono);font-size:6.5pt;letter-spacing:.09em;color:rgba(255,255,255,.27);margin-bottom:.75rem;}
+.ic-desc{font-size:9pt;line-height:1.6;color:rgba(255,255,255,.42);flex:1;margin-bottom:1rem;}
+.ic-out{border-top:1px solid rgba(255,255,255,.07);padding-top:.7rem;}
+.ic-out-l{font-family:var(--mono);font-size:6.5pt;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:.2rem;}
+.ic-out p{font-size:8.5pt;color:rgba(255,255,255,.35);line-height:1.45;}
+.ic-cta{display:block;font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;margin-top:.75rem;color:rgba(255,255,255,.42);}
+.ic-time{font-family:var(--mono);font-size:6pt;color:rgba(255,255,255,.2);margin-top:.3rem;letter-spacing:.06em;}
+.denom-wrap{max-width:820px;margin:0 auto 3rem;padding:0 1.25rem;}
+.dl-label{font-family:var(--mono);font-size:7pt;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:center;margin-bottom:.85rem;}
+.dg{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);}
+.dc{background:#141210;padding:.9rem 1rem;}
+.dv{font-family:var(--mono);font-size:10pt;color:#f08c5a;margin-bottom:.2rem;}
+.dn{font-family:var(--serif);font-size:9.5pt;font-weight:500;color:rgba(255,255,255,.65);margin-bottom:.2rem;}
+.dd{font-size:8pt;line-height:1.5;color:rgba(255,255,255,.3);font-family:var(--sans);}
+#page-index footer{border-top:1px solid rgba(255,255,255,.05);padding:1.5rem 1.25rem;text-align:center;}
+#page-index footer p{font-family:var(--mono);font-size:7pt;letter-spacing:.08em;color:rgba(255,255,255,.18);line-height:1.9;}
+
+/* =============================================
+   SHARED DARK PAGE ELEMENTS (I, III, V)
+   ============================================= */
+.page-dark{background:#141210;color:#f0ede8;}
+.inst-tag-dark{font-family:var(--mono);font-size:7.5pt;letter-spacing:.22em;text-transform:uppercase;margin-bottom:.6rem;}
+.it-i1{color:#c45a30;}.it-i3{color:#d4a820;}.it-i5{color:#3a9b5c;}
+.page-dark h1{font-family:var(--serif);font-size:24pt;font-weight:400;color:rgba(255,255,255,.9);line-height:1.15;margin-bottom:.4rem;}
+.page-dark .sub{font-family:var(--serif);font-size:11.5pt;font-style:italic;color:rgba(255,255,255,.38);margin-bottom:1.75rem;}
+/* Dark options */
+.opts{display:grid;gap:.7rem;margin:1.25rem 0;}
+.opt{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:3px;padding:1rem 1.1rem;cursor:pointer;-webkit-tap-highlight-color:rgba(196,90,48,.2);transition:all .2s;display:flex;gap:.85rem;align-items:flex-start;}
+.opt:active{background:rgba(255,255,255,.08);}
+.opt.selected{background:rgba(196,90,48,.12);border-color:#c45a30;}
+.opt-dot{width:.65rem;height:.65rem;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);flex-shrink:0;margin-top:.3rem;transition:all .2s;}
+.opt.selected .opt-dot{background:#c45a30;border-color:#c45a30;}
+.opt-title{font-size:9.5pt;font-weight:500;color:rgba(255,255,255,.82);margin-bottom:.15rem;}
+.opt-desc{font-size:8pt;color:rgba(255,255,255,.38);line-height:1.45;}
+/* Dark form elements */
+.d-label{display:block;font-family:var(--mono);font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.4rem;}
+input[type=range]{width:100%;-webkit-appearance:none;height:3px;background:rgba(255,255,255,.15);outline:none;border-radius:2px;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#c45a30;cursor:pointer;}
+.slider-val{text-align:center;font-family:var(--mono);font-size:11pt;color:#c45a30;margin-top:.4rem;}
+.slider-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:7pt;color:rgba(255,255,255,.3);margin-bottom:.3rem;}
+/* Dark buttons */
+.btn-row{display:flex;gap:.7rem;margin-top:1.75rem;align-items:center;}
+.btn{font-family:var(--mono);font-size:7.5pt;letter-spacing:.12em;text-transform:uppercase;padding:.6rem 1.25rem;border:none;border-radius:2px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .2s;}
+.btn-next{background:#c45a30;color:#fff;}
+.btn-back{background:rgba(255,255,255,.07);color:rgba(255,255,255,.55);}
+.btn-submit{background:#1a6b3c;color:#fff;}
+.btn-restart{background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);font-family:var(--mono);font-size:7.5pt;letter-spacing:.12em;text-transform:uppercase;padding:.6rem 1.25rem;border:none;border-radius:2px;cursor:pointer;margin-top:1.25rem;}
+/* Dark step progress */
+.prog{display:flex;gap:0;margin-bottom:2rem;border:1px solid rgba(255,255,255,.08);overflow:hidden;border-radius:2px;}
+.ps{flex:1;padding:.45rem .2rem;text-align:center;font-family:var(--mono);font-size:6.5pt;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.25);border-right:1px solid rgba(255,255,255,.08);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .25s;}
+.ps:last-child{border-right:none;}
+.ps.active{background:rgba(196,90,48,.15);color:#c45a30;}
+.ps.done{background:rgba(26,107,60,.12);color:#3a9b5c;}
+.step{display:none;}
+.step.visible{display:block;animation:fadeIn .3s ease;}
+.step-num{font-family:var(--mono);font-size:7.5pt;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.4rem;}
+.step-q{font-family:var(--serif);font-size:16pt;font-weight:500;color:rgba(255,255,255,.88);line-height:1.3;margin-bottom:.4rem;}
+.step-hint{font-size:9pt;color:rgba(255,255,255,.38);font-style:italic;}
+/* Dark result */
+.path-card{border-radius:4px;padding:1.75rem;margin-bottom:1.25rem;}
+.path-a{background:rgba(139,37,0,.15);border:1.5px solid rgba(139,37,0,.5);}
+.path-b{background:rgba(26,61,120,.15);border:1.5px solid rgba(26,61,120,.5);}
+.path-c{background:rgba(26,107,60,.15);border:1.5px solid rgba(26,107,60,.5);}
+.path-label{font-family:var(--mono);font-size:7pt;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.4rem;}
+.path-a .path-label{color:#e8806a;}.path-b .path-label{color:#6a90c8;}.path-c .path-label{color:#5ab870;}
+.path-name{font-family:var(--serif);font-size:16pt;font-weight:600;color:rgba(255,255,255,.92);margin-bottom:.6rem;}
+.path-why{font-size:9pt;line-height:1.7;color:rgba(255,255,255,.58);margin-bottom:1rem;}
+.na-label{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.5rem;margin-top:.75rem;padding-top:.75rem;border-top:1px solid rgba(255,255,255,.1);}
+.na-list{list-style:none;padding:0;}
+.na-list li{font-size:8.5pt;color:rgba(255,255,255,.55);line-height:1.6;padding:.2rem 0;display:flex;gap:.55rem;border-bottom:1px dotted rgba(255,255,255,.08);}
+.na-list li:last-child{border:none;}
+.na-list li::before{content:'→';font-family:var(--mono);font-size:8pt;color:rgba(255,255,255,.3);flex-shrink:0;}
+.if-summary{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:1.1rem;margin-bottom:1.25rem;}
+.fs-label{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.75rem;}
+.fs-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;}
+.fs-item{display:flex;align-items:center;gap:.65rem;}
+.fs-var{font-family:var(--mono);font-size:9pt;color:#f08c5a;min-width:4.5rem;}
+.fs-bar-wrap{flex:1;height:5px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;}
+.fs-bar{height:100%;border-radius:2px;}
+.fs-low .fs-bar{background:#3a9b5c;}.fs-med .fs-bar{background:#d4a820;}.fs-high .fs-bar{background:#c45a30;}
+.fs-val{font-family:var(--mono);font-size:7pt;min-width:2.5rem;text-align:right;}
+.fs-low .fs-val{color:#3a9b5c;}.fs-med .fs-val{color:#d4a820;}.fs-high .fs-val{color:#c45a30;}
+.next-inst-box{margin-top:1.25rem;padding:1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:3px;}
+.nib-l{font-family:var(--mono);font-size:7pt;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.4rem;}
+.next-inst-box p{font-size:9pt;color:rgba(255,255,255,.45);line-height:1.6;}
+.next-inst-box a{color:#c45a30;text-decoration:none;cursor:pointer;}
+
+/* =============================================
+   SHARED LIGHT PAGE ELEMENTS (II, IV)
+   ============================================= */
+.page-light{background:#f5f2ee;color:#1a1410;}
+.inst-tag-light{font-family:var(--mono);font-size:7.5pt;letter-spacing:.22em;text-transform:uppercase;margin-bottom:.6rem;}
+.it-i2{color:#c45a30;}.it-i4{color:#1a3d78;}
+.page-light h1{font-family:var(--serif);font-size:24pt;font-weight:400;color:#1a1410;line-height:1.15;margin-bottom:.4rem;}
+.page-light .sub{font-family:var(--serif);font-size:11.5pt;font-style:italic;color:#6b6560;margin-bottom:.75rem;}
+/* Light form elements */
+.sec{margin-bottom:1.75rem;}
+.sec-head{display:flex;align-items:center;gap:.65rem;margin-bottom:1rem;padding-bottom:.4rem;border-bottom:1.5px solid var(--rule);}
+.sh-n{font-family:var(--mono);font-size:9pt;font-weight:500;}
+.sh-n-red{color:#8b2500;}.sh-n-blue{color:#1a3d78;}
+.sh-t{font-family:var(--serif);font-size:13.5pt;font-weight:600;color:#1a1410;}
+.sh-sub{font-family:var(--mono);font-size:7pt;letter-spacing:.1em;color:#9a9590;margin-left:auto;}
+.frow{margin-bottom:1rem;}
+.l-label{display:block;font-family:var(--mono);font-size:7.5pt;letter-spacing:.12em;text-transform:uppercase;color:#6b6560;margin-bottom:.35rem;}
+input[type=text],input[type=number],textarea,select{width:100%;background:#fff;border:1px solid #ccc9c3;border-radius:3px;color:#1a1410;font-family:var(--sans);font-size:9.5pt;padding:.6rem .8rem;transition:border-color .2s;}
+input[type=text]:focus,input[type=number]:focus,textarea:focus,select:focus{outline:none;border-color:#8b2500;}
+textarea{resize:vertical;min-height:65px;}
+input::placeholder,textarea::placeholder{color:rgba(0,0,0,.25);}
+.radio-group{display:grid;gap:.45rem;margin-top:.3rem;}
+.radio-opt{display:flex;align-items:flex-start;gap:.65rem;background:#fff;border:1px solid #ccc9c3;border-radius:3px;padding:.7rem .9rem;cursor:pointer;-webkit-tap-highlight-color:rgba(139,37,0,.08);transition:all .18s;}
+.radio-opt:hover,.radio-opt:active{border-color:#8b2500;background:#fff8f5;}
+.radio-opt input{margin-top:.25rem;accent-color:#8b2500;flex-shrink:0;}
+.ro-title{font-size:9.5pt;font-weight:500;color:#1a1410;margin-bottom:.1rem;}
+.ro-desc{font-size:8pt;color:#6b6560;line-height:1.45;}
+.light-submit{display:block;width:100%;color:#fff;font-family:var(--mono);font-size:8pt;letter-spacing:.14em;text-transform:uppercase;padding:.8rem 2rem;border:none;border-radius:3px;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-top:2rem;transition:background .2s;}
+.ls-red{background:#8b2500;}.ls-red:hover{background:#6a1a00;}
+.ls-blue{background:#1a3d78;}.ls-blue:hover{background:#122d60;}
+/* Light result panel */
+.result-panel{display:none;margin-top:2rem;border:2px solid #1a1410;border-radius:4px;overflow:hidden;}
+.result-panel.visible{display:block;animation:fadeIn .35s ease;}
+.rp-head{background:#1a1410;padding:1.35rem;}
+.rp-head-row{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.75rem;}
+.rp-verdict{font-family:var(--serif);font-size:16pt;font-weight:600;}
+.go{color:#5ab870;}.nogo{color:#e87a5a;}.conditional{color:#d4a820;}
+.rp-sub{font-family:var(--mono);font-size:7.5pt;color:rgba(255,255,255,.4);}
+.rp-body{background:#fff;padding:1.5rem;}
+.score-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.75rem;margin-bottom:1.25rem;}
+.score-item{text-align:center;padding:.75rem;background:#f8f6f2;border-radius:3px;}
+.si-var{font-family:var(--mono);font-size:8pt;color:#8b2500;margin-bottom:.2rem;}
+.si-val{font-family:var(--mono);font-size:13pt;font-weight:500;color:#1a1410;margin-bottom:.1rem;}
+.si-level{font-family:var(--mono);font-size:7pt;letter-spacing:.12em;text-transform:uppercase;}
+.level-low{color:#1a6b3c;}.level-med{color:#a87c20;}.level-high{color:#8b2500;}
+.findings{margin-bottom:1.25rem;}
+.f-title{font-family:var(--serif);font-size:12pt;font-weight:600;color:#1a1410;margin-bottom:.65rem;}
+.finding{display:flex;gap:.65rem;padding:.5rem 0;border-bottom:1px dotted var(--rule);}
+.finding:last-child{border:none;}
+.f-dot{width:.55rem;height:.55rem;border-radius:50%;flex-shrink:0;margin-top:.38rem;}
+.f-go .f-dot{background:#1a6b3c;}.f-risk .f-dot{background:#a87c20;}.f-stop .f-dot{background:#8b2500;}
+.f-text{font-size:9pt;line-height:1.6;color:#3a3835;}
+.act-list{list-style:none;padding:0;}
+.act-list li{display:flex;gap:.65rem;padding:.45rem 0;border-bottom:1px dotted var(--rule);font-size:9pt;color:#3a3835;line-height:1.55;}
+.act-list li:last-child{border:none;}
+.act-list li::before{content:'→';font-family:var(--mono);font-size:8pt;flex-shrink:0;margin-top:.1rem;}
+.act-list-red li::before{color:#8b2500;}.act-list-blue li::before{color:#1a3d78;}
+/* Light slider */
+.slider-group-l{background:#fff;border:1px solid #ccc9c3;border-radius:3px;padding:.9rem 1rem;margin-bottom:.55rem;}
+.sg-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.35rem;}
+.sg-var{font-family:var(--mono);font-size:9pt;color:#8b2500;}
+.sg-desc{font-size:8pt;color:#6b6560;}
+.sg-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:7pt;color:#9a9590;margin-bottom:.25rem;}
+.sg-val{font-family:var(--mono);font-size:9pt;color:#8b2500;text-align:center;margin-top:.3rem;}
+input[type=range].light::-webkit-slider-thumb{background:#8b2500;}
+.meter-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1.25rem;margin-top:.85rem;}
+.meter{background:#fff;border:1px solid #ccc9c3;border-radius:3px;padding:.75rem .9rem;}
+.m-label{font-family:var(--mono);font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:#9a9590;margin-bottom:.3rem;}
+.m-bar-wrap{height:7px;background:#e8e4de;border-radius:3px;overflow:hidden;margin-bottom:.25rem;}
+.m-bar{height:100%;border-radius:3px;background:var(--accent);transition:width .5s ease;}
+.m-val{font-family:var(--mono);font-size:9.5pt;color:#1a1410;font-weight:500;}
+.warning-box{background:#fff8f5;border:1.5px solid #c45a30;border-radius:3px;padding:.9rem 1.1rem;margin-bottom:2rem;}
+.warning-box p{font-size:9pt;color:#6b3020;line-height:1.6;}
+.warning-box strong{color:#8b2500;}
+.context-box{background:#eef4fc;border:1.5px solid #1a3d78;border-radius:3px;padding:.9rem 1.1rem;margin-bottom:2rem;}
+.context-box p{font-size:9pt;color:#1a2a50;line-height:1.6;}
+.context-box strong{color:#1a3d78;}
+.q-row{display:grid;grid-template-columns:2.2rem 1fr;gap:.65rem 1rem;align-items:start;margin-bottom:.75rem;background:#fff;border:1px solid #ccc9c3;border-radius:3px;padding:.8rem .9rem;}
+.q-n{font-family:var(--mono);font-size:10pt;color:var(--accent);font-weight:500;padding-top:.1rem;}
+.q-text{font-size:9.5pt;color:#1a1410;font-weight:500;margin-bottom:.3rem;}
+.q-sub{font-size:8pt;color:#6b6560;line-height:1.5;margin-bottom:.45rem;}
+.q-check{display:flex;gap:.85rem;flex-wrap:wrap;}
+.q-check label{display:flex;align-items:center;gap:.35rem;font-size:9pt;color:#3a3835;cursor:pointer;font-family:var(--sans);font-weight:300;text-transform:none;letter-spacing:0;margin-bottom:0;}
+.q-check input{accent-color:#1a6b3c;}
+.gt-box{background:#fff8f5;border:1px solid #e8c0b0;border-radius:3px;padding:.9rem 1.1rem;margin:.75rem 0;}
+.gt-box p{font-family:var(--serif);font-size:11.5pt;color:#3a1a10;line-height:1.7;}
+.gt-fill{font-style:italic;color:#8b2500;border-bottom:1px dashed #8b2500;}
+.next-inst-box-l{margin-top:1.25rem;padding:.9rem 1rem;background:#f8f6f2;border-radius:3px;}
+.nib-ll{font-family:var(--mono);font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:#9a9590;margin-bottom:.35rem;}
+.next-inst-box-l p{font-size:9pt;color:#3a3835;line-height:1.6;}
+.next-inst-box-l a{color:#8b2500;text-decoration:none;cursor:pointer;}
+
+/* =============================================
+   INSTRUMENT III SPECIFIC (dark gold)
+   ============================================= */
+#page-i3{background:#141210;color:#f0ede8;}
+.view-toggle{display:flex;gap:0;border:1px solid rgba(255,255,255,.12);border-radius:3px;overflow:hidden;margin-bottom:1.75rem;max-width:380px;}
+.vt{flex:1;padding:.5rem .9rem;font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:rgba(255,255,255,.4);border:none;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .2s;}
+.vt.active{background:rgba(212,168,32,.15);color:#d4a820;}
+.stage-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.65rem;margin-bottom:1.75rem;}
+.stage-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:3px;padding:.9rem;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .2s;text-align:center;}
+.stage-btn.active{background:rgba(212,168,32,.1);border-color:#d4a820;}
+.sb-num{font-family:var(--mono);font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.25rem;}
+.sb-name{font-family:var(--serif);font-size:10pt;font-weight:500;color:rgba(255,255,255,.8);}
+.stage-btn.active .sb-num{color:#d4a820;}
+.d-sec-head{display:flex;align-items:center;gap:.65rem;margin-bottom:1rem;padding-bottom:.35rem;border-bottom:1px solid rgba(255,255,255,.1);}
+.ds-n{font-family:var(--mono);font-size:9pt;color:#d4a820;}
+.ds-t{font-family:var(--serif);font-size:13pt;font-weight:500;color:rgba(255,255,255,.88);}
+.d-frow{margin-bottom:.9rem;}
+.d-input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:3px;color:rgba(255,255,255,.85);font-family:var(--sans);font-size:9.5pt;padding:.55rem .8rem;}
+.d-input:focus{outline:none;border-color:rgba(212,168,32,.5);}
+.d-select{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:3px;color:rgba(255,255,255,.85);font-family:var(--sans);font-size:9.5pt;padding:.55rem .8rem;}
+.d-textarea{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:3px;color:rgba(255,255,255,.85);font-family:var(--sans);font-size:9.5pt;padding:.55rem .8rem;resize:vertical;min-height:58px;}
+.d-textarea:focus,.d-input:focus,.d-select:focus{outline:none;border-color:rgba(212,168,32,.5);}
+.layer-grid-d{display:grid;gap:.5rem;margin-bottom:1.1rem;}
+.layer-row-d{display:grid;grid-template-columns:2.2rem 1fr auto;gap:.65rem;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:.6rem .9rem;}
+.lr-n{font-family:var(--mono);font-size:8pt;color:rgba(255,255,255,.4);}
+.lr-name{font-size:9pt;color:rgba(255,255,255,.65);}
+.lr-sel{display:flex;gap:.35rem;}
+.ls-btn{font-family:var(--mono);font-size:6.5pt;letter-spacing:.07em;padding:.22rem .45rem;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.4);border-radius:2px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s;}
+.ls-btn.s-red.active{background:rgba(139,37,0,.4);border-color:#8b2500;color:#e8806a;}
+.ls-btn.s-amber.active{background:rgba(168,124,32,.3);border-color:#d4a820;color:#d4a820;}
+.ls-btn.s-green.active{background:rgba(26,107,60,.3);border-color:#3a9b5c;color:#5ab870;}
+.kpi-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.65rem;margin-bottom:1.25rem;}
+.kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:.75rem;}
+.kpi-l{font-family:var(--mono);font-size:6.5pt;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:.35rem;}
+.kpi input{background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.15);border-radius:0;padding:.15rem 0;font-family:var(--mono);font-size:12pt;color:#d4a820;width:100%;}
+.kpi input:focus{outline:none;border-color:#d4a820;}
+.gold-submit{display:block;width:100%;background:#a87c20;color:#fff;font-family:var(--mono);font-size:8pt;letter-spacing:.14em;text-transform:uppercase;padding:.8rem 2rem;border:none;border-radius:3px;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-top:1.75rem;transition:background .2s;}
+.gold-submit:hover{background:#8a6418;}
+.rc-header{background:#0c0a08;border:1px solid rgba(255,255,255,.1);border-radius:4px 4px 0 0;padding:1.35rem;}
+.rc-meta{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.85rem;}
+.rc-title{font-family:var(--serif);font-size:16pt;font-weight:600;color:rgba(255,255,255,.9);}
+.rc-qtr-l{font-family:var(--mono);font-size:7.5pt;color:rgba(255,255,255,.4);}
+.cp-label{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.5rem;margin-top:1.1rem;}
+.cp-track{display:flex;gap:2px;}
+.cp-step{flex:1;height:5px;border-radius:1px;background:rgba(255,255,255,.1);}
+.cp-step.done{background:#d4a820;}.cp-step.current{background:#f4c27a;}
+.cp-nums{display:flex;justify-content:space-between;font-family:var(--mono);font-size:6.5pt;color:rgba(255,255,255,.2);margin-top:.25rem;}
+.rc-body{background:#1a1714;border:1px solid rgba(255,255,255,.1);border-top:none;border-radius:0 0 4px 4px;padding:1.5rem;}
+.rc-kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.65rem;margin-bottom:1.25rem;}
+.rc-kpi{background:rgba(255,255,255,.04);padding:.65rem;border-radius:3px;text-align:center;}
+.rk-l{font-family:var(--mono);font-size:6.5pt;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.25rem;}
+.rk-v{font-family:var(--mono);font-size:12pt;color:#d4a820;}
+.lsc-row{display:grid;grid-template-columns:3.5rem 1fr auto;gap:.65rem;align-items:center;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.lsc-row:last-child{border:none;}
+.lsc-n{font-family:var(--mono);font-size:8pt;color:rgba(255,255,255,.35);}
+.lsc-name{font-size:9pt;color:rgba(255,255,255,.62);}
+.lsc-badge{font-family:var(--mono);font-size:6.5pt;letter-spacing:.1em;padding:.18rem .45rem;border-radius:2px;}
+.b-red{background:rgba(139,37,0,.3);color:#e8806a;}.b-amber{background:rgba(168,124,32,.25);color:#d4a820;}.b-green{background:rgba(26,107,60,.25);color:#5ab870;}
+.priorities-d{border-top:1px solid rgba(255,255,255,.08);padding-top:1.1rem;margin-top:.25rem;}
+.pri-label{font-family:var(--mono);font-size:7pt;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.65rem;}
+.pri-item{display:flex;gap:.65rem;padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:9pt;color:rgba(255,255,255,.52);line-height:1.55;}
+.pri-item:last-child{border:none;}
+.pri-item::before{content:'→';font-family:var(--mono);font-size:8pt;color:#d4a820;flex-shrink:0;margin-top:.1rem;}
+.inv-note{background:rgba(26,61,120,.12);border:1px solid rgba(26,61,120,.3);border-radius:3px;padding:.9rem 1.1rem;margin-top:1.1rem;display:none;}
+.inv-note.visible{display:block;}
+.in-label{font-family:var(--mono);font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:#6a90c8;margin-bottom:.45rem;}
+.in-label+p{font-size:9pt;color:rgba(255,255,255,.48);line-height:1.6;}
+.print-btn{font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;padding:.45rem .9rem;background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);border-radius:2px;cursor:pointer;margin-top:1.1rem;}
+
+/* =============================================
+   INSTRUMENT IV SPECIFIC
+   ============================================= */
+.sponsor-matrix{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1.1rem;}
+.sm-cell{background:#fff;border:1px solid #ccc9c3;border-radius:3px;padding:.75rem .9rem;}
+.sm-label{font-family:var(--mono);font-size:7pt;letter-spacing:.13em;text-transform:uppercase;color:#9a9590;margin-bottom:.35rem;}
+.sm-rate{display:flex;gap:.3rem;margin-top:.3rem;}
+.rate-btn{padding:.22rem .45rem;font-family:var(--mono);font-size:7pt;letter-spacing:.07em;border:1px solid #ccc9c3;background:transparent;color:#6b6560;cursor:pointer;-webkit-tap-highlight-color:transparent;border-radius:2px;transition:all .15s;}
+.rate-btn:hover{border-color:#1a3d78;color:#1a3d78;}
+.rate-btn.active{background:#1a3d78;border-color:#1a3d78;color:#fff;}
+.bbp{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.65rem;margin-bottom:.85rem;}
+.bbp-card{background:#fff;border:1px solid #ccc9c3;border-radius:3px;padding:.9rem;cursor:pointer;-webkit-tap-highlight-color:rgba(26,61,120,.08);transition:all .2s;text-align:center;}
+.bbp-card:hover,.bbp-card:active{border-color:#1a3d78;}
+.bbp-card.selected{border-color:#1a3d78;background:#eef4fc;}
+.bc-label{font-family:var(--mono);font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:#9a9590;margin-bottom:.2rem;}
+.bc-title{font-family:var(--serif);font-size:11pt;font-weight:600;color:#1a1410;margin-bottom:.25rem;}
+.bc-desc{font-size:8pt;color:#6b6560;line-height:1.4;}
+.risk-summary{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1.25rem;}
+.rs-item{border-radius:3px;padding:.75rem .9rem;}
+.rs-high{background:#fdf4f2;border:1px solid #e8b0a0;}.rs-med{background:#fefaef;border:1px solid #e8d8a0;}.rs-low{background:#f0f8f2;border:1px solid #a8d8b8;}
+.rs-label{font-family:var(--mono);font-size:7pt;letter-spacing:.13em;text-transform:uppercase;margin-bottom:.2rem;}
+.rs-high .rs-label{color:#8b2500;}.rs-med .rs-label{color:#a87c20;}.rs-low .rs-label{color:#1a6b3c;}
+.rs-text{font-size:8.5pt;color:#3a3835;line-height:1.5;}
+
+/* =============================================
+   INSTRUMENT V SPECIFIC (dark green)
+   ============================================= */
+#page-i5{background:#0e1410;color:#f0ede8;}
+#page-i5 input[type=range]::-webkit-slider-thumb{background:#3a9b5c;}
+.urgency-bar{background:rgba(139,37,0,.2);border:1px solid rgba(139,37,0,.4);border-radius:3px;padding:.8rem 1.1rem;margin-bottom:1.75rem;}
+.urgency-bar p{font-family:var(--mono);font-size:8pt;letter-spacing:.07em;color:rgba(255,255,255,.52);}
+.urgency-bar strong{color:#e87a5a;}
+.crisis-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1.75rem;}
+.crisis-btn{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:3px;padding:1rem;cursor:pointer;-webkit-tap-highlight-color:rgba(26,107,60,.15);transition:all .2s;text-align:left;}
+.crisis-btn:active{background:rgba(255,255,255,.08);}
+.crisis-btn.selected{background:rgba(26,107,60,.12);border-color:#3a9b5c;}
+.cb-icon{font-size:16pt;margin-bottom:.25rem;}
+.cb-title{font-family:var(--serif);font-size:11.5pt;font-weight:600;color:rgba(255,255,255,.85);margin-bottom:.15rem;}
+.cb-desc{font-size:8pt;color:rgba(255,255,255,.38);line-height:1.4;}
+.q5-block{margin-bottom:1.25rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:3px;padding:1rem 1.1rem;}
+.q5-label{font-family:var(--mono);font-size:7pt;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.35rem;}
+.q5-text{font-family:var(--serif);font-size:12pt;color:rgba(255,255,255,.85);margin-bottom:.65rem;line-height:1.4;}
+.q5-opts{display:grid;gap:.4rem;}
+.qo{display:flex;align-items:flex-start;gap:.6rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:.6rem .8rem;cursor:pointer;-webkit-tap-highlight-color:rgba(26,107,60,.12);transition:all .15s;}
+.qo:active{border-color:rgba(255,255,255,.2);}
+.qo.selected{background:rgba(26,107,60,.12);border-color:#3a9b5c;}
+.qo-dot{width:.55rem;height:.55rem;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);flex-shrink:0;margin-top:.3rem;}
+.qo.selected .qo-dot{background:#3a9b5c;border-color:#3a9b5c;}
+.qo-text{font-size:9pt;color:rgba(255,255,255,.62);line-height:1.45;}
+.green-submit{background:#1a6b3c;color:#fff;font-family:var(--mono);font-size:8pt;letter-spacing:.12em;text-transform:uppercase;padding:.65rem 1.4rem;border:none;border-radius:2px;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-top:1.5rem;transition:background .2s;}
+.green-submit:hover{background:#145530;}
+.verdict-card{border-radius:4px;overflow:hidden;margin-bottom:1.25rem;}
+.vc-head{padding:1.35rem;}
+.vc-continue .vc-head{background:rgba(26,107,60,.3);border:1.5px solid #3a9b5c;}
+.vc-pivot .vc-head{background:rgba(168,124,32,.25);border:1.5px solid #d4a820;}
+.vc-change .vc-head{background:rgba(139,37,0,.25);border:1.5px solid #c45a30;}
+.vc-signal{font-family:var(--mono);font-size:7pt;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.3rem;}
+.vc-continue .vc-signal{color:#5ab870;}.vc-pivot .vc-signal{color:#d4a820;}.vc-change .vc-signal{color:#e87a5a;}
+.vc-verdict{font-family:var(--serif);font-size:18pt;font-weight:600;color:rgba(255,255,255,.92);}
+.vc-body{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-top:none;border-radius:0 0 4px 4px;padding:1.35rem;}
+.vc-diag{font-size:9pt;color:rgba(255,255,255,.58);line-height:1.7;margin-bottom:1.1rem;}
+.layer-react{background:rgba(139,37,0,.2);border:1px solid rgba(139,37,0,.4);border-radius:3px;padding:.75rem 1rem;margin-bottom:1.1rem;}
+.lr-label2{font-family:var(--mono);font-size:7pt;letter-spacing:.15em;text-transform:uppercase;color:#e87a5a;margin-bottom:.3rem;}
+.lr-text2{font-size:9pt;color:rgba(255,255,255,.62);line-height:1.6;}
+.p30-label{font-family:var(--mono);font-size:7pt;letter-spacing:.15em;text-transform:uppercase;color:#3a9b5c;margin-bottom:.65rem;}
+.p30-week{margin-bottom:.65rem;}
+.pw-num{font-family:var(--mono);font-size:7pt;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:.25rem;}
+.pw-actions{list-style:none;padding:0;}
+.pw-actions li{display:flex;gap:.6rem;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:9pt;color:rgba(255,255,255,.55);line-height:1.5;}
+.pw-actions li:last-child{border:none;}
+.pw-actions li::before{content:'→';font-family:var(--mono);font-size:8pt;color:#3a9b5c;flex-shrink:0;margin-top:.1rem;}
+.truth-box{background:rgba(26,61,120,.15);border:1px solid rgba(26,61,120,.35);border-radius:3px;padding:.9rem 1.1rem;margin-top:1.1rem;}
+.tb-label{font-family:var(--mono);font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:#6a90c8;margin-bottom:.4rem;}
+.tb-text{font-size:9pt;color:rgba(255,255,255,.52);line-height:1.6;}
+
+@media(max-width:580px){
+  .idx-cards{grid-template-columns:1fr;}
+  .dg{grid-template-columns:1fr 1fr;}
+  .score-grid{grid-template-columns:1fr 1fr;}
+  .kpi-row,.rc-kpis{grid-template-columns:1fr 1fr;}
+  .stage-row{grid-template-columns:1fr;}
+  .bbp{grid-template-columns:1fr;}
+  .sponsor-matrix,.risk-summary{grid-template-columns:1fr;}
+  .meter-row{grid-template-columns:1fr;}
+  .fs-grid{grid-template-columns:1fr;}
+  .hero h1{font-size:28pt;}
+}
+
+/* CREAM THEME OVERRIDE */
+body{background:#f5f2ed;}
+nav{background:#f5f2ed !important;border-bottom:1.5px solid #0e0d0b !important;box-shadow:none !important;}
+.nb{font-family:'Crimson Pro',Georgia,serif !important;font-size:13pt !important;font-weight:700 !important;color:#0e0d0b !important;letter-spacing:0 !important;text-transform:none !important;}
+.nb strong{font-style:italic;color:#8b2500 !important;font-weight:700 !important;}
+.nl button{background:transparent !important;border:1px solid #d8d4ce !important;color:#6b6560 !important;}
+.nl button:hover,.nl button.active{color:#0e0d0b !important;border-color:#0e0d0b !important;background:transparent !important;}
+#page-index{background:#f5f2ed !important;color:#0e0d0b !important;}
+.hero h1{color:#0e0d0b !important;}
+.hero h1 em{color:#8b2500 !important;}
+.ht{color:#9a9590 !important;}
+.hero-sub{color:#6b6560 !important;}
+.eq-pill{background:#fff !important;border:1.5px solid #0e0d0b !important;color:#0e0d0b !important;}
+.eq-n{color:#1a6b3c !important;}.eq-d{color:#8b2500 !important;}
+.jd{background:#f5f2ed !important;}
+.jn{color:#6b6560 !important;}
+.jl{color:#9a9590 !important;}
+.idx-card{background:#fff !important;border:1px solid #d8d4ce !important;border-radius:2px !important;}
+.idx-card:hover{border-color:#0e0d0b !important;box-shadow:4px 4px 0 #0e0d0b !important;transform:translate(-2px,-2px) !important;}
+.ic-title{color:#0e0d0b !important;}
+.ic-for{color:#9a9590 !important;}
+.ic-desc{color:#6b6560 !important;font-size:10.5pt !important;}
+.ic-out{border-top-color:#d8d4ce !important;}
+.ic-out-l{color:#9a9590 !important;}
+.ic-out p{color:#4a4540 !important;font-size:10pt !important;}
+.ic-cta{color:#8b2500 !important;}
+.ic-time{color:#9a9590 !important;font-size:8.5pt !important;}
+.dl-label{color:#9a9590 !important;}
+.dg{background:#d8d4ce !important;border-color:#d8d4ce !important;}
+.dc{background:#fff !important;}
+.dv{color:#8b2500 !important;}
+.dn{color:#0e0d0b !important;}
+.dd{color:#6b6560 !important;font-size:10pt !important;}
+#page-index footer p{color:#9a9590 !important;}
+#page-index footer{border-top-color:#d8d4ce !important;}
+.page-dark{background:#f5f2ed !important;color:#0e0d0b !important;}
+.page-dark h1{color:#0e0d0b !important;}
+.page-dark .sub{color:#6b6560 !important;}
+.opt{background:#fff !important;border-color:#d8d4ce !important;}
+.opt.selected{background:#fff8f5 !important;border-color:#8b2500 !important;}
+.opt-dot{border-color:#d8d4ce !important;}
+.opt.selected .opt-dot{background:#8b2500 !important;border-color:#8b2500 !important;}
+.opt-title{color:#0e0d0b !important;font-size:12pt !important;}
+.opt-desc{color:#6b6560 !important;font-size:10.5pt !important;}
+.d-label{color:#6b6560 !important;}
+input[type=range]{background:#d8d4ce !important;}
+.slider-val{color:#8b2500 !important;}
+.slider-labels{color:#9a9590 !important;}
+.btn-back{background:transparent !important;color:#6b6560 !important;border:1px solid #d8d4ce !important;}
+.btn-restart{background:transparent !important;color:#6b6560 !important;border:1px solid #d8d4ce !important;}
+.prog{border-color:#d8d4ce !important;}
+.ps{color:#6b6560 !important;border-right-color:#d8d4ce !important;}
+.ps.active{background:rgba(139,37,0,.08) !important;color:#8b2500 !important;}
+.ps.done{background:rgba(26,107,60,.08) !important;color:#1a6b3c !important;}
+.step-num{color:#9a9590 !important;}
+.step-q{color:#0e0d0b !important;font-size:19pt !important;}
+.step-hint{color:#6b6560 !important;font-size:11.5pt !important;}
+.path-a{background:#fff8f5 !important;border-color:#8b2500 !important;}
+.path-b{background:#f0f4fb !important;border-color:#1a3d78 !important;}
+.path-c{background:#f0faf4 !important;border-color:#1a6b3c !important;}
+.path-a .path-label{color:#8b2500 !important;}
+.path-b .path-label{color:#1a3d78 !important;}
+.path-c .path-label{color:#1a6b3c !important;}
+.path-name{color:#0e0d0b !important;}
+.path-why{color:#2a2520 !important;font-size:11.5pt !important;}
+.na-label{color:#6b6560 !important;border-top-color:#d8d4ce !important;}
+.na-list li{color:#2a2520 !important;font-size:11pt !important;border-bottom-color:#e8e4de !important;}
+.na-list li::before{color:#8b2500 !important;}
+.if-summary{background:#fff !important;border-color:#d8d4ce !important;}
+.fs-label{color:#9a9590 !important;}
+.fs-var{color:#8b2500 !important;}
+.fs-bar-wrap{background:#e8e4de !important;}
+.fs-low .fs-val{color:#1a6b3c !important;}
+.fs-med .fs-val{color:#a87c20 !important;}
+.fs-high .fs-val{color:#8b2500 !important;}
+.next-inst-box{background:#fff !important;border-color:#d8d4ce !important;}
+.nib-l{color:#9a9590 !important;}
+.next-inst-box p{color:#6b6560 !important;}
+.next-inst-box a{color:#8b2500 !important;}
+.rp-head{background:#f5f2ed !important;border:1.5px solid #0e0d0b !important;border-bottom:none !important;}
+.rp-verdict{color:#0e0d0b !important;}
+.go{color:#1a6b3c !important;}.nogo{color:#8b2500 !important;}.conditional{color:#a87c20 !important;}
+.rp-sub{color:#6b6560 !important;}
+.rp-body{border:1.5px solid #0e0d0b !important;border-top:none !important;}
+.rc-header{background:#f5f2ed !important;border:1.5px solid #0e0d0b !important;border-bottom:none !important;color:#0e0d0b !important;}
+.rc-period{color:#6b6560 !important;}
+.rc-co{color:#0e0d0b !important;}
+.page-light{background:#f5f2ed !important;}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav style="background:#ffffff;border-bottom:1px solid #d8d4ce;padding:.65rem 2rem;display:flex;align-items:center;gap:1.5rem;position:sticky;top:0;z-index:1000;box-shadow:0 1px 8px rgba(0,0,0,.05);">
+  <a href="index.html" style="text-decoration:none;display:flex;align-items:baseline;gap:.15rem;"><span style="font-family:'Crimson Pro',Georgia,serif;font-size:14.5pt;font-weight:700;color:#0e0d0c;">Innovation</span><span style="font-family:'Crimson Pro',Georgia,serif;font-size:14.5pt;font-weight:500;font-style:italic;color:#8b2500;">&nbsp;Friction</span></a>
+  <span style="font-family:'IBM Plex Mono',monospace;font-size:7.5pt;letter-spacing:.2em;text-transform:uppercase;color:#9a9590;margin-left:auto;">Five-Instrument Suite &middot; innovationfriction.com</span>
+</nav>
+
+<!-- ============================================================
+     PAGE: INDEX
+     ============================================================ -->
+<div id="page-index" class="page active page-dark">
+  <div class="hero">
+    <div class="ht">Five-Instrument Suite · Deep Tech Commercialisation · © 2026 Rajesh SHARMA</div>
+    <h1>Innovation <em>Friction</em></h1>
+    <p class="hero-sub">Five instruments. One framework. From laboratory bench to category leadership.</p>
+    <div class="eq-pill">
+      <span class="eq-n">P(success)</span> = (<span class="eq-n">Technology × Execution</span>) ÷ (<span class="eq-d">μ<sub>human</sub> × N<sub>legacy</sub> × τ<sub>cycle</sub> × C<sub>capital</sub></span>)
+    </div>
+  </div>
+  <div class="jtrack-wrap">
+    <div class="jl">Your position in the founder journey determines which instrument to use</div>
+    <div class="jtrack">
+      <div class="js j1"><div class="jd"></div><div class="jn">Lab/<br>Discovery<br>→ I</div></div>
+      <div class="js j2"><div class="jd"></div><div class="jn">Pre-<br>Commit<br>→ II</div></div>
+      <div class="js j3"><div class="jd"></div><div class="jn">Active<br>Venture<br>→ III</div></div>
+      <div class="js j4"><div class="jd"></div><div class="jn">Corporate<br>Innovator<br>→ IV</div></div>
+      <div class="js j5"><div class="jd"></div><div class="jn">Crisis/<br>Pivot<br>→ V</div></div>
+    </div>
+  </div>
+  <div class="idx-cards">
+    <div class="idx-card ic1" onclick="showPage('page-i1')">
+      <div class="ic-num">Instrument I · Research-to-Application</div>
+      <div class="ic-title">Research to Application Decision Tool</div>
+      <div class="ic-for">For: PhD researchers · scientists · TTO officers</div>
+      <div class="ic-desc">A six-step guided wizard that helps science-trained founders assess whether their research is ready for commercialisation and which path is most likely to succeed.</div>
+      <div class="ic-out"><div class="ic-out-l">Output</div><p>Path A / B / C recommendation with specific next actions</p></div>
+      <span class="ic-cta">Open Instrument I →</span>
+      <span class="ic-time">⏱ 30–60 min · Use at research-to-application decision point</span>
+    </div>
+    <div class="idx-card ic2" onclick="showPage('page-i2')">
+      <div class="ic-num">Instrument II · Pre-Commitment Canvas</div>
+      <div class="ic-title">Pre-Commitment Canvas</div>
+      <div class="ic-for">For: Founders before raising capital or hiring</div>
+      <div class="ic-desc">The most important instrument. A comprehensive pre-commitment assessment mapping all five failure layers and producing a go/no-go signal before irreversible resources are committed.</div>
+      <div class="ic-out"><div class="ic-out-l">Output</div><p>Full IF score · TRL/CRL gap · Five Honest Questions verdict · Capital check</p></div>
+      <span class="ic-cta">Open Instrument II →</span>
+      <span class="ic-time">⏱ 2–3 hours · Use before any capital commitment</span>
+    </div>
+    <div class="idx-card ic3" onclick="showPage('page-i3')">
+      <div class="ic-num">Instrument III · Quarterly Report Card</div>
+      <div class="ic-title">Quarterly Report Card</div>
+      <div class="ic-for">For: Active ventures · board meetings · investor updates</div>
+      <div class="ic-desc">A stage-aware quarterly diagnostic tracking friction elimination across all five layers. Founder View and Investor View. Generates a formatted report card every quarter.</div>
+      <div class="ic-out"><div class="ic-out-l">Output</div><p>Report card · Layer scorecard · CRL progression · 90-day priorities</p></div>
+      <span class="ic-cta">Open Instrument III →</span>
+      <span class="ic-time">⏱ 30 min · Every quarter, every board meeting</span>
+    </div>
+    <div class="idx-card ic4" onclick="showPage('page-i4')">
+      <div class="ic-num">Instrument IV · Corporate Innovation Canvas</div>
+      <div class="ic-title">Corporate Innovation Canvas</div>
+      <div class="ic-for">For: Innovators inside large organisations</div>
+      <div class="ic-desc">A corporate-adapted canvas for innovators navigating internal political friction. Maps sponsor risk, budget cycles, build/buy/partner decision, and internal path recommendation.</div>
+      <div class="ic-out"><div class="ic-out-l">Output</div><p>Internal vs external path · Sponsor risk map · Friction reduction plan</p></div>
+      <span class="ic-cta">Open Instrument IV →</span>
+      <span class="ic-time">⏱ 2 hours · Before proposing an internal initiative</span>
+    </div>
+    <div class="idx-card ic5" onclick="showPage('page-i5')">
+      <div class="ic-num">Instrument V · Crisis Diagnostic</div>
+      <div class="ic-title">Crisis Diagnostic</div>
+      <div class="ic-for">For: Any venture when something has gone wrong</div>
+      <div class="ic-desc">A rapid 30-minute diagnostic for ventures in distress. Identifies which failure layer has re-activated and whether the correct response is eliminate, pivot, or change path.</div>
+      <div class="ic-out"><div class="ic-out-l">Output</div><p>Crisis type · Reactivated layer · Continue/Pivot/Change signal · 30-day protocol</p></div>
+      <span class="ic-cta">Open Instrument V →</span>
+      <span class="ic-time">⏱ 30 min · Use immediately when a crisis occurs</span>
+    </div>
+  </div>
+  <div class="denom-wrap">
+    <div class="dl-label">The four denominator pillars</div>
+    <div class="dg">
+      <div class="dc"><div class="dv">μ<sub>human</sub></div><div class="dn">Human Resistance</div><div class="dd">Psychology, loss aversion, career risk, cultural inertia. Reduced by reference customers and risk-sharing commercial models.</div></div>
+      <div class="dc"><div class="dv">N<sub>legacy</sub></div><div class="dn">Legacy Normal Force</div><div class="dd">Incumbent systems, vendor contracts, regulatory validations. The structural weight your technology must displace or route around.</div></div>
+      <div class="dc"><div class="dv">τ<sub>cycle</sub></div><div class="dn">Temporal Friction</div><div class="dd">Sales cycle × approval layers. Every month of cycle consumed is a month of capital burned. τ and capital are coupled variables.</div></div>
+      <div class="dc"><div class="dv">C<sub>capital</sub></div><div class="dn">Capital Friction</div><div class="dd">Total capital required to reach cash-flow positive. When C_required ÷ C_available approaches 1.0, the company fails regardless of all else.</div></div>
+    </div>
+  </div>
+  <footer><p>© 2026 Rajesh SHARMA · Innovation Friction Framework · innovationfriction.com<br>raj@telsunventures.com</p></footer>
+</div>
+
+<!-- ============================================================
+     PAGE: INSTRUMENT I — RESEARCH TO APPLICATION
+     ============================================================ -->
+<div id="page-i1" class="page page-dark">
+<div class="shell-narrow">
+  <div class="inst-tag-dark it-i1">Instrument I · Research-to-Application</div>
+  <h1>Research to Application Decision Tool</h1>
+  <p class="sub">Six steps. One recommendation. Before you commit anything irreversible.</p>
+  <div class="prog" id="i1-prog">
+    <div class="ps active" onclick="i1_goTo(0)">1</div>
+    <div class="ps" onclick="i1_goTo(1)">2</div>
+    <div class="ps" onclick="i1_goTo(2)">3</div>
+    <div class="ps" onclick="i1_goTo(3)">4</div>
+    <div class="ps" onclick="i1_goTo(4)">5</div>
+    <div class="ps" onclick="i1_goTo(5)">6</div>
+  </div>
+
+  <div class="step visible" id="i1-step0">
+    <div class="step-num">Step 1 of 6 · Problem Layer</div>
+    <div class="step-q">How would you describe the commercial problem your research addresses?</div>
+    <div class="step-hint" style="margin-bottom:1rem;">Be honest — many important scientific problems are not urgent commercial problems today.</div>
+    <div class="opts">
+      <div class="opt" onclick="i1_select(0,0)"><div class="opt-dot"></div><div><div class="opt-title">Urgent, funded pain — buyers are actively spending to solve this today</div><div class="opt-desc">Confirmed as a live budget priority, not a future aspiration</div></div></div>
+      <div class="opt" onclick="i1_select(0,1)"><div class="opt-dot"></div><div><div class="opt-title">Real problem, but urgency is unclear — buyers acknowledge it but aren't actively spending</div><div class="opt-desc">The problem exists but may not trigger a purchasing decision today</div></div></div>
+      <div class="opt" onclick="i1_select(0,2)"><div class="opt-dot"></div><div><div class="opt-title">Future problem — important but not yet a felt pain in the market</div><div class="opt-desc">You are anticipating a problem that matters in 3–5 years but is not actively funded today</div></div></div>
+      <div class="opt" onclick="i1_select(0,3)"><div class="opt-dot"></div><div><div class="opt-title">Scientific problem — significant academically but commercial demand not yet validated</div><div class="opt-desc">Commercial application is hypothetical at this stage</div></div></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-next" onclick="i1_next(0)">Next →</button></div>
+  </div>
+
+  <div class="step" id="i1-step1">
+    <div class="step-num">Step 2 of 6 · Evidence of Demand</div>
+    <div class="step-q">How much direct evidence of buyer demand do you currently have?</div>
+    <div class="step-hint" style="margin-bottom:1rem;">Not academic citations — direct conversations with actual buyers.</div>
+    <div class="opts">
+      <div class="opt" onclick="i1_select(1,0)"><div class="opt-dot"></div><div><div class="opt-title">20+ buyer interviews — urgency, budget authority, and decision process confirmed</div><div class="opt-desc">CRL 2 reached. You have validated the pain with evidence.</div></div></div>
+      <div class="opt" onclick="i1_select(1,1)"><div class="opt-dot"></div><div><div class="opt-title">5–19 conversations — some validation but not yet systematic</div><div class="opt-desc">Encouraging signals but insufficient to confirm the pattern</div></div></div>
+      <div class="opt" onclick="i1_select(1,2)"><div class="opt-dot"></div><div><div class="opt-title">Fewer than 5 conversations — or with researchers rather than buyers</div><div class="opt-desc">Early stage. Pattern of demand not yet established.</div></div></div>
+      <div class="opt" onclick="i1_select(1,3)"><div class="opt-dot"></div><div><div class="opt-title">No direct buyer conversations yet</div><div class="opt-desc">CRL 1. Commercial viability has not been tested.</div></div></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-back" onclick="i1_goTo(0)">← Back</button><button class="btn btn-next" onclick="i1_next(1)">Next →</button></div>
+  </div>
+
+  <div class="step" id="i1-step2">
+    <div class="step-num">Step 3 of 6 · Market Structure</div>
+    <div class="step-q">How would you describe the market structure for your technology?</div>
+    <div class="step-hint" style="margin-bottom:1rem;">Market structure determines N_legacy and τ_cycle before any other variable.</div>
+    <div class="opts">
+      <div class="opt" onclick="i1_select(2,0)"><div class="opt-dot"></div><div><div class="opt-title">Single customer can adopt independently — no ecosystem dependency</div><div class="opt-desc">The technology works for one buyer without anyone else changing</div></div></div>
+      <div class="opt" onclick="i1_select(2,1)"><div class="opt-dot"></div><div><div class="opt-title">Value requires 2–3 parties to change (buyer + supplier, or buyer + regulator)</div><div class="opt-desc">Moderate ecosystem dependency. N_legacy multiplies with each party.</div></div></div>
+      <div class="opt" onclick="i1_select(2,2)"><div class="opt-dot"></div><div><div class="opt-title">Network effect required — value grows only with scale of adoption</div><div class="opt-desc">High N_legacy. Maximum τ_cycle. Requires ecosystem strategy.</div></div></div>
+      <div class="opt" onclick="i1_select(2,3)"><div class="opt-dot"></div><div><div class="opt-title">Regulated market — government, healthcare, aviation, nuclear, financial services</div><div class="opt-desc">τ_cycle is 3–7 years minimum. Path A or C is likely optimal.</div></div></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-back" onclick="i1_goTo(1)">← Back</button><button class="btn btn-next" onclick="i1_next(2)">Next →</button></div>
+  </div>
+
+  <div class="step" id="i1-step3">
+    <div class="step-num">Step 4 of 6 · Friction Profile</div>
+    <div class="step-q">Rate the Innovation Friction for your primary target customer</div>
+    <div class="step-hint" style="margin-bottom:1.25rem;">Score 1 (very low) to 5 (very high) for each variable.</div>
+    <div style="margin-bottom:1.5rem;">
+      <label class="d-label">μ_human — Human Resistance</label>
+      <div class="slider-labels"><span>1 · Very Low</span><span>5 · Very High</span></div>
+      <input type="range" min="1" max="5" value="3" id="i1-mu" oninput="document.getElementById('i1-mu-v').textContent=this.value">
+      <div class="slider-val" id="i1-mu-v">3</div>
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <label class="d-label">N_legacy — Legacy Systems Weight</label>
+      <div class="slider-labels"><span>1 · Very Low</span><span>5 · Very High</span></div>
+      <input type="range" min="1" max="5" value="3" id="i1-nl" oninput="document.getElementById('i1-nl-v').textContent=this.value">
+      <div class="slider-val" id="i1-nl-v">3</div>
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <label class="d-label">τ_cycle — Sales Cycle Length</label>
+      <div class="slider-labels"><span>1 · Weeks</span><span>5 · Years</span></div>
+      <input type="range" min="1" max="5" value="3" id="i1-tc" oninput="document.getElementById('i1-tc-v').textContent=this.value">
+      <div class="slider-val" id="i1-tc-v">3</div>
+    </div>
+    <div>
+      <label class="d-label">C_capital — Capital Required</label>
+      <div class="slider-labels"><span>1 · &lt;€500K</span><span>5 · &gt;€10M</span></div>
+      <input type="range" min="1" max="5" value="3" id="i1-cc" oninput="document.getElementById('i1-cc-v').textContent=this.value">
+      <div class="slider-val" id="i1-cc-v">3</div>
+    </div>
+    <div class="btn-row"><button class="btn btn-back" onclick="i1_goTo(2)">← Back</button><button class="btn btn-next" onclick="i1_goTo(4)">Next →</button></div>
+  </div>
+
+  <div class="step" id="i1-step4">
+    <div class="step-num">Step 5 of 6 · Founder Readiness</div>
+    <div class="step-q">Which best describes your current situation and appetite?</div>
+    <div class="opts">
+      <div class="opt" onclick="i1_select(4,0)"><div class="opt-dot"></div><div><div class="opt-title">I want to lead a company — ready to commit fully and build the commercial system myself</div><div class="opt-desc">Path B. You accept the full founder role including sales and investor management.</div></div></div>
+      <div class="opt" onclick="i1_select(4,1)"><div class="opt-dot"></div><div><div class="opt-title">I want the technology to reach impact — open to the path that maximises adoption probability</div><div class="opt-desc">All three paths in scope. You choose the vehicle that maximises P(adoption).</div></div></div>
+      <div class="opt" onclick="i1_select(4,2)"><div class="opt-dot"></div><div><div class="opt-title">I want to remain in research — commercialisation should happen with minimal disruption</div><div class="opt-desc">Path A or C. Licensing or corporate venture preserves your research trajectory.</div></div></div>
+      <div class="opt" onclick="i1_select(4,3)"><div class="opt-dot"></div><div><div class="opt-title">I am unsure — need to understand full implications before deciding</div><div class="opt-desc">Complete this instrument first, then use Instrument II before committing.</div></div></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-back" onclick="i1_goTo(3)">← Back</button><button class="btn btn-next" onclick="i1_next(4)">Next →</button></div>
+  </div>
+
+  <div class="step" id="i1-step5">
+    <div class="step-num">Step 6 of 6 · Capital and Market</div>
+    <div class="step-q">What is your current capital position and target market size?</div>
+    <div class="opts">
+      <div class="opt" onclick="i1_select(5,0)"><div class="opt-dot"></div><div><div class="opt-title">TAM &gt;€1B reachable in 7 years · Capital available or raiseable within 6 months</div><div class="opt-desc">Venture-scale opportunity. Path B is viable if friction profile supports it.</div></div></div>
+      <div class="opt" onclick="i1_select(5,1)"><div class="opt-dot"></div><div><div class="opt-title">TAM €100M–€1B · Limited capital; grant-funded or bootstrapped for 12–18 months</div><div class="opt-desc">Path A or C may be more capital-efficient than a standalone startup.</div></div></div>
+      <div class="opt" onclick="i1_select(5,2)"><div class="opt-dot"></div><div><div class="opt-title">TAM &lt;€100M or highly specialised niche · No capital plan beyond current grants</div><div class="opt-desc">Path A (License/Partner) is likely the highest-P(adoption) path.</div></div></div>
+      <div class="opt" onclick="i1_select(5,3)"><div class="opt-dot"></div><div><div class="opt-title">TAM unknown — not yet sized rigorously</div><div class="opt-desc">Market sizing is a prerequisite for vehicle selection.</div></div></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-back" onclick="i1_goTo(4)">← Back</button><button class="btn btn-submit" onclick="i1_showResult()">Generate Recommendation →</button></div>
+  </div>
+
+  <div id="i1-result" style="display:none;animation:fadeIn .35s ease;">
+    <div style="font-family:var(--mono);font-size:7pt;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1.25rem;">Innovation Friction Assessment · Instrument I Output</div>
+    <div class="if-summary"><div class="fs-label">Innovation Friction Profile</div><div class="fs-grid" id="i1-fdisp"></div></div>
+    <div id="i1-path-result"></div>
+    <button class="btn-restart" onclick="i1_restart()">← Start Again</button>
+    <div class="next-inst-box"><div class="nib-l">Next Step</div><p>If Path B, proceed to <a onclick="showPage('page-i2')">Instrument II — Pre-Commitment Canvas</a> before committing capital or making any irreversible decisions.</p></div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================
+     PAGE: INSTRUMENT II — PRE-COMMITMENT CANVAS
+     ============================================================ -->
+<div id="page-i2" class="page page-light">
+<div class="shell">
+  <div class="inst-tag-light it-i2">Instrument II · Pre-Commitment Canvas</div>
+  <h1>Pre-Commitment Canvas</h1>
+  <p class="sub">Complete this before committing capital, hiring, or making any irreversible decision.</p>
+  <div class="warning-box"><p><strong>When to use this:</strong> Before raising your seed round. Before leaving your academic or corporate position. Before hiring your first employee. Before signing any partnership agreement. This takes 2–3 hours if completed honestly. The cost of skipping it can be 3 years of your life and several hundred thousand euros.</p></div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n sh-n-red">01</span><span class="sh-t">Technology Foundation</span></div>
+    <div class="frow"><label class="l-label">Describe your technology in one sentence</label><textarea id="i2-tech" placeholder="We have developed a system that... which enables... for..."></textarea></div>
+    <div class="frow"><label class="l-label">Current Technology Readiness Level (TRL)</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="i2-trl" value="1"><div><div class="ro-title">TRL 1–3 · Basic research / proof of concept</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-trl" value="2"><div><div class="ro-title">TRL 4–5 · Validated in lab / relevant environment</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-trl" value="3"><div><div class="ro-title">TRL 6–7 · Demonstrated prototype</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-trl" value="4"><div><div class="ro-title">TRL 8–9 · Qualified system / proven in operation</div></div></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n sh-n-red">02</span><span class="sh-t">Problem Validation</span><span class="sh-sub">Layer 1 · CRL 1–2</span></div>
+    <div class="frow"><label class="l-label">Direct buyer interviews completed (not academic peers — actual buyers)</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="i2-int" value="3"><div><div class="ro-title">20 or more — urgency, budget authority, decision process confirmed</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-int" value="2"><div><div class="ro-title">10–19 — meaningful but not yet systematic</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-int" value="1"><div><div class="ro-title">1–9 — early signals only</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-int" value="0"><div><div class="ro-title">None yet — demand is inferred, not validated</div></div></label>
+      </div>
+    </div>
+    <div class="frow"><label class="l-label">The Grandma Test — your one-sentence value statement</label>
+      <div class="gt-box"><p>"We help <span class="gt-fill">[specific company type]</span> to <span class="gt-fill">[concrete outcome]</span>, without <span class="gt-fill">[current pain]</span>, so that <span class="gt-fill">[Layer 3 motivation]</span>."</p></div>
+      <textarea id="i2-grandma" placeholder="Write your Grandma Test sentence. Test it on a non-technical person. If they cannot repeat the essence without a clarifying question, rewrite it."></textarea>
+    </div>
+    <div class="frow"><label class="l-label">Urgency signal — what creates the need to act TODAY?</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="i2-urg" value="3"><div><div class="ro-title">Regulatory change, competitive threat, or incident making inaction costlier than action</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-urg" value="2"><div><div class="ro-title">Known cost or risk that buyers acknowledge and have budget to address</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-urg" value="1"><div><div class="ro-title">Aspiration — buyers agree it would be valuable but it is not a current budget priority</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-urg" value="0"><div><div class="ro-title">Unclear — urgency has not been confirmed in direct buyer conversations</div></div></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n sh-n-red">03</span><span class="sh-t">Innovation Friction Profile</span><span class="sh-sub">Primary target segment</span></div>
+    <div class="slider-group-l">
+      <div class="sg-header"><span class="sg-var">μ_human</span><span class="sg-desc">Human Resistance</span></div>
+      <div class="sg-labels"><span>1 · Very Low</span><span>5 · Very High</span></div>
+      <input type="range" min="1" max="5" value="3" class="light" id="i2-mu" oninput="i2_updateMeters()">
+      <div class="sg-val" id="i2-mu-v">3</div>
+    </div>
+    <div class="slider-group-l">
+      <div class="sg-header"><span class="sg-var">N_legacy</span><span class="sg-desc">Legacy systems weight</span></div>
+      <div class="sg-labels"><span>1 · Greenfield</span><span>5 · Highly regulated</span></div>
+      <input type="range" min="1" max="5" value="3" class="light" id="i2-nl" oninput="i2_updateMeters()">
+      <div class="sg-val" id="i2-nl-v">3</div>
+    </div>
+    <div class="slider-group-l">
+      <div class="sg-header"><span class="sg-var">τ_cycle</span><span class="sg-desc">Sales cycle length</span></div>
+      <div class="sg-labels"><span>1 · Weeks</span><span>5 · 2+ years</span></div>
+      <input type="range" min="1" max="5" value="3" class="light" id="i2-tc" oninput="i2_updateMeters()">
+      <div class="sg-val" id="i2-tc-v">3</div>
+    </div>
+    <div class="slider-group-l">
+      <div class="sg-header"><span class="sg-var">C_capital</span><span class="sg-desc">Capital to cash-flow positive</span></div>
+      <div class="sg-labels"><span>1 · &lt;€500K</span><span>5 · &gt;€10M</span></div>
+      <input type="range" min="1" max="5" value="3" class="light" id="i2-cc" oninput="i2_updateMeters()">
+      <div class="sg-val" id="i2-cc-v">3</div>
+    </div>
+    <div class="meter-row">
+      <div class="meter"><div class="m-label">IF Score (4–20)</div><div class="m-bar-wrap"><div class="m-bar" id="i2-if-bar" style="width:37.5%"></div></div><div class="m-val" id="i2-if-val">12 / 20</div></div>
+      <div class="meter"><div class="m-label">Runway status</div><div class="m-bar-wrap"><div class="m-bar" id="i2-cap-bar" style="width:50%;background:#1a3d78;"></div></div><div class="m-val" id="i2-cap-val">Select runway below</div></div>
+    </div>
+    <div class="frow"><label class="l-label">Current runway (months)</label>
+      <select id="i2-runway" onchange="i2_updateMeters()">
+        <option value="0">Select runway</option>
+        <option value="36">36+ months — well-funded</option>
+        <option value="24">18–36 months — comfortable</option>
+        <option value="12">12–18 months — adequate</option>
+        <option value="6">6–12 months — tight</option>
+        <option value="3">Less than 6 months — critical</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n sh-n-red">04</span><span class="sh-t">TRL / CRL Gap</span></div>
+    <div class="frow"><label class="l-label">Current Commercial Readiness Level (CRL)</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="i2-crl" value="1"><div><div class="ro-title">CRL 1 · Problem identified — no buyer contact yet</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-crl" value="2"><div><div class="ro-title">CRL 2 · Pain validated — 20+ interviews, urgency confirmed</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-crl" value="3"><div><div class="ro-title">CRL 3 · Co-design partner — one customer co-designing pilot spec</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-crl" value="4"><div><div class="ro-title">CRL 4 · Pilot completed — measurable outcome documented</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-crl" value="5"><div><div class="ro-title">CRL 5 ★ · First real revenue — invoice issued and paid</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-crl" value="6"><div><div class="ro-title">CRL 6+ · Repeatable sale or beyond</div></div></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n sh-n-red">05</span><span class="sh-t">Five Honest Questions</span></div>
+    <div class="q-row"><div class="q-n">Q1</div><div><div class="q-text">Grandma Test — can a non-technical person repeat your value in 30 seconds?</div><div class="q-sub">If no: μ_human is elevated at every commercial touchpoint.</div><div class="q-check"><label><input type="radio" name="i2-hq1" value="yes"> Yes — tested</label><label><input type="radio" name="i2-hq1" value="no"> Not yet</label></div></div></div>
+    <div class="q-row"><div class="q-n">Q2</div><div><div class="q-text">Does your Beach Head customer have urgent, funded pain today?</div><div class="q-sub">If no: you are at Layer 1 failure. No execution overcomes this.</div><div class="q-check"><label><input type="radio" name="i2-hq2" value="yes"> Yes</label><label><input type="radio" name="i2-hq2" value="no"> Not confirmed</label></div></div></div>
+    <div class="q-row"><div class="q-n">Q3</div><div><div class="q-text">Does your TAM justify the chosen path? (&gt;€1B for venture-backed startup)</div><div class="q-sub">If smaller: Path A or C may be structurally more appropriate.</div><div class="q-check"><label><input type="radio" name="i2-hq3" value="yes"> Yes</label><label><input type="radio" name="i2-hq3" value="no"> No / unconfirmed</label></div></div></div>
+    <div class="q-row"><div class="q-n">Q4</div><div><div class="q-text">Can a single customer derive full standalone value — no ecosystem dependency?</div><div class="q-sub">If no: every additional required party multiplies all denominator components.</div><div class="q-check"><label><input type="radio" name="i2-hq4" value="yes"> Yes</label><label><input type="radio" name="i2-hq4" value="no"> No</label></div></div></div>
+    <div class="q-row"><div class="q-n">Q5</div><div><div class="q-text">Does current capital cover the path to CRL 5 with meaningful buffer?</div><div class="q-sub">If no: C_required ÷ C_available approaching 1.0 means failure before first revenue.</div><div class="q-check"><label><input type="radio" name="i2-hq5" value="yes"> Yes</label><label><input type="radio" name="i2-hq5" value="no"> No / uncertain</label></div></div></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n sh-n-red">06</span><span class="sh-t">Beach Head Customer</span></div>
+    <div class="frow"><label class="l-label">Name your 3 most specific Beach Head candidate companies</label>
+      <input type="text" id="i2-bh1" placeholder="Candidate 1 — company name and why they fit">
+      <input type="text" id="i2-bh2" style="margin-top:.45rem;" placeholder="Candidate 2">
+      <input type="text" id="i2-bh3" style="margin-top:.45rem;" placeholder="Candidate 3">
+    </div>
+    <div class="frow"><label class="l-label">Market signal value of a win at these companies</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="i2-sig" value="3"><div><div class="ro-title">High — a win here opens doors at the next tier</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-sig" value="2"><div><div class="ro-title">Medium — credible reference but not a door-opener for Trophy targets</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i2-sig" value="1"><div><div class="ro-title">Low — useful for learning but limited market signal</div></div></label>
+      </div>
+    </div>
+  </div>
+
+  <button class="light-submit ls-red" onclick="i2_generateCanvas()">Generate Pre-Commitment Assessment →</button>
+
+  <div class="result-panel" id="i2-result-panel">
+    <div class="rp-head">
+      <div class="rp-head-row">
+        <div><div style="font-family:var(--mono);font-size:7pt;letter-spacing:.17em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.3rem;">Pre-Commitment Assessment · IF Instrument II</div><div class="rp-verdict" id="i2-verdict-text">—</div></div>
+        <div class="rp-sub" id="i2-verdict-sub">—</div>
+      </div>
+    </div>
+    <div class="rp-body">
+      <div class="score-grid" id="i2-score-grid"></div>
+      <div class="findings" id="i2-findings"></div>
+      <div><div class="f-title">Priority Actions Before Committing</div><ul class="act-list act-list-red" id="i2-actions"></ul></div>
+      <div class="next-inst-box-l"><div class="nib-ll">Next Instrument</div><p>Once operating — use <a onclick="showPage('page-i3')">Instrument III (Quarterly Report Card)</a> every quarter to track friction elimination progress.</p></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================
+     PAGE: INSTRUMENT III — QUARTERLY REPORT CARD
+     ============================================================ -->
+<div id="page-i3" class="page">
+<div class="shell">
+  <div class="inst-tag-dark it-i3">Instrument III · Quarterly Report Card</div>
+  <h1>Quarterly Report Card</h1>
+  <p class="sub">30 minutes. Every quarter. Every board meeting.</p>
+
+  <div class="view-toggle">
+    <button class="vt active" onclick="i3_setView('founder')">Founder View</button>
+    <button class="vt" onclick="i3_setView('investor')">Investor View</button>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:7pt;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:.65rem;">Current Stage</div>
+  <div class="stage-row">
+    <div class="stage-btn active" onclick="i3_setStage(0)"><div class="sb-num">CRL 1–4</div><div class="sb-name">Problem Validation</div></div>
+    <div class="stage-btn" onclick="i3_setStage(1)"><div class="sb-num">CRL 5–7</div><div class="sb-name">Commercial Proof</div></div>
+    <div class="stage-btn" onclick="i3_setStage(2)"><div class="sb-num">CRL 8–9</div><div class="sb-name">Scale Proof</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1rem;">
+    <div class="d-frow"><label class="d-label">Company Name</label><input type="text" class="d-input" id="i3-co" placeholder="Your company"></div>
+    <div class="d-frow"><label class="d-label">Quarter and Year</label><input type="text" class="d-input" id="i3-qtr" placeholder="e.g. Q2 2026"></div>
+    <div class="d-frow"><label class="d-label">Current CRL Level</label>
+      <select class="d-select" id="i3-crl">
+        <option value="1">CRL 1 · Problem identified</option>
+        <option value="2">CRL 2 · Pain validated</option>
+        <option value="3">CRL 3 · Co-design partner</option>
+        <option value="4">CRL 4 · Pilot completed</option>
+        <option value="5">CRL 5 ★ · First revenue</option>
+        <option value="6">CRL 6 · Repeatable sale</option>
+        <option value="7">CRL 7 · Predictable pipeline</option>
+        <option value="8">CRL 8 · Expansion revenue</option>
+        <option value="9">CRL 9 · Category definition</option>
+      </select>
+    </div>
+    <div class="d-frow"><label class="d-label">CRL Change This Quarter</label>
+      <select class="d-select" id="i3-crl-chg">
+        <option value="2">Advanced 2+ levels — ahead of plan</option>
+        <option value="1">Advanced 1 level — on track</option>
+        <option value="0">Held same level — blocked</option>
+        <option value="-1">Regressed — pivot/market change</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="d-sec-head" style="margin-top:1.25rem;"><span class="ds-n">LAYERS</span><span class="ds-t">Five Failure Layer Status</span></div>
+  <div class="layer-grid-d">
+    <div class="layer-row-d"><div class="lr-n">L1</div><div class="lr-name">Problem — urgent funded pain confirmed</div><div class="lr-sel" id="i3-l1"></div></div>
+    <div class="layer-row-d"><div class="lr-n">L2</div><div class="lr-name">Access — reachable before capital depleted</div><div class="lr-sel" id="i3-l2"></div></div>
+    <div class="layer-row-d"><div class="lr-n">L3</div><div class="lr-name">Trust — reference customer reducing friction</div><div class="lr-sel" id="i3-l3"></div></div>
+    <div class="layer-row-d"><div class="lr-n">L4</div><div class="lr-name">Process — procurement pathway cleared</div><div class="lr-sel" id="i3-l4"></div></div>
+    <div class="layer-row-d"><div class="lr-n">L5</div><div class="lr-name">Adoption — post-signature usage confirmed</div><div class="lr-sel" id="i3-l5"></div></div>
+  </div>
+
+  <div class="d-sec-head"><span class="ds-n">KPIs</span><span class="ds-t">Key Metrics This Quarter</span></div>
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-l">Revenue (€)</div><input type="number" id="i3-rev" placeholder="0"></div>
+    <div class="kpi"><div class="kpi-l">Customers</div><input type="number" id="i3-cust" placeholder="0"></div>
+    <div class="kpi"><div class="kpi-l">Pipeline (€)</div><input type="number" id="i3-pipe" placeholder="0"></div>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-l">Runway (mo)</div><input type="number" id="i3-run" placeholder="0"></div>
+    <div class="kpi"><div class="kpi-l">Burn (€/mo)</div><input type="number" id="i3-burn" placeholder="0"></div>
+    <div class="kpi"><div class="kpi-l">Win Rate %</div><input type="number" id="i3-wr" placeholder="0"></div>
+  </div>
+
+  <div class="d-sec-head"><span class="ds-n">NARRATIVE</span><span class="ds-t">Quarter in Summary</span></div>
+  <div class="d-frow"><label class="d-label">Biggest friction eliminated this quarter</label><textarea class="d-textarea" id="i3-win" placeholder="Which failure layer did you make the most progress on?"></textarea></div>
+  <div class="d-frow"><label class="d-label">Dominant friction remaining — what is blocking you?</label><textarea class="d-textarea" id="i3-block" placeholder="Which layer is your active constraint right now?"></textarea></div>
+  <div class="d-frow"><label class="d-label">90-day priority — one sentence</label><input type="text" class="d-input" id="i3-priority" placeholder="The single most important action in the next 90 days is..."></div>
+
+  <button class="gold-submit" onclick="i3_generateReport()">Generate Report Card →</button>
+
+  <div id="i3-report" style="display:none;margin-top:2rem;animation:fadeIn .35s ease;">
+    <div class="rc-header">
+      <div class="rc-meta">
+        <div><div class="rc-qtr-l" id="i3-rc-qtr">—</div><div class="rc-title" id="i3-rc-co">—</div></div>
+        <div style="text-align:right;"><div style="font-family:var(--mono);font-size:8.5pt;color:#d4a820;" id="i3-rc-crl">CRL —</div></div>
+      </div>
+      <div class="cp-label">CRL Progression</div>
+      <div class="cp-track" id="i3-cp-track"></div>
+      <div class="cp-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5★</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-kpis" id="i3-rc-kpis"></div>
+      <div style="font-family:var(--mono);font-size:7pt;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.65rem;">Five Failure Layer Status</div>
+      <div id="i3-rc-layers"></div>
+      <div class="priorities-d" id="i3-rc-priorities"></div>
+      <div class="inv-note" id="i3-inv-note"><div class="in-label">Investor Summary</div><p id="i3-inv-text"></p></div>
+      <button class="print-btn" onclick="window.print()">Print / Export →</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================
+     PAGE: INSTRUMENT IV — CORPORATE INNOVATION CANVAS
+     ============================================================ -->
+<div id="page-i4" class="page page-light">
+<div class="shell">
+  <div class="inst-tag-light it-i4">Instrument IV · Corporate Innovation Canvas</div>
+  <h1>Corporate Innovation Canvas</h1>
+  <p class="sub">For innovators inside large organisations navigating internal friction.</p>
+  <div class="context-box"><p><strong>The corporate context is different.</strong> The dominant friction is internal, not external. Budget cycle dependency, executive sponsor risk, internal champion exposure, and the politics of build vs buy vs partner — these are the failure layers that corporate innovators face. The IF denominator applies here: μ_human is your executive committee's risk aversion; N_legacy is incumbent processes and vendor relationships; τ_cycle is your budget approval timeline; C_capital is the internal budget you must defend.</p></div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n sh-n-blue">01</span><span class="sh-t">Innovation Context</span></div>
+    <div class="frow"><label class="l-label">Initiative description — one sentence</label><textarea id="i4-init" placeholder="Describe the innovation you are proposing to your organisation..."></textarea></div>
+    <div class="frow"><label class="l-label">Organisation type</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="i4-org" value="large"><div><div class="ro-title">Large enterprise — 1,000+ employees, formal procurement and budget governance</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-org" value="mid"><div><div class="ro-title">Mid-size — 100–1,000 employees, some governance structure</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-org" value="regulated"><div><div class="ro-title">Regulated industry — banking, pharma, energy, government</div></div></label>
+      </div>
+    </div>
+    <div class="frow"><label class="l-label">Your role</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="i4-role" value="senior"><div><div class="ro-title">Senior leader / executive — I am the sponsor</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-role" value="mid"><div><div class="ro-title">Mid-level manager — I need to build internal support upward</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-role" value="innovator"><div><div class="ro-title">Innovation / R&D team — I need to build the business case</div></div></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n sh-n-blue">02</span><span class="sh-t">Internal Innovation Friction</span></div>
+    <div class="frow"><label class="l-label">μ_human (internal) — Executive sponsor engagement</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="i4-mu" value="1"><div><div class="ro-title">Strong · Sponsor is actively championing this — visible, vocal, politically protected</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-mu" value="2"><div><div class="ro-title">Moderate · Sponsor is supportive but not yet publicly committed</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-mu" value="3"><div><div class="ro-title">Weak · No confirmed executive sponsor — politically exposed</div></div></label>
+      </div>
+    </div>
+    <div class="frow"><label class="l-label">N_legacy (internal) — Incumbent processes and vested interests</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="i4-nl" value="1"><div><div class="ro-title">Low · Creates new capability — does not threaten existing teams</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-nl" value="2"><div><div class="ro-title">Medium · Partial overlap with existing functions</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-nl" value="3"><div><div class="ro-title">High · Directly disrupts existing teams or vendor relationships</div></div></label>
+      </div>
+    </div>
+    <div class="frow"><label class="l-label">τ_cycle (internal) — Budget approval timeline</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="i4-tc" value="1"><div><div class="ro-title">Fast · Discretionary budget — approved within current quarter</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-tc" value="2"><div><div class="ro-title">Medium · Requires next budget cycle — 6–12 months</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-tc" value="3"><div><div class="ro-title">Slow · Requires board or group-level approval — 12–24 months minimum</div></div></label>
+      </div>
+    </div>
+    <div class="frow"><label class="l-label">C_capital (internal) — Budget required</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="i4-cc" value="1"><div><div class="ro-title">Small · Within single manager's authority</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-cc" value="2"><div><div class="ro-title">Medium · Requires departmental or divisional sign-off</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-cc" value="3"><div><div class="ro-title">Large · Requires CFO or board approval</div></div></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n sh-n-blue">03</span><span class="sh-t">Executive Sponsor Risk Map</span></div>
+    <div class="sponsor-matrix">
+      <div class="sm-cell"><div class="sm-label">Sponsor visibility</div><div class="sm-rate" id="i4-sr1"><button class="rate-btn" onclick="i4_rate('sr1',this,'High')">High</button><button class="rate-btn" onclick="i4_rate('sr1',this,'Med')">Med</button><button class="rate-btn" onclick="i4_rate('sr1',this,'Low')">Low</button></div></div>
+      <div class="sm-cell"><div class="sm-label">Sponsor's personal career stake</div><div class="sm-rate" id="i4-sr2"><button class="rate-btn" onclick="i4_rate('sr2',this,'High')">High</button><button class="rate-btn" onclick="i4_rate('sr2',this,'Med')">Med</button><button class="rate-btn" onclick="i4_rate('sr2',this,'Low')">Low</button></div></div>
+      <div class="sm-cell"><div class="sm-label">Risk of sponsor change / departure</div><div class="sm-rate" id="i4-sr3"><button class="rate-btn" onclick="i4_rate('sr3',this,'High')">High</button><button class="rate-btn" onclick="i4_rate('sr3',this,'Med')">Med</button><button class="rate-btn" onclick="i4_rate('sr3',this,'Low')">Low</button></div></div>
+      <div class="sm-cell"><div class="sm-label">Secondary sponsor / political insurance</div><div class="sm-rate" id="i4-sr4"><button class="rate-btn" onclick="i4_rate('sr4',this,'Yes')">Yes</button><button class="rate-btn" onclick="i4_rate('sr4',this,'No')">No</button><button class="rate-btn" onclick="i4_rate('sr4',this,'Partial')">Partial</button></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n sh-n-blue">04</span><span class="sh-t">Build · Buy · Partner</span></div>
+    <div class="bbp">
+      <div class="bbp-card" id="i4-bbp-build" onclick="i4_selectBBP('build')"><div class="bc-label">Option A</div><div class="bc-title">Build Internal</div><div class="bc-desc">Develop capability inside. High control, slow, high internal N_legacy.</div></div>
+      <div class="bbp-card" id="i4-bbp-buy" onclick="i4_selectBBP('buy')"><div class="bc-label">Option B</div><div class="bc-title">Buy / Acquire</div><div class="bc-desc">Acquire externally. Faster access; requires integration and capital approval.</div></div>
+      <div class="bbp-card" id="i4-bbp-partner" onclick="i4_selectBBP('partner')"><div class="bc-label">Option C</div><div class="bc-title">Partner / Pilot</div><div class="bc-desc">Pilot with external innovator. Lowest initial commitment; preserves optionality.</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n sh-n-blue">05</span><span class="sh-t">Internal Failure Layers</span></div>
+    <div class="frow"><label class="l-label">Layer 1 — Is the problem acknowledged at leadership level with budget authority?</label>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="i4-cl1" value="yes"><div><div class="ro-title">Yes — executive team has explicitly acknowledged this as a priority</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-cl1" value="partial"><div><div class="ro-title">Partially — acknowledged at manager level but not a board priority</div></div></label>
+        <label class="radio-opt"><input type="radio" name="i4-cl1" value="no"><div><div class="ro-title">No — this is my conviction but not yet validated at leadership level</div></div></label>
+      </div>
+    </div>
+    <div class="frow"><label class="l-label">Internal Grandma Test — how will you explain the value to your CFO?</label>
+      <textarea id="i4-grandma" placeholder="This initiative will help our organisation to [concrete outcome] without [current pain] so that [business result]..."></textarea>
+    </div>
+  </div>
+
+  <button class="light-submit ls-blue" onclick="i4_generate()">Generate Corporate Path Recommendation →</button>
+
+  <div class="result-panel" id="i4-result-panel">
+    <div class="rp-head">
+      <div class="rp-head-row">
+        <div><div style="font-family:var(--mono);font-size:7pt;letter-spacing:.17em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.3rem;">Corporate Innovation Canvas · IF Instrument IV</div><div class="rp-verdict" id="i4-rp-title">—</div></div>
+        <div class="rp-sub" id="i4-rp-badge">—</div>
+      </div>
+    </div>
+    <div class="rp-body">
+      <div class="risk-summary" id="i4-risk-summary"></div>
+      <div class="findings" id="i4-findings"></div>
+      <div><div class="f-title">Priority Actions</div><ul class="act-list act-list-blue" id="i4-actions"></ul></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================
+     PAGE: INSTRUMENT V — CRISIS DIAGNOSTIC
+     ============================================================ -->
+<div id="page-i5" class="page">
+<div class="shell-narrow">
+  <div class="inst-tag-dark it-i5">Instrument V · Crisis Diagnostic</div>
+  <h1>Crisis Diagnostic</h1>
+  <p class="sub">30 minutes. Use immediately when something has gone wrong.</p>
+  <div class="urgency-bar"><p><strong>Use this now.</strong> Do not wait until the board meeting. The diagnostic takes 30 minutes and gives you the one thing you need in a crisis: clarity about what layer has re-activated and whether the correct response is to eliminate, pivot, or change path.</p></div>
+
+  <div style="font-family:var(--mono);font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:.65rem;">Step 1 · What type of crisis are you in?</div>
+  <div class="crisis-grid">
+    <div class="crisis-btn" onclick="i5_selectCrisis('customer')" id="i5-ct-customer"><div class="cb-icon">🔴</div><div class="cb-title">Customer Lost / Churn</div><div class="cb-desc">Key customer cancelled, churned, or failed to renew</div></div>
+    <div class="crisis-btn" onclick="i5_selectCrisis('capital')" id="i5-ct-capital"><div class="cb-icon">🔴</div><div class="cb-title">Funding Gap / Capital</div><div class="cb-desc">Funding failed, investor withdrew, runway critical</div></div>
+    <div class="crisis-btn" onclick="i5_selectCrisis('technology')" id="i5-ct-technology"><div class="cb-icon">🔴</div><div class="cb-title">Technology Failure</div><div class="cb-desc">Product under-delivered, technical gap discovered</div></div>
+    <div class="crisis-btn" onclick="i5_selectCrisis('market')" id="i5-ct-market"><div class="cb-icon">🔴</div><div class="cb-title">Market / Pivot Signal</div><div class="cb-desc">Pipeline dried up, conversion collapsed, L1–L2 in question</div></div>
+  </div>
+
+  <div id="i5-q-section" style="display:none;">
+    <div style="font-family:var(--mono);font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:1.1rem;">Step 2 · Five rapid questions</div>
+    <div id="i5-q-container"></div>
+    <div style="display:flex;gap:.65rem;margin-top:1.5rem;">
+      <button class="green-submit" onclick="i5_generateDiagnosis()">Generate Diagnosis →</button>
+      <button class="btn btn-back" onclick="i5_reset()">Start Over</button>
+    </div>
+  </div>
+
+  <div id="i5-result" style="display:none;margin-top:1.75rem;animation:fadeIn .35s ease;">
+    <div class="verdict-card" id="i5-verdict-card">
+      <div class="vc-head" id="i5-vc-head">
+        <div class="vc-signal" id="i5-vc-signal">—</div>
+        <div class="vc-verdict" id="i5-vc-verdict">—</div>
+      </div>
+      <div class="vc-body">
+        <div class="vc-diag" id="i5-vc-diag">—</div>
+        <div class="layer-react"><div class="lr-label2">Reactivated Failure Layer</div><div class="lr-text2" id="i5-lr-text">—</div></div>
+        <div><div class="p30-label">30-Day Action Protocol</div><div id="i5-protocol"></div></div>
+        <div class="truth-box"><div class="tb-label">The Honest Question You Must Answer</div><div class="tb-text" id="i5-honest-q">—</div></div>
+      </div>
+    </div>
+    <button class="btn btn-back" style="margin-top:1rem;" onclick="i5_reset()">← New Diagnostic</button>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+// ---- NAVIGATION ----
+function showPage(id) {
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) { pages[i].classList.remove('active'); }
+  document.getElementById(id).classList.add('active');
+  var btns = document.querySelectorAll('.nl button');
+  var map = {'page-index':'nav-index','page-i1':'nav-i1','page-i2':'nav-i2','page-i3':'nav-i3','page-i4':'nav-i4','page-i5':'nav-i5'};
+  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+  if (map[id]) { var el = document.getElementById(map[id]); if (el) el.classList.add('active'); }
+  window.scrollTo(0, 0);
+}
+// Init page-i3 background
+document.getElementById('page-i3').style.background = '#141210';
+document.getElementById('page-i3').style.color = '#f0ede8';
+
+// ---- INSTRUMENT I ----
+var i1_ans = {};
+function i1_select(step, val) {
+  i1_ans[step] = val;
+  var opts = document.querySelectorAll('#i1-step' + step + ' .opt');
+  for (var i = 0; i < opts.length; i++) { opts[i].classList.toggle('selected', i === val); }
+}
+function i1_next(step) {
+  if (i1_ans[step] === undefined) { alert('Please select an option to continue.'); return; }
+  i1_goTo(step + 1);
+}
+function i1_goTo(n) {
+  var steps = document.querySelectorAll('#page-i1 .step');
+  for (var i = 0; i < steps.length; i++) { steps[i].classList.remove('visible'); }
+  var s = document.getElementById('i1-step' + n);
+  if (s) s.classList.add('visible');
+  var ps = document.querySelectorAll('#i1-prog .ps');
+  for (var i = 0; i < ps.length; i++) {
+    ps[i].classList.remove('active','done');
+    if (i < n) ps[i].classList.add('done');
+    if (i === n) ps[i].classList.add('active');
+  }
+  window.scrollTo(0, 0);
+}
+function i1_showResult() {
+  var mu = parseInt(document.getElementById('i1-mu').value);
+  var nl = parseInt(document.getElementById('i1-nl').value);
+  var tc = parseInt(document.getElementById('i1-tc').value);
+  var cc = parseInt(document.getElementById('i1-cc').value);
+  var totalIF = mu + nl + tc + cc;
+  var p0 = i1_ans[0] !== undefined ? i1_ans[0] : 1;
+  var p1 = i1_ans[1] !== undefined ? i1_ans[1] : 3;
+  var p2 = i1_ans[2] !== undefined ? i1_ans[2] : 1;
+  var p4 = i1_ans[4] !== undefined ? i1_ans[4] : 1;
+  var p5 = i1_ans[5] !== undefined ? i1_ans[5] : 1;
+  var path = 'B';
+  if (p5 === 3) { path = 'RESEARCH'; }
+  else if (p2 === 3 || p5 === 2) { path = 'A'; }
+  else if (p2 === 2 || totalIF >= 15) { path = 'C'; }
+  else if (p4 === 2) { path = 'A'; }
+  else if (totalIF >= 13) { path = 'C'; }
+  var fItems = [{v:'μ_human',val:mu},{v:'N_legacy',val:nl},{v:'τ_cycle',val:tc},{v:'C_capital',val:cc}];
+  var fHtml = '';
+  for (var i = 0; i < fItems.length; i++) {
+    var f = fItems[i];
+    var cls = f.val <= 2 ? 'fs-low' : f.val <= 3 ? 'fs-med' : 'fs-high';
+    var lbl = f.val <= 2 ? 'LOW' : f.val <= 3 ? 'MED' : 'HIGH';
+    fHtml += '<div class="fs-item"><div class="fs-var">'+f.v+'</div><div class="fs-bar-wrap"><div class="fs-bar '+cls+'" style="width:'+(f.val*20)+'%"></div></div><div class="fs-val '+cls+'">'+lbl+'</div></div>';
+  }
+  document.getElementById('i1-fdisp').innerHTML = fHtml;
+  var pathData = {
+    'A':{cls:'path-a',label:'Path A Recommendation',name:'License · Partner · Publish',why:'Your friction profile and market structure suggest that a startup is not the highest-probability path to adoption. The structural weight of N_legacy and τ_cycle is not reducible by execution quality alone. The fastest path to real-world impact is through a partner who already has regulatory approvals, distribution, and customer trust.',actions:['Complete technical development to TRL 6+ before licensing discussions','File patent applications to establish priority date before commercial conversations','Identify the 3–5 most likely licensee companies — those for whom your technology solves their biggest barrier','Prepare a one-page licensing brief: what you are offering, evidence, and what you want in return','Contact your Technology Transfer Office (TTO) to negotiate terms in advance']},
+    'B':{cls:'path-b',label:'Path B Recommendation',name:'Startup — Start and Eliminate',why:'Your friction profile is compatible with the startup vehicle. The conditions for Path B viability are present: a market large enough to justify venture economics and a friction profile manageable with appropriate beachhead selection. Path B viability is conditional on correctly sequencing the Five Failure Layers.',actions:['Complete 20+ customer interviews if not already done — non-negotiable before any other step','Apply the Signal-Friction Matrix: identify your Beach Head customer explicitly by name','Complete the Five Honest Questions (Instrument II) before committing capital or hiring','Define your Grandma Test sentence — test it on 3 non-technical people before any investor meeting','Set CRL 5 (first real revenue) as your single most important milestone before any Series A conversation']},
+    'C':{cls:'path-c',label:'Path C Recommendation',name:'Corporate Venture · Spin-out',why:'Your friction profile is too high for a standalone startup but the opportunity is real. A corporate venture or spin-out collapses every denominator simultaneously: N_legacy falls, τ_cycle shortens, and C_capital requirements drop because the partner contributes resources. Path C frequently has the highest P(adoption) for innovations where the dominant barrier is institutional.',actions:['Identify 3–5 corporate partners for whom your technology solves a strategic problem','Prepare a partnership brief: what you bring and what you need in return','Structure initial conversations as co-development pilots — not acquisitions','Negotiate IP ownership explicitly before any work begins','Consider EIC co-funding programmes that support industry-academic partnerships']},
+    'RESEARCH':{cls:'path-a',label:'Pre-Condition Missing',name:'Market Sizing Required First',why:'A critical prerequisite is missing: you have not yet determined the size of the addressable market. Vehicle selection is only meaningful once you know whether the opportunity justifies the investment of each path.',actions:['Define your target customer precisely: industry, company size, role that buys','Map the total number of potential buyers and estimate annual spending on the problem','Calculate: if you capture 5% of your TAM, does that support a company worth building?','If TAM <€100M, proceed to Path A. If €100M–€1B, Path C. If >€1B, Path B is in scope.','Return to this instrument after completing market sizing']}
+  };
+  var pd = pathData[path];
+  var aHtml = '';
+  for (var i = 0; i < pd.actions.length; i++) { aHtml += '<li>' + pd.actions[i] + '</li>'; }
+  document.getElementById('i1-path-result').innerHTML = '<div class="path-card '+pd.cls+'"><div class="path-label">'+pd.label+'</div><div class="path-name">'+pd.name+'</div><div class="path-why">'+pd.why+'</div><div class="na-label">Specific next actions</div><ul class="na-list">'+aHtml+'</ul></div>';
+  var steps = document.querySelectorAll('#page-i1 .step');
+  for (var i = 0; i < steps.length; i++) { steps[i].classList.remove('visible'); }
+  document.getElementById('i1-result').style.display = 'block';
+  var ps = document.querySelectorAll('#i1-prog .ps');
+  for (var i = 0; i < ps.length; i++) { ps[i].classList.remove('active'); ps[i].classList.add('done'); }
+  window.scrollTo(0, 0);
+}
+function i1_restart() {
+  i1_ans = {};
+  document.getElementById('i1-result').style.display = 'none';
+  var opts = document.querySelectorAll('#page-i1 .opt');
+  for (var i = 0; i < opts.length; i++) { opts[i].classList.remove('selected'); }
+  i1_goTo(0);
+}
+
+// ---- INSTRUMENT II ----
+function i2_updateMeters() {
+  var mu = +document.getElementById('i2-mu').value;
+  var nl = +document.getElementById('i2-nl').value;
+  var tc = +document.getElementById('i2-tc').value;
+  var cc = +document.getElementById('i2-cc').value;
+  document.getElementById('i2-mu-v').textContent = mu;
+  document.getElementById('i2-nl-v').textContent = nl;
+  document.getElementById('i2-tc-v').textContent = tc;
+  document.getElementById('i2-cc-v').textContent = cc;
+  var total = mu + nl + tc + cc;
+  var pct = (total - 4) / 16;
+  document.getElementById('i2-if-bar').style.width = (pct * 100) + '%';
+  document.getElementById('i2-if-bar').style.background = pct < .4 ? '#1a6b3c' : pct < .65 ? '#a87c20' : '#8b2500';
+  document.getElementById('i2-if-val').textContent = total + ' / 20';
+  var rw = +document.getElementById('i2-runway').value;
+  if (rw) {
+    document.getElementById('i2-cap-bar').style.width = Math.min(100, rw / 36 * 100) + '%';
+    document.getElementById('i2-cap-bar').style.background = rw >= 24 ? '#1a6b3c' : rw >= 12 ? '#a87c20' : '#8b2500';
+    document.getElementById('i2-cap-val').textContent = rw + 'mo · ' + (rw >= 24 ? 'Adequate' : rw >= 12 ? 'Borderline' : 'Critical');
+  }
+}
+function i2_val(name, def) {
+  var el = document.querySelector('input[name=' + name + ']:checked');
+  return el ? el.value : def;
+}
+function i2_generateCanvas() {
+  var mu = +document.getElementById('i2-mu').value;
+  var nl = +document.getElementById('i2-nl').value;
+  var tc = +document.getElementById('i2-tc').value;
+  var cc = +document.getElementById('i2-cc').value;
+  var totalIF = mu + nl + tc + cc;
+  var rw = +document.getElementById('i2-runway').value;
+  var trl = +i2_val('i2-trl', 2);
+  var crl = +i2_val('i2-crl', 1);
+  var interviews = +i2_val('i2-int', 0);
+  var urgency = +i2_val('i2-urg', 0);
+  var signal = +i2_val('i2-sig', 1);
+  var hq = [];
+  for (var i = 1; i <= 5; i++) { var el = document.querySelector('input[name=i2-hq' + i + ']:checked'); hq.push(el ? el.value === 'yes' : false); }
+  var hqCount = 0; for (var i = 0; i < hq.length; i++) { if (hq[i]) hqCount++; }
+  var gap = Math.abs(trl - crl);
+  var scoreData = [
+    {v:'IF Score', val:totalIF+'/20', level:totalIF<=10?'low':totalIF<=14?'med':'high'},
+    {v:'TRL/CRL Gap', val:gap===0?'Aligned':gap+' lvls', level:gap<=1?'low':gap<=2?'med':'high'},
+    {v:'Honest Q', val:hqCount+'/5 Yes', level:hqCount>=4?'low':hqCount>=2?'med':'high'},
+    {v:'Runway', val:rw?rw+'mo':'?', level:rw>=24?'low':rw>=12?'med':'high'}
+  ];
+  var sgHtml = '';
+  for (var i = 0; i < scoreData.length; i++) { var s = scoreData[i]; sgHtml += '<div class="score-item"><div class="si-var">'+s.v+'</div><div class="si-val">'+s.val+'</div><div class="si-level level-'+s.level+'">'+s.level.toUpperCase()+'</div></div>'; }
+  document.getElementById('i2-score-grid').innerHTML = sgHtml;
+  var verdict, vsub, vclass;
+  if (hqCount >= 4 && totalIF <= 12 && interviews >= 2 && rw >= 12) { verdict = 'GO — with conditions'; vclass = 'conditional'; vsub = 'Proceed; address flagged risks first'; }
+  else if (hqCount >= 3 && totalIF <= 14 && rw >= 6) { verdict = 'CONDITIONAL'; vclass = 'conditional'; vsub = 'Critical gaps must be resolved before committing capital'; }
+  else { verdict = 'NOT YET'; vclass = 'nogo'; vsub = 'Address the gaps below before any commitment'; }
+  document.getElementById('i2-verdict-text').innerHTML = '<span class="'+vclass+'">'+verdict+'</span>';
+  document.getElementById('i2-verdict-sub').textContent = vsub;
+  var findings = [];
+  if (interviews >= 2) findings.push({cls:'f-go',t:'Customer validation underway — meaningful buyer evidence accumulated'});
+  else findings.push({cls:'f-stop',t:'Insufficient buyer interviews — 20+ are required before any commitment'});
+  if (urgency >= 2) findings.push({cls:'f-go',t:'Urgency signal confirmed — buyers have active budget pressure'});
+  else findings.push({cls:'f-risk',t:'Urgency unclear — the market may acknowledge the problem without urgently funding it'});
+  if (totalIF <= 12) findings.push({cls:'f-go',t:'Innovation Friction score manageable — beachhead approach is viable'});
+  else if (totalIF <= 16) findings.push({cls:'f-risk',t:'Elevated Innovation Friction — beachhead selection is critical; consider Path C'});
+  else findings.push({cls:'f-stop',t:'Very high Innovation Friction — standalone startup path has low P(success)'});
+  if (gap <= 1) findings.push({cls:'f-go',t:'TRL/CRL gap aligned — technology and commercial maturity are in balance'});
+  else findings.push({cls:'f-risk',t:'TRL/CRL gap of '+gap+' levels — ' + (trl > crl ? 'commercial development lags technology' : 'technology lags commercial progress')});
+  if (hqCount >= 4) findings.push({cls:'f-go',t:'Four of five pre-commitment checks passed'});
+  else findings.push({cls:'f-stop',t:'Only '+hqCount+' of 5 pre-commitment checks passed — '+(5-hqCount)+' critical gaps remain'});
+  if (rw >= 24) findings.push({cls:'f-go',t:'Runway is adequate — capital supports reaching CRL 5 with buffer'});
+  else if (rw >= 12) findings.push({cls:'f-risk',t:'Runway is borderline — capital efficiency must be maximised'});
+  else findings.push({cls:'f-stop',t:'Runway is critical — C_required/C_available threatens viability before first revenue'});
+  var fHtml = '<div class="f-title">Assessment Findings</div>';
+  for (var i = 0; i < findings.length; i++) { var f = findings[i]; fHtml += '<div class="finding '+f.cls+'"><div class="f-dot"></div><div class="f-text">'+f.t+'</div></div>'; }
+  document.getElementById('i2-findings').innerHTML = fHtml;
+  var actions = [];
+  if (interviews < 2) actions.push('Complete 20 customer interviews before any other step');
+  if (!hq[0]) actions.push('Rewrite your Grandma Test sentence until a non-technical person can repeat it accurately');
+  if (!hq[1]) actions.push('Confirm budget authority with your Beach Head target');
+  if (!hq[4]) actions.push('Map the capital required to CRL 5 — raise more before committing if ratio is above 0.7');
+  if (gap > 2) actions.push('Close the TRL/CRL gap — ' + (trl > crl ? 'commercial' : 'technical') + ' development must accelerate');
+  if (totalIF > 14) actions.push('Reassess your customer segment — consider a lower-N beachhead or Path C');
+  if (rw > 0 && rw < 12) actions.push('Address runway first — no commercial strategy works if capital runs out before CRL 5');
+  if (actions.length === 0) actions.push('Your foundation is solid — proceed to commitment and use Instrument III every quarter');
+  var aHtml = '';
+  for (var i = 0; i < actions.length; i++) { aHtml += '<li>' + actions[i] + '</li>'; }
+  document.getElementById('i2-actions').innerHTML = aHtml;
+  document.getElementById('i2-result-panel').classList.add('visible');
+  document.getElementById('i2-result-panel').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ---- INSTRUMENT III ----
+var i3_view = 'founder';
+var i3_layerStatus = {};
+(function() {
+  var names = ['l1','l2','l3','l4','l5'];
+  for (var i = 0; i < names.length; i++) {
+    (function(name) {
+      var el = document.getElementById('i3-' + name);
+      if (el) el.innerHTML = '<button class="ls-btn s-red" onclick="i3_setLayer(\''+name+'\',\'red\')">Risk</button><button class="ls-btn s-amber" onclick="i3_setLayer(\''+name+'\',\'amber\')">Partial</button><button class="ls-btn s-green" onclick="i3_setLayer(\''+name+'\',\'green\')">Done</button>';
+    })(names[i]);
+  }
+})();
+function i3_setLayer(n, val) {
+  i3_layerStatus[n] = val;
+  var el = document.getElementById('i3-' + n);
+  if (!el) return;
+  var btns = el.querySelectorAll('.ls-btn');
+  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+  el.querySelector('.s-' + val).classList.add('active');
+}
+function i3_setView(v) {
+  i3_view = v;
+  var btns = document.querySelectorAll('#page-i3 .vt');
+  btns[0].classList.toggle('active', v === 'founder');
+  btns[1].classList.toggle('active', v === 'investor');
+  var note = document.getElementById('i3-inv-note');
+  if (note) note.classList.toggle('visible', v === 'investor' && document.getElementById('i3-report').style.display !== 'none');
+}
+function i3_setStage(s) {
+  var btns = document.querySelectorAll('#page-i3 .stage-btn');
+  for (var i = 0; i < btns.length; i++) { btns[i].classList.toggle('active', i === s); }
+}
+function i3_generateReport() {
+  var co = document.getElementById('i3-co').value || 'Your Venture';
+  var qtr = document.getElementById('i3-qtr').value || 'Q—';
+  var crl = +document.getElementById('i3-crl').value;
+  var crlChg = +document.getElementById('i3-crl-chg').value;
+  var rev = document.getElementById('i3-rev').value;
+  var cust = document.getElementById('i3-cust').value;
+  var pipe = document.getElementById('i3-pipe').value;
+  var run = document.getElementById('i3-run').value;
+  var burn = document.getElementById('i3-burn').value;
+  var wr = document.getElementById('i3-wr').value;
+  var nBlock = document.getElementById('i3-block').value;
+  var nPri = document.getElementById('i3-priority').value;
+  document.getElementById('i3-rc-qtr').textContent = 'Innovation Friction Report Card · ' + qtr;
+  document.getElementById('i3-rc-co').textContent = co;
+  document.getElementById('i3-rc-crl').textContent = 'CRL ' + crl + ' · ' + (crlChg > 0 ? '↑'+crlChg+' this quarter' : crlChg < 0 ? '↓ Regression' : 'Held');
+  var trackHtml = '';
+  for (var i = 1; i <= 9; i++) { trackHtml += '<div class="cp-step ' + (i < crl ? 'done' : i === crl ? 'current' : '') + '"></div>'; }
+  document.getElementById('i3-cp-track').innerHTML = trackHtml;
+  var kpis = [{l:'Revenue',v:rev?'€'+Number(rev).toLocaleString():'—'},{l:'Customers',v:cust||'—'},{l:'Pipeline',v:pipe?'€'+Number(pipe).toLocaleString():'—'}];
+  var kHtml = '';
+  for (var i = 0; i < kpis.length; i++) { kHtml += '<div class="rc-kpi"><div class="rk-l">'+kpis[i].l+'</div><div class="rk-v">'+kpis[i].v+'</div></div>'; }
+  document.getElementById('i3-rc-kpis').innerHTML = kHtml;
+  var lNames = ['Problem','Access','Trust','Process','Adoption'];
+  var lIds = ['l1','l2','l3','l4','l5'];
+  var lHtml = '';
+  for (var i = 0; i < lNames.length; i++) {
+    var s = i3_layerStatus[lIds[i]] || 'amber';
+    var bc = s==='red'?'b-red':s==='amber'?'b-amber':'b-green';
+    var bt = s==='red'?'ACTIVE RISK':s==='amber'?'IN PROGRESS':'ELIMINATED';
+    lHtml += '<div class="lsc-row"><div class="lsc-n">L'+(i+1)+'</div><div class="lsc-name">'+lNames[i]+'</div><div class="lsc-badge '+bc+'">'+bt+'</div></div>';
+  }
+  document.getElementById('i3-rc-layers').innerHTML = lHtml;
+  var pris = [];
+  if (nPri) pris.push(nPri);
+  var redLayers = [];
+  for (var k in i3_layerStatus) { if (i3_layerStatus[k] === 'red') redLayers.push(k); }
+  if (redLayers.length) pris.push('Critical: resolve active risk in ' + redLayers.join(', '));
+  if (crl < 5) pris.push('CRL 5 (first real revenue) is your primary milestone — everything else is secondary');
+  if (run && +run < 12) pris.push('Runway below 12 months — capital raise must be prioritised');
+  if (nBlock) pris.push('Unblock: ' + nBlock.slice(0, 100));
+  var pHtml = '<div class="pri-label">90-Day Priorities</div>';
+  for (var i = 0; i < Math.min(pris.length, 5); i++) { pHtml += '<div class="pri-item">' + pris[i] + '</div>'; }
+  document.getElementById('i3-rc-priorities').innerHTML = pHtml;
+  var invText = co + ' is at CRL ' + crl + ' as of ' + qtr + '. ' + (crlChg > 0 ? 'Advanced ' + crlChg + ' CRL level this quarter.' : crlChg === 0 ? 'CRL held; active friction identified.' : 'CRL regression; pivot evaluation underway.') + (rev ? ' Revenue: €' + Number(rev).toLocaleString() + '.' : ' Pre-revenue.') + (run ? ' Runway: ' + run + ' months.' : '') + ' Primary constraint: ' + (nBlock ? nBlock.slice(0, 100) : 'in analysis') + '. Next 90-day focus: ' + (nPri || 'see priorities above') + '.';
+  document.getElementById('i3-inv-text').textContent = invText;
+  var invNote = document.getElementById('i3-inv-note');
+  if (invNote) invNote.classList.toggle('visible', i3_view === 'investor');
+  document.getElementById('i3-report').style.display = 'block';
+  document.getElementById('i3-report').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ---- INSTRUMENT IV ----
+var i4_bbpChoice = '';
+var i4_rateVals = {};
+function i4_rate(group, btn, val) {
+  i4_rateVals[group] = val;
+  var el = document.getElementById('i4-' + group);
+  if (!el) return;
+  var btns = el.querySelectorAll('.rate-btn');
+  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+  btn.classList.add('active');
+}
+function i4_selectBBP(choice) {
+  i4_bbpChoice = choice;
+  var keys = ['build','buy','partner'];
+  for (var i = 0; i < keys.length; i++) { document.getElementById('i4-bbp-' + keys[i]).classList.toggle('selected', keys[i] === choice); }
+}
+function i4_getRadio(name, def) {
+  var el = document.querySelector('input[name=' + name + ']:checked');
+  return el ? el.value : def;
+}
+function i4_generate() {
+  var iMu = +i4_getRadio('i4-mu', 2);
+  var iNl = +i4_getRadio('i4-nl', 2);
+  var iTc = +i4_getRadio('i4-tc', 2);
+  var iCc = +i4_getRadio('i4-cc', 2);
+  var totalIF = iMu + iNl + iTc + iCc;
+  var cl1 = i4_getRadio('i4-cl1', 'partial');
+  var role = i4_getRadio('i4-role', 'mid');
+  var path, pathBadge, pathBadgeCls;
+  if (iMu === 1 && iNl <= 2 && iTc <= 2) { path = 'Internal Build'; pathBadge = 'Internal Path Viable'; pathBadgeCls = 'rb-internal'; }
+  else if (iTc === 3 || iCc === 3 || iNl === 3) { path = 'Partner / Pilot First'; pathBadge = 'Start with Pilot'; pathBadgeCls = 'rb-hybrid'; }
+  else { path = 'Hybrid — Pilot leading to Build'; pathBadge = 'Phased Approach'; pathBadgeCls = 'rb-hybrid'; }
+  document.getElementById('i4-rp-title').textContent = path;
+  document.getElementById('i4-rp-badge').textContent = pathBadge;
+  var risks = [
+    {label:'Sponsor Risk', level: (i4_rateVals['sr3']==='High'||i4_rateVals['sr4']==='No')?'high':(i4_rateVals['sr3']==='Med'?'med':'low'), text: i4_rateVals['sr3']==='High'?'Sponsor departure risk is high — secure political insurance immediately':i4_rateVals['sr4']==='No'?'No secondary sponsor — single point of failure':'Sponsor position appears stable'},
+    {label:'Internal IF Score', level:totalIF>=10?'high':totalIF>=7?'med':'low', text:'Combined internal friction score '+totalIF+'/12. '+(totalIF>=10?'Very high — pilot approach strongly recommended.':totalIF>=7?'Moderate — careful sequencing required.':'Manageable — internal build is viable.')},
+    {label:'Layer 1 Status', level:cl1==='yes'?'low':cl1==='partial'?'med':'high', text:cl1==='yes'?'Leadership has acknowledged the problem — executive pull exists':cl1==='partial'?'Mid-level acknowledgement only — must escalate to board level':'Problem not yet acknowledged at leadership — highest risk'},
+    {label:'Vehicle', level:i4_bbpChoice?'low':'med', text:i4_bbpChoice?(i4_bbpChoice.charAt(0).toUpperCase()+i4_bbpChoice.slice(1)+' selected — '+(i4_bbpChoice==='partner'?'lowest risk entry':'requires formal approval process')):'Vehicle not yet selected'}
+  ];
+  var rHtml = '';
+  for (var i = 0; i < risks.length; i++) { var r = risks[i]; rHtml += '<div class="rs-item rs-'+r.level+'"><div class="rs-label">'+r.label+'</div><div class="rs-text">'+r.text+'</div></div>'; }
+  document.getElementById('i4-risk-summary').innerHTML = rHtml;
+  var findings = [];
+  if (cl1 === 'yes') findings.push({cls:'f-go', t:'Leadership acknowledgement confirmed — executive pull reduces μ_human significantly'});
+  else findings.push({cls:'f-stop', t:'Layer 1 not confirmed at leadership — budget commitment is vulnerable'});
+  if (iMu === 1) findings.push({cls:'f-go', t:'Strong executive sponsor — political protection is in place'});
+  else if (iMu === 3) findings.push({cls:'f-stop', t:'No confirmed sponsor — initiative is politically exposed'});
+  if (iNl === 3) findings.push({cls:'f-risk', t:'High legacy friction — existing teams will resist; change management is critical'});
+  if (iTc === 3) findings.push({cls:'f-risk', t:'Budget cycle is long — structure the initiative in phases that fit discretionary spending first'});
+  if (i4_rateVals['sr4'] === 'No') findings.push({cls:'f-stop', t:'No secondary sponsor — single sponsor is the most common corporate innovation failure mode'});
+  var fHtml = '<div class="f-title">Assessment Findings</div>';
+  for (var i = 0; i < findings.length; i++) { var f = findings[i]; fHtml += '<div class="finding '+f.cls+'"><div class="f-dot"></div><div class="f-text">'+f.t+'</div></div>'; }
+  document.getElementById('i4-findings').innerHTML = fHtml;
+  var actions = [];
+  if (cl1 !== 'yes') actions.push('Validate the problem at C-suite level before any budget request — schedule a discovery conversation, not a pitch');
+  if (iMu >= 2) actions.push('Secure a named executive sponsor before the next step — without one, any budget approval is fragile');
+  if (i4_rateVals['sr4'] === 'No') actions.push('Identify and cultivate a secondary sponsor as political insurance against sponsor change');
+  if (iTc >= 2) actions.push('Structure Phase 1 to fit within current discretionary budget — run the pilot without a formal budget cycle');
+  if (i4_bbpChoice === 'partner' || !i4_bbpChoice) actions.push('Start with a time-limited pilot designed to be safe to approve if it fails');
+  if (iNl === 3) actions.push('Map internal stakeholders threatened by this initiative and develop a specific engagement plan for each');
+  actions.push('Test your internal Grandma Test sentence with three senior colleagues outside your function before the formal proposal');
+  if (role === 'mid') actions.push('Do not proceed to a formal proposal without your sponsor present in the room');
+  var aHtml = '';
+  for (var i = 0; i < actions.length; i++) { aHtml += '<li>' + actions[i] + '</li>'; }
+  document.getElementById('i4-actions').innerHTML = aHtml;
+  document.getElementById('i4-result-panel').classList.add('visible');
+  document.getElementById('i4-result-panel').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ---- INSTRUMENT V ----
+var i5_crisisType = '';
+var i5_answers = {};
+var i5_questionSets = {
+  customer:{q:[
+    {text:'When did you first notice the adoption problem?',opts:['Before — adoption was slow from the first week','After — they purchased but usage never reached the promised level','At renewal — they declined citing value not demonstrated']},
+    {text:'Did you define measurable success criteria before contract signature?',opts:['Yes — criteria were agreed and documented','Partially — vague success criteria, no specific metrics','No — success was not formally defined before signature']},
+    {text:'Is your primary champion still in their role?',opts:['Yes — same champion throughout','No — champion changed role or left','Unclear — no clear single champion']},
+    {text:'What did the customer say was the reason?',opts:['Value not demonstrated — no measurable outcome delivered','Integration too complex — harder to use than expected','Internal priority changed — budget reallocated','Political — new decision-maker reversed the purchase']},
+    {text:'Do you have a second customer in the same segment as a reference?',opts:['Yes — at least one strong reference','Partial — some references but not in the same segment','No — this was our primary or only customer in this segment']}
+  ]},
+  capital:{q:[
+    {text:'What triggered the capital crisis?',opts:['Round failed — investors declined after due diligence','Investor withdrew — term sheet pulled','Runway shorter than needed — burn exceeded plan','Next milestone not hit — funding tied to milestone not reached']},
+    {text:'What is your current CRL level?',opts:['CRL 1–3 — pre-revenue, validation stage','CRL 4–5 — pilot or first revenue stage','CRL 6–7 — repeatable sales emerging','CRL 8–9 — growth stage']},
+    {text:'Why did investors decline?',opts:['No revenue traction — CRL 5 not yet reached','Team credibility concerns','Market size concerns — TAM questioned','Technical risk — product not sufficiently de-risked']},
+    {text:'How many months of runway remain?',opts:['More than 12 months','6–12 months — significant pressure','Less than 6 months — critical']},
+    {text:'Do you have paying customers or signed LOIs?',opts:['Yes — paying revenue in bank','LOI or MOU only — intent but not payment','No revenue or signed commercial commitments']}
+  ]},
+  technology:{q:[
+    {text:'At what stage was the technology failure discovered?',opts:['During pilot — underperformed vs success criteria','During integration — compatibility issue discovered','In production — failed at scale or in the field','In the sale — performance claims could not be demonstrated']},
+    {text:'Is this a gap in the technology itself or in the implementation?',opts:['Core technology gap — fundamental capability limitation','Implementation gap — technology works but deployment failed','Performance gap — works but not at promised speed/accuracy','Integration gap — does not connect with customer systems']},
+    {text:'Can the gap be closed with additional development?',opts:['Yes — 3–6 months of focused development would close it','Possibly — uncertain; requires more investigation','No — fundamental barrier that cannot be overcome with current approach']},
+    {text:'Did you over-promise in the sales process?',opts:['No — failure was unexpected','Partially — performance was borderline but we proceeded','Yes — the gap between promise and delivery was foreseeable']},
+    {text:'What is the customer position?',opts:['Patient — they will wait','Impatient — needs resolved within 90 days','Terminated — cancelled or signalled intent to cancel']}
+  ]},
+  market:{q:[
+    {text:'When did the market signal change?',opts:['Suddenly — pipeline dried up in last 30 days','Gradually — conversion declining for 2+ quarters','Always slow — we may have over-estimated urgency from the start']},
+    {text:'Are prospects acknowledging the problem but not buying — or denying it?',opts:['Acknowledging but not buying — Layer 2/4 friction','Agreeing it is interesting but not urgent — Layer 1 weakness','Denying the problem — Layer 1 failure; thesis needs revisiting']},
+    {text:'How many customer conversations in the last 90 days?',opts:['20+ with new prospects','5–19 — limited sample','Fewer than 5']},
+    {text:'Has the competitive landscape changed?',opts:['Yes — new competitor or incumbent changed the value proposition','Partially — indirect substitutes addressing the problem differently','No — competitive dynamics unchanged']},
+    {text:'Do you have paying customers who are still happy?',opts:['Yes — existing customers satisfied and growing','Partial — mixed results','No — no paying customers or all showing dissatisfaction']}
+  ]}
+};
+function i5_selectCrisis(type) {
+  i5_crisisType = type;
+  var keys = ['customer','capital','technology','market'];
+  for (var i = 0; i < keys.length; i++) { document.getElementById('i5-ct-' + keys[i]).classList.toggle('selected', keys[i] === type); }
+  i5_renderQuestions(type);
+  document.getElementById('i5-q-section').style.display = 'block';
+  document.getElementById('i5-q-section').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function i5_renderQuestions(type) {
+  var qs = i5_questionSets[type].q;
+  var html = '';
+  for (var i = 0; i < qs.length; i++) {
+    html += '<div class="q5-block"><div class="q5-label">Question '+(i+1)+' of 5</div><div class="q5-text">'+qs[i].text+'</div><div class="q5-opts">';
+    for (var j = 0; j < qs[i].opts.length; j++) {
+      html += '<div class="qo" onclick="i5_selectQ('+i+','+j+')"><div class="qo-dot" id="i5-dot-'+i+'-'+j+'"></div><div class="qo-text">'+qs[i].opts[j]+'</div></div>';
+    }
+    html += '</div></div>';
+  }
+  document.getElementById('i5-q-container').innerHTML = html;
+}
+function i5_selectQ(qi, oi) {
+  i5_answers[qi] = oi;
+  var blocks = document.getElementById('i5-q-container').querySelectorAll('.q5-block');
+  var opts = blocks[qi].querySelectorAll('.qo');
+  for (var j = 0; j < opts.length; j++) { opts[j].classList.toggle('selected', j === oi); }
+}
+function i5_generateDiagnosis() {
+  var a = i5_answers;
+  var signal, verdict, vcClass, diagnosis, layer, honestQ;
+  var protocol = [];
+  if (i5_crisisType === 'customer') {
+    layer = (a[0]===2) ? 'Layer 5 — Post-Adoption Failure: the contract was signed but the value delivery system failed' : a[3]===3 ? 'Layer 3 — Trust: political change eliminated the champion who anchored the purchase' : 'Layer 5 — Adoption: usage never established after purchase';
+    if (a[3]===3) { signal='PIVOT SIGNAL'; verdict='Re-engineer the commercial model'; vcClass='vc-pivot'; diagnosis='A political change reversed a sound decision. Layer 3 (Trust) has re-activated because your μ_human reduction was tied to a single person. The engineering response is to build institutional trust rather than individual champion trust.'; }
+    else if (a[1]===2) { signal='ELIMINATE'; verdict='Define success before next contract'; vcClass='vc-continue'; diagnosis='This failure is preventable with a process change. The absence of measurable success criteria before signature means there was no agreed definition of value delivery. Layer 5 has re-activated. The fix is a standard success criteria template completed before every contract is signed.'; }
+    else { signal='CONTINUE'; verdict='Re-engage with corrective action'; vcClass='vc-continue'; diagnosis='The failure is specific and recoverable. Layer 5 has re-activated but the root cause is identifiable. Apply the 30-day protocol immediately.'; }
+    honestQ = 'If this customer had signed with a clear success criteria document, would you have been able to deliver? If yes — this is a process failure, recoverable. If no — this is a product-market fit signal requiring deeper investigation.';
+    protocol = [{week:'Days 1–7',actions:['Request urgent meeting with the most senior accessible stakeholder — frame as a value review','Document specifically what success would have looked like vs what was delivered — using their data','Identify whether a new champion can be cultivated if the original has left']},{week:'Days 8–21',actions:['Propose a specific remediation plan with measurable outcomes in 30 days','Over-resource this account — your most senior technical person should personally own remediation','Begin parallel qualification of a reference customer in the same segment']},{week:'Days 22–30',actions:['Conduct a post-mortem on the Layer 5 failure: what process change prevents recurrence?','Update your contract template to require measurable success criteria as a signed schedule','Brief your board with specific corrective actions rather than a general update']}];
+  } else if (i5_crisisType === 'capital') {
+    layer = 'C_capital — The capital friction variable has become binding. When C_required ÷ C_available approaches 1.0, the company fails regardless of technology quality.';
+    if (a[3]===2) { signal='CRITICAL — ACT NOW'; verdict='Capital crisis — 30-day protocol immediate'; vcClass='vc-change'; diagnosis='Runway below 6 months is an existential event. Every action must serve one of two purposes: extend runway, or accelerate revenue. Everything else is secondary until the ratio improves.'; }
+    else if (a[0]===3 && a[4]===2) { signal='PIVOT SIGNAL'; verdict='Milestone reset required'; vcClass='vc-pivot'; diagnosis='Investors declined because CRL 5 has not been reached. The most capital-efficient action is to close one paying customer before any further fundraising. One invoice dramatically changes the investor conversation — not because of the revenue amount, but because of what it proves.'; }
+    else { signal='CONTINUE'; verdict='Bridge and accelerate CRL'; vcClass='vc-continue'; diagnosis='The capital crisis is serious but recoverable with focused action on the 30-day protocol.'; }
+    honestQ = 'Do you have a paying customer in the next 60 days? If yes — raise on that. If no — what specifically would need to be true to get one in 30 days?';
+    protocol = [{week:'Days 1–7',actions:['Map every source of near-term capital: bridge from existing investors, revenue-based financing, grants, partnership advances','Identify the one customer most likely to pay in the next 30–60 days — over-resource their close process','Reduce burn to minimum viable level immediately']},{week:'Days 8–21',actions:['Have a direct conversation with your most supportive investor about bridge financing — ask directly, do not hint','Get specific feedback from investors who declined: treat this as a design brief for what must change','Consider a structured partnership that provides capital in exchange for commercial rights']},{week:'Days 22–30',actions:['CRL 5 is your single most important milestone — cancel everything else that does not directly serve this goal','Prepare a capital efficiency narrative for your board: cost-per-CRL-level','If runway reaches less than 3 months without a credible bridge: begin controlled assessment rather than uncontrolled failure']}];
+  } else if (i5_crisisType === 'technology') {
+    layer = a[2]===2 ? 'The numerator (Technology Quality) has failed to meet the minimum threshold. No commercial engineering can compensate for a fundamental technology gap.' : 'Layer 5 (Adoption) with root cause in the numerator: technology works but performance claims created expectations that could not be met.';
+    if (a[2]===2) { signal='CHANGE PATH'; verdict='Fundamental technical barrier identified'; vcClass='vc-change'; diagnosis='A fundamental technical barrier changes everything. The honest assessment must come first: is this barrier closeable in a timeframe compatible with your capital position? If yes, reduce commercial activity and accelerate R&D. If no, this may require a pivot to a different application where the barrier does not exist.'; }
+    else if (a[3]===1 && a[4]===2) { signal='PIVOT SIGNAL'; verdict='Commercial model and narrative must change'; vcClass='vc-pivot'; diagnosis='The gap between promise and delivery is a commercial model problem as much as a technical one. Buyers evaluated on Layer 2 (outcome) but your claims were made at Layer 1 (technology). Rebuild the commercial narrative around what you can demonstrably deliver today.'; }
+    else { signal='CONTINUE'; verdict='Recoverable with focused technical action'; vcClass='vc-continue'; diagnosis='The technology failure is specific, bounded, and recoverable. Apply the 30-day protocol with a clear technical owner and measurable milestones.'; }
+    honestQ = 'Is this a gap in the technology, or a gap between what you promised and what the technology can currently do? If you over-promised — fix the narrative. If the technology does not work — fix the technology before the next commercial commitment.';
+    protocol = [{week:'Days 1–7',actions:['Convene an honest technical assessment: what exactly failed, by how much, and what is the fix timeline','Brief your most trusted customer contact before they brief you — proactive transparency reduces μ_human','Stop all sales activity that depends on the capability in question']},{week:'Days 8–21',actions:['Set a specific, measurable technical milestone for Day 30 — not "improve" but "achieve X result on test Y"','Redesign customer success criteria for affected deployments — renegotiate if necessary','Assess whether the technical gap changes your beachhead segment']},{week:'Days 22–30',actions:['Report to board with a specific fix plan, timeline, and capital requirements','If fix not achievable in 90 days: assess pivot to a different application where the gap does not exist','Rewrite your Grandma Test sentence to reflect what you can actually deliver today']}];
+  } else {
+    layer = a[1]===2 ? 'Layer 1 (Problem) — the foundational layer has re-activated. Buyers are not confirming urgency. This is a market thesis failure, not an execution failure.' : a[3]===0 ? 'Layer 2 (Access) with Layer 3 implications — competitive change has altered the μ_human landscape.' : 'Layers 1–2 showing stress signals. Urgency may be real but access is blocked.';
+    if (a[1]===2 || a[0]===2) { signal='CHANGE PATH'; verdict='Layer 1 failure — market thesis must be revisited'; vcClass='vc-change'; diagnosis='When buyers deny the problem or find it non-urgent, the market thesis requires urgent re-examination. This is not a messaging problem — better messaging does not create urgency that does not exist. The correct response is 30 deep customer conversations conducted as discovery, not sales.'; }
+    else if (a[3]===0) { signal='PIVOT SIGNAL'; verdict='Reframe competitive positioning'; vcClass='vc-pivot'; diagnosis='Competitive change has altered the landscape. Your value proposition must be repositioned relative to the new competitive reality. Identify specifically what you can do that new competitors cannot.'; }
+    else { signal='CONTINUE'; verdict='Friction identified — beachhead may need adjustment'; vcClass='vc-continue'; diagnosis='The market crisis is real but the data is not yet sufficient to determine whether this is a thesis failure or a segment/timing issue. The 30-day protocol generates enough data to distinguish between the two.'; }
+    honestQ = 'In your last 20 customer conversations, how many times did the buyer bring up the problem you are solving without you prompting them? If fewer than 10: the problem may not be urgent enough in your current segment.';
+    protocol = [{week:'Days 1–7',actions:['Conduct 10 discovery conversations in 7 days — not sales calls: "Walk me through your biggest operational problem right now"','Do not mention your product in any of these conversations — you are measuring the market, not pitching it','Document whether the problem you are solving appears in their top 3 without prompting']},{week:'Days 8–21',actions:['Analyse the pattern: is urgency timing-dependent, or is the problem itself less acute than assumed?','Revisit the Signal-Friction Matrix — is there a different segment where the same technology addresses urgent pain?','If competitive landscape changed: map what you can do that competitors cannot']},{week:'Days 22–30',actions:['Present findings to board: is this a segment problem (fixable) or a market thesis problem (requires pivot)?','Do not raise capital until the thesis is rebuilt on new evidence — investors will wait for clarity','If segment problem: define the new beachhead explicitly and name 5 companies in it']}];
+  }
+  document.getElementById('i5-vc-signal').textContent = signal;
+  document.getElementById('i5-vc-verdict').textContent = verdict;
+  document.getElementById('i5-verdict-card').className = 'verdict-card ' + vcClass;
+  document.getElementById('i5-vc-diag').textContent = diagnosis;
+  document.getElementById('i5-lr-text').textContent = layer;
+  document.getElementById('i5-honest-q').textContent = honestQ;
+  var pHtml = '';
+  for (var i = 0; i < protocol.length; i++) {
+    pHtml += '<div class="p30-week"><div class="pw-num">' + protocol[i].week + '</div><ul class="pw-actions">';
+    for (var j = 0; j < protocol[i].actions.length; j++) { pHtml += '<li>' + protocol[i].actions[j] + '</li>'; }
+    pHtml += '</ul></div>';
+  }
+  document.getElementById('i5-protocol').innerHTML = pHtml;
+  document.getElementById('i5-result').style.display = 'block';
+  document.getElementById('i5-result').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function i5_reset() {
+  i5_crisisType = '';
+  i5_answers = {};
+  var keys = ['customer','capital','technology','market'];
+  for (var i = 0; i < keys.length; i++) { document.getElementById('i5-ct-' + keys[i]).classList.remove('selected'); }
+  document.getElementById('i5-q-section').style.display = 'none';
+  document.getElementById('i5-result').style.display = 'none';
+  document.getElementById('i5-q-container').innerHTML = '';
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
