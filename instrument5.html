@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IF Instrument V — Crisis Diagnostic</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0e0d0b;--ink2:#2a2520;--muted:#6b6560;--faint:#9a9590;--rule:#d8d4ce;--rule2:#e8e4de;--cream:#f5f2ed;--page:#ffffff;--accent:#8b2500;--blue:#1a3d78;--green:#1a6b3c;--gold:#a87c20;--serif:'Crimson Pro',Georgia,serif;--sans:'Source Sans 3',system-ui,sans-serif;--mono:'IBM Plex Mono','Courier New',monospace;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:11pt;scroll-behavior:smooth;}
+body{font-family:var(--sans);font-weight:300;line-height:1.7;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;min-height:100vh;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+nav{background:var(--cream);border-bottom:1.5px solid var(--ink);padding:.65rem 2rem;display:flex;align-items:center;gap:1.5rem;position:sticky;top:0;z-index:100;}
+.nb{text-decoration:none;display:flex;align-items:baseline;gap:.15rem;}
+.nb-inn{font-family:var(--serif);font-size:14.5pt;font-weight:700;color:var(--ink);}
+.nb-fri{font-family:var(--serif);font-size:14.5pt;font-weight:500;font-style:italic;color:var(--accent);}
+.nl{display:flex;gap:.4rem;margin-left:auto;flex-wrap:wrap;}
+.nl a{font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:.28rem .6rem;border:1px solid var(--rule);-webkit-tap-highlight-color:rgba(139,37,0,.15);transition:all .2s;}
+.nl a:hover,.nl a.active{color:var(--ink);border-color:var(--accent);background:#fff8f5;}
+.shell{max-width:760px;margin:0 auto;padding:3rem 2rem 5rem;}
+.inst-tag{font-family:var(--mono);font-size:7.5pt;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:.75rem;}
+h1{font-family:var(--serif);font-size:26pt;font-weight:400;color:var(--ink);line-height:1.15;margin-bottom:.4rem;}
+.sub{font-family:var(--serif);font-size:13.5pt;font-style:italic;color:var(--muted);margin-bottom:2rem;}
+
+/* URGENCY BANNER */
+.urgency-bar{background:#fff8f5;border:1.5px solid var(--accent);padding:1rem 1.25rem;margin-bottom:2rem;}
+.urgency-bar p{font-size:10.5pt;color:var(--ink2);line-height:1.6;}
+.urgency-bar strong{color:var(--accent);}
+
+/* STEP LABEL */
+.step-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;}
+
+/* CRISIS TYPE GRID — CSS was completely missing */
+.crisis-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:2rem;}
+.crisis-btn{background:var(--page);border:1.5px solid var(--rule);padding:1.25rem;cursor:pointer;-webkit-tap-highlight-color:rgba(139,37,0,.1);transition:all .22s;display:flex;flex-direction:column;gap:.35rem;}
+.crisis-btn:hover{border-color:var(--accent);background:#fff8f5;}
+.crisis-btn.selected{background:#fff8f5;border-color:var(--accent);border-bottom:3px solid var(--accent);}
+.cb-icon{font-size:18pt;line-height:1;}
+.cb-title{font-family:var(--serif);font-size:13pt;font-weight:600;color:var(--ink);}
+.cb-desc{font-size:9.5pt;color:var(--muted);line-height:1.55;}
+
+/* QUESTIONS SECTION */
+.q-block{margin-bottom:1.75rem;}
+.q-label{font-family:var(--mono);font-size:7pt;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+.q-text{font-family:var(--serif);font-size:14pt;font-weight:500;color:var(--ink);line-height:1.35;margin-bottom:.85rem;}
+.q-opts{display:flex;flex-direction:column;gap:.5rem;}
+.qo{background:var(--page);border:1.5px solid var(--rule);padding:.85rem 1rem;cursor:pointer;-webkit-tap-highlight-color:rgba(139,37,0,.1);transition:all .2s;display:flex;gap:.85rem;align-items:flex-start;}
+.qo:hover{border-color:var(--ink2);}
+.qo.selected{background:#fff8f5;border-color:var(--accent);}
+.qo-dot{width:.65rem;height:.65rem;border-radius:50%;border:1.5px solid var(--rule);flex-shrink:0;margin-top:.3rem;transition:all .2s;}
+.qo.selected .qo-dot{background:var(--accent);border-color:var(--accent);}
+.qo-text{font-size:10.5pt;color:var(--ink2);line-height:1.55;}
+
+/* BUTTONS */
+.btn-row{display:flex;gap:.75rem;margin-top:1.75rem;}
+.btn{font-family:var(--mono);font-size:8pt;letter-spacing:.12em;text-transform:uppercase;padding:.65rem 1.4rem;border:none;cursor:pointer;transition:all .2s;}
+.btn-diag{background:var(--green);color:#fff;}
+.btn-diag:hover{background:#145530;}
+.btn-reset{background:transparent;color:var(--muted);border:1px solid var(--rule);}
+.btn-reset:hover{border-color:var(--ink);color:var(--ink);}
+
+/* RESULT PANEL */
+.diag-result{display:none;margin-top:2.5rem;}
+.diag-result.visible{display:block;animation:fadeIn .4s ease;}
+.verdict-card{border:1.5px solid var(--ink);overflow:hidden;margin-bottom:1.25rem;}
+.vc-continue .vc-head{background:var(--green);}
+.vc-pivot .vc-head{background:var(--gold);}
+.vc-change .vc-head{background:var(--accent);}
+.vc-head{padding:1.5rem;display:flex;flex-direction:column;gap:.35rem;}
+.vc-signal{font-family:var(--mono);font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75);}
+.vc-verdict{font-family:var(--serif);font-size:20pt;font-weight:600;color:#fff;line-height:1.15;}
+.vc-body{background:var(--page);padding:1.5rem;}
+.vc-diagnosis{font-size:10.5pt;line-height:1.75;color:var(--ink2);margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid var(--rule);}
+.layer-reactivated{background:var(--cream);border:1px solid var(--rule);padding:1rem;margin-bottom:1.25rem;}
+.lr-label{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+.lr-text{font-size:10pt;color:var(--ink2);line-height:1.65;}
+.protocol-30{margin-bottom:1.25rem;}
+.p30-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.85rem;}
+.p30-week{margin-bottom:1rem;}
+.pw-num{font-family:var(--mono);font-size:9pt;font-weight:500;color:var(--green);margin-bottom:.45rem;}
+.pw-actions{list-style:none;padding:0;}
+.pw-actions li{font-size:10pt;color:var(--ink2);line-height:1.65;padding:.35rem 0 .35rem .9rem;position:relative;border-bottom:1px dotted var(--rule);}
+.pw-actions li:last-child{border:none;}
+.pw-actions li::before{content:'\2192';position:absolute;left:0;font-family:var(--mono);color:var(--green);}
+.truth-box{background:#fdf6e8;border:1px solid var(--gold);padding:1rem 1.25rem;}
+.tb-label{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;}
+.tb-text{font-family:var(--serif);font-size:12pt;font-style:italic;color:var(--ink2);line-height:1.65;}
+
+footer{border-top:1px solid var(--rule);padding:2rem;text-align:center;margin-top:3rem;}
+footer p{font-family:var(--mono);font-size:7pt;letter-spacing:.08em;color:var(--muted);line-height:1.9;}
+footer a{color:var(--accent);text-decoration:none;}
+@media(max-width:580px){.crisis-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nb" href="index.html"><span class="nb-inn">Innovation</span><span class="nb-fri">&nbsp;Friction</span></a>
+  <div class="nl"><a href="index.html">Home</a><a href="instrument1.html">I</a><a href="instrument2.html">II</a><a href="instrument3.html">III</a><a href="instrument4.html">IV</a><a href="instrument5.html" class="active">V</a></div>
+</nav>
+<div class="shell">
+  <div class="inst-tag">Instrument V &middot; Crisis Diagnostic</div>
+  <h1>Crisis Diagnostic</h1>
+  <p class="sub">30 minutes. Use immediately when something has gone wrong.</p>
+  <div class="urgency-bar"><p><strong>Use this now.</strong> Do not wait until the board meeting. Do not wait until you have a full picture. The diagnostic takes 30 minutes and gives you the one thing you need in a crisis: clarity about what layer has re-activated and whether the correct response is to eliminate, pivot, or change path.</p></div>
+
+  <div class="step-label">Step 1 &middot; What type of crisis are you in?</div>
+  <div class="crisis-grid">
+    <div class="crisis-btn" onclick="selectCrisis('customer')" id="ct-customer"><div class="cb-icon">🔴</div><div class="cb-title">Customer Lost / Churn</div><div class="cb-desc">Key customer cancelled, churned, failed to renew, or stalled at adoption after purchase</div></div>
+    <div class="crisis-btn" onclick="selectCrisis('capital')" id="ct-capital"><div class="cb-icon">🔴</div><div class="cb-title">Funding Gap / Capital</div><div class="cb-desc">Funding round failed, investor withdrew, runway shorter than required to reach next milestone</div></div>
+    <div class="crisis-btn" onclick="selectCrisis('technology')" id="ct-technology"><div class="cb-icon">🔴</div><div class="cb-title">Technology Failure</div><div class="cb-desc">Product under-delivered vs promise, technical capability gap discovered, integration failed</div></div>
+    <div class="crisis-btn" onclick="selectCrisis('market')" id="ct-market"><div class="cb-icon">🔴</div><div class="cb-title">Market / Pivot Signal</div><div class="cb-desc">Pipeline dried up, conversion rate collapsed, questioning whether the problem is real</div></div>
+  </div>
+
+  <div id="questions-section" style="display:none;">
+    <div class="step-label">Step 2 &middot; Five rapid questions</div>
+    <div id="q-container"></div>
+    <div class="btn-row">
+      <button class="btn btn-diag" onclick="generateDiagnosis()">Generate Diagnosis &rarr;</button>
+      <button class="btn btn-reset" onclick="resetTool()">&larr; Start Over</button>
+    </div>
+  </div>
+
+  <div class="diag-result" id="diag-result">
+    <div class="verdict-card" id="verdict-card">
+      <div class="vc-head" id="vc-head">
+        <div class="vc-signal" id="vc-signal">&mdash;</div>
+        <div class="vc-verdict" id="vc-verdict">&mdash;</div>
+      </div>
+      <div class="vc-body">
+        <div class="vc-diagnosis" id="vc-diagnosis">&mdash;</div>
+        <div class="layer-reactivated"><div class="lr-label">Reactivated Failure Layer</div><div class="lr-text" id="lr-text">&mdash;</div></div>
+        <div class="protocol-30"><div class="p30-label">30-Day Action Protocol</div><div id="protocol-content"></div></div>
+        <div class="truth-box"><div class="tb-label">The Honest Question You Must Answer</div><div class="tb-text" id="honest-q">&mdash;</div></div>
+      </div>
+    </div>
+    <button class="btn btn-reset" onclick="resetTool()">&larr; New Diagnostic</button>
+  </div>
+</div>
+<footer>
+  <p>&copy; 2026 Rajesh SHARMA &middot; Innovation Friction Framework &middot; <a href="index.html">innovationfriction.com</a><br>
+  <a href="mailto:raj@telsunventures.com">raj@telsunventures.com</a> &middot; <a href="if_index.html">&larr; All Instruments</a></p>
+</footer>
+<script>
+var crisisType='', answers={};
+var questionSets={
+  customer:{q:[
+    {text:'When did you first notice the adoption problem?',opts:['Before \u2014 adoption was slow from the first week of implementation','After \u2014 they purchased but usage never reached the promised level','At renewal \u2014 they declined to renew citing value not demonstrated']},
+    {text:'Did you define measurable success criteria before the contract was signed?',opts:['Yes \u2014 criteria were agreed and documented','Partially \u2014 vague success criteria, no specific metrics','No \u2014 success was not formally defined before signature']},
+    {text:'Is your primary champion still in their role?',opts:['Yes \u2014 same champion throughout','No \u2014 champion changed role or left the organisation','Unclear \u2014 multiple stakeholders, no clear single champion']},
+    {text:'What did the customer say was the reason?',opts:['Value not demonstrated \u2014 no measurable outcome delivered','Integration too complex \u2014 product harder to use than expected','Internal priority changed \u2014 budget reallocated','Political \u2014 new decision-maker reversed the purchase']},
+    {text:'Do you have a second customer in the same segment who can serve as a reference?',opts:['Yes \u2014 we have at least one strong reference customer','Partial \u2014 some references but not in the same segment','No \u2014 this was our primary or only customer in this segment']}
+  ]},
+  capital:{q:[
+    {text:'What triggered the capital crisis?',opts:['Round failed \u2014 investors declined after due diligence','Investor withdrew \u2014 term sheet signed but investor pulled out','Runway shorter than needed \u2014 burn exceeded plan','Next milestone not hit \u2014 investors tied funding to milestone not reached']},
+    {text:'What is your current CRL level?',opts:['CRL 1\u20133 \u2014 pre-revenue, validation stage','CRL 4\u20135 \u2014 pilot or first revenue stage','CRL 6\u20137 \u2014 repeatable sales emerging','CRL 8\u20139 \u2014 growth stage']},
+    {text:'Why did investors decline (if applicable)?',opts:['No revenue traction \u2014 CRL 5 not yet reached','Team credibility concerns \u2014 commercial capability questioned','Market size concerns \u2014 TAM questioned','Technical risk \u2014 product not sufficiently de-risked']},
+    {text:'How many months of runway remain?',opts:['More than 12 months \u2014 adequate buffer','6\u201312 months \u2014 significant pressure','Less than 6 months \u2014 critical']},
+    {text:'Do you have paying customers or signed LOIs?',opts:['Yes \u2014 paying revenue in bank','LOI or MOU only \u2014 intent but not payment','No revenue or signed commercial commitments']}
+  ]},
+  technology:{q:[
+    {text:'At what stage was the technology failure discovered?',opts:['During pilot \u2014 product underperformed against agreed success criteria','During integration \u2014 technical compatibility issue discovered','In production \u2014 worked in testing but failed at scale or in the field','In the sale \u2014 performance claims could not be demonstrated in customer demo']},
+    {text:'Is this a gap in the technology itself or in the implementation?',opts:['Core technology gap \u2014 fundamental capability limitation','Implementation gap \u2014 technology works but deployment failed','Performance gap \u2014 works but not at the speed/scale/accuracy promised','Integration gap \u2014 does not connect with customer\'s existing systems']},
+    {text:'Can the gap be closed with additional development?',opts:['Yes \u2014 3\u20136 months of focused development would close it','Possibly \u2014 uncertain; requires more investigation','No \u2014 fundamental technical barrier that cannot be overcome with current approach']},
+    {text:'Did you over-promise in the sales process?',opts:['No \u2014 failure was unexpected given our development data','Partially \u2014 we knew performance was borderline but proceeded','Yes \u2014 the gap between promise and delivery was foreseeable']},
+    {text:'What is the customer\'s position?',opts:['Patient \u2014 they understand deep tech timelines and will wait','Impatient \u2014 they need this resolved within 90 days','Terminated \u2014 they have cancelled or signalled intent to cancel']}
+  ]},
+  market:{q:[
+    {text:'When did the market signal change?',opts:['Suddenly \u2014 pipeline dried up in the last 30 days','Gradually \u2014 conversion rate has been declining for 2+ quarters','It was always slow \u2014 we may have over-estimated urgency from the start']},
+    {text:'Are prospects acknowledging the problem but not buying \u2014 or denying the problem exists?',opts:['Acknowledging but not buying \u2014 Layer 2/4 friction (access or process)','Agreeing it\'s interesting but not urgently needed \u2014 Layer 1 weakness','Denying the problem \u2014 Layer 1 failure; fundamental market thesis needs revisiting']},
+    {text:'How many customer conversations have you had in the last 90 days?',opts:['20+ with new prospects \u2014 broad exposure to the market signal','5\u201319 \u2014 limited sample, could be noise','Fewer than 5 \u2014 signal may not be representative']},
+    {text:'Has the competitive landscape changed?',opts:['Yes \u2014 a new competitor or incumbent has changed the value proposition','Partially \u2014 indirect substitutes are addressing the problem differently','No \u2014 competitive dynamics unchanged']},
+    {text:'Do you have paying customers who are still happy?',opts:['Yes \u2014 existing customers are satisfied and growing','Partial \u2014 mixed results; some happy, some not','No \u2014 no paying customers yet, or all showing dissatisfaction']}
+  ]}
+};
+
+function selectCrisis(type){
+  crisisType=type;
+  Object.keys(questionSets).forEach(function(k){document.getElementById('ct-'+k).classList.toggle('selected',k===type);});
+  renderQuestions(type);
+  document.getElementById('questions-section').style.display='block';
+  document.getElementById('questions-section').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function renderQuestions(type){
+  var qs=questionSets[type].q;
+  document.getElementById('q-container').innerHTML=qs.map(function(q,i){
+    return '<div class="q-block"><div class="q-label">Question '+(i+1)+' of 5</div><div class="q-text">'+q.text+'</div><div class="q-opts">'+q.opts.map(function(o,j){return '<div class="qo" onclick="selectQ('+i+','+j+')"><div class="qo-dot" id="dot-'+i+'-'+j+'"></div><div class="qo-text">'+o+'</div></div>';}).join('')+'</div></div>';
+  }).join('');
+}
+
+function selectQ(qi,oi){
+  answers[qi]=oi;
+  var blocks=document.getElementById('q-container').querySelectorAll('.q-block');
+  var opts=blocks[qi].querySelectorAll('.qo');
+  opts.forEach(function(el,j){el.classList.toggle('selected',j===oi);});
+}
+
+function generateDiagnosis(){
+  var a=answers;
+  var signal,verdict,vcClass,diagnosis,layer,protocol,honestQ;
+  if(crisisType==='customer'){
+    var political=a[3]===3;var noSuccess=a[1]===2;
+    layer=a[0]===2?'Layer 5 \u2014 Post-Adoption Failure: the contract was signed but the value delivery system failed':a[0]===1?'Layer 5 \u2014 Adoption: usage never established; product delivered but not used':'Layer 3 \u2014 Trust: political change eliminated the champion who anchored the purchase';
+    if(political){signal='PIVOT SIGNAL';verdict='Re-engineer the commercial model';vcClass='vc-pivot';diagnosis='A political change inside the customer has reversed a decision that was sound on technical and commercial merit. This is not a product failure \u2014 it is a champion dependency failure. Layer 3 (Trust) has re-activated because your \u03bc_human reduction was tied to a single person. The engineering response is to restructure your commercial approach to build institutional trust rather than individual champion trust.';}
+    else if(noSuccess){signal='ELIMINATE';verdict='Define success before next contract';vcClass='vc-continue';diagnosis='This failure is preventable with a process change. The absence of measurable success criteria before signature means there was no agreed definition of value delivery. Layer 5 (Adoption) has re-activated because the adoption problem was not engineered before it occurred. The fix is a standard success criteria template that must be completed before every contract is signed.';}
+    else{signal='CONTINUE';verdict='Re-engage with corrective action';vcClass='vc-continue';diagnosis='The failure is specific and recoverable. Layer 5 has re-activated but the root cause is identifiable. Apply the 30-day protocol immediately.';}
+    protocol=[{week:'Days 1\u20137',actions:['Request an urgent meeting with the most senior accessible stakeholder \u2014 frame as a value review, not a complaint call','Document specifically what success would have looked like vs what was delivered \u2014 use their own data, not yours','Identify whether a new champion can be cultivated if the original has left or lost influence']},{week:'Days 8\u201321',actions:['Propose a specific remediation plan with measurable outcomes in 30 days \u2014 make it safe to approve if it fails','Over-resource this account \u2014 your most senior technical person should personally own the remediation','Begin parallel qualification of a reference customer in the same segment who can replace this one if needed']},{week:'Days 22\u201330',actions:['Conduct a formal post-mortem on the Layer 5 failure: what process change prevents this recurring?','Update your contract template to require measurable success criteria as a signed schedule','Brief your board with specific corrective actions rather than a general update']}];
+    honestQ='If this customer had signed with a clear success criteria document, would you have been able to deliver? If yes \u2014 this is a process failure, recoverable. If no \u2014 this is a product-market fit signal that requires deeper investigation.';
+  } else if(crisisType==='capital'){
+    var criticalRun=a[3]===2;var milestoneNotHit=a[0]===3;var noRev=a[4]===2;
+    if(criticalRun){signal='CRITICAL \u2014 ACT NOW';verdict='Capital crisis \u2014 30-day protocol immediate';vcClass='vc-change';}
+    else if(milestoneNotHit&&noRev){signal='PIVOT SIGNAL';verdict='Milestone reset required';vcClass='vc-pivot';}
+    else{signal='CONTINUE';verdict='Bridge and accelerate CRL';vcClass='vc-continue';}
+    layer='C_capital \u2014 The capital friction variable has become binding. When C_required \u00f7 C_available approaches 1.0, the company fails regardless of technology quality or market opportunity.';
+    diagnosis=criticalRun?'Runway below 6 months is an existential event. Every action in the next 30 days must serve one of two purposes: extend runway, or accelerate revenue. Everything else is secondary until the ratio improves.':noRev?'Investors declined because CRL 5 (first real revenue) has not been reached. The most capital-efficient action available is to close one paying customer before any further fundraising activity. One invoice dramatically changes the investor conversation.':'The capital crisis is serious but recoverable with focused action on the 30-day protocol.';
+    protocol=[{week:'Days 1\u20137',actions:['Map every possible source of near-term capital: bridge from existing investors, revenue-based financing, grants, strategic partnership advance payments','Identify the one customer most likely to pay in the next 30\u201360 days \u2014 over-resource their close process','Reduce burn to minimum viable level \u2014 this is not the time for nice-to-haves']},{week:'Days 8\u201321',actions:['Have a direct conversation with your most supportive existing investor about bridge financing \u2014 ask directly, do not hint','If fundraising failed: get specific feedback on exactly what must be true for them to invest \u2014 treat this as a design brief','Consider a structured partnership that provides capital in exchange for commercial rights']},{week:'Days 22\u201330',actions:['CRL 5 is your single most important milestone \u2014 cancel everything else that does not directly serve this goal','Prepare a capital efficiency narrative for your board: cost-per-CRL-level and what it costs to reach CRL 5','If runway reaches less than 3 months without a credible bridge: begin controlled wind-down assessment rather than uncontrolled failure']}];
+    honestQ='Do you have a paying customer in the next 60 days? If yes \u2014 raise on that. If no \u2014 what specifically would need to be true to get one, and can you do it in 30 days?';
+  } else if(crisisType==='technology'){
+    var fundamental=a[2]===2;var overPromised=a[3]===1;var customerLeft=a[4]===2;
+    if(fundamental){signal='CHANGE PATH';verdict='Fundamental technical barrier identified';vcClass='vc-change';}
+    else if(overPromised&&customerLeft){signal='PIVOT SIGNAL';verdict='Commercial model and narrative must change';vcClass='vc-pivot';}
+    else{signal='CONTINUE';verdict='Recoverable with focused technical action';vcClass='vc-continue';}
+    layer=fundamental?'The numerator (Technology Quality) has failed to meet the minimum threshold required for Layer 3 (Trust) to function. No commercial engineering can compensate for a fundamental technology gap.':'Layer 5 (Adoption) with root cause in the numerator: the technology works but the performance claims created unrealistic expectations that the delivered product could not meet.';
+    diagnosis=fundamental?'A fundamental technical barrier changes everything. The honest assessment must precede all other actions: is this barrier closeable in a timeframe compatible with your capital position? If yes, reduce commercial activity, accelerate R&D, and manage customer expectations through the gap. If no, this may require a pivot to a different application of the underlying technology where the barrier does not exist.':overPromised?'The gap between promise and delivery is a commercial model problem as much as a technical one. Rebuild the commercial narrative around what you can demonstrably deliver today, not what you expect to deliver at TRL 9.':'The technology failure is specific, bounded, and recoverable. Apply the 30-day protocol with a clear technical owner and measurable milestones.';
+    protocol=[{week:'Days 1\u20137',actions:['Convene an honest technical assessment \u2014 not a blame exercise, a diagnostic: what exactly failed, by how much, and what is the fix timeline','Brief your most trusted customer contact before they brief you \u2014 proactive transparency reduces \u03bc_human significantly','Stop all sales activity that depends on the capability in question \u2014 do not create new commitments you cannot yet keep']},{week:'Days 8\u201321',actions:['Set a specific, measurable technical milestone for Day 30 \u2014 not improve performance but achieve X accuracy on test set Y','Redesign the customer success criteria for affected deployments \u2014 renegotiate if necessary, with a clear remediation timeline','Assess whether the technical gap changes your beachhead segment \u2014 a segment with lower performance requirements may be your bridge']},{week:'Days 22\u201330',actions:['Report to board with a specific technical fix plan, timeline, and capital requirements \u2014 no vagueness','If the fix is not achievable in 90 days: assess pivot to a different application where the gap does not exist','Rewrite your Grandma Test sentence to reflect what you can actually deliver today']}];
+    honestQ='Is this a gap in the technology, or a gap between what you promised and what the technology can currently do? If the technology works but you over-promised \u2014 fix the narrative. If the technology does not work \u2014 fix the technology before the next commercial commitment.';
+  } else if(crisisType==='market'){
+    var denial=a[1]===2;var alwaysSlow=a[0]===2;var competitive=a[3]===0;
+    if(denial||alwaysSlow){signal='CHANGE PATH';verdict='Layer 1 failure \u2014 market thesis must be revisited';vcClass='vc-change';}
+    else if(competitive){signal='PIVOT SIGNAL';verdict='Reframe competitive positioning';vcClass='vc-pivot';}
+    else{signal='CONTINUE';verdict='Friction identified \u2014 beachhead segment may need adjustment';vcClass='vc-continue';}
+    layer=denial?'Layer 1 (Problem) \u2014 the foundational layer has re-activated. Buyers are not confirming the urgency of the problem. This is a market thesis failure, not an execution failure.':competitive?'Layer 2 (Access) with Layer 3 (Trust) implications \u2014 competitive change has altered the \u03bc_human landscape.':'Layers 1\u20132 showing stress signals. Urgency may be real but access is blocked by a friction variable not yet fully diagnosed.';
+    diagnosis=denial?'When buyers deny the problem or find it interesting but non-urgent, the market thesis requires urgent re-examination. This is not a messaging problem \u2014 better messaging does not create urgency that does not exist. The correct response is 30 deep customer conversations conducted as discovery, not sales.':alwaysSlow?'The signal that it was always slow is the most important diagnostic finding. This suggests the original customer validation may have been insufficient \u2014 urgency was assumed rather than confirmed in 20+ buyer conversations with budget authority. The correct response is to return to CRL 2 activities before any further commercial investment.':'The market crisis is real but the data is not yet sufficient to determine whether this is a thesis failure or a segment/timing issue. The 30-day protocol focuses on generating enough data to distinguish between the two.';
+    protocol=[{week:'Days 1\u20137',actions:['Conduct 10 discovery conversations in 7 days \u2014 not sales calls, discovery: Walk me through your biggest operational problem right now','Do not mention your product in any of these conversations \u2014 you are measuring the market, not pitching it','Document whether the problem you are solving appears in their top 3 without prompting']},{week:'Days 8\u201321',actions:['Analyse the pattern from the 10 conversations: is the problem real but urgency is timing-dependent, or is the problem itself less acute than assumed?','Revisit the Signal-Friction Matrix \u2014 is there a different segment where the same technology addresses an urgent problem with lower N_legacy?','If competitive landscape has changed: map the new landscape and identify what you can do that competitors cannot']},{week:'Days 22\u201330',actions:['Present findings to board with a clear hypothesis: is this a segment problem (fixable) or a market thesis problem (requires pivot)?','If thesis problem: do not raise capital until the thesis is rebuilt on new evidence','If segment problem: define the new beachhead segment explicitly and name 5 companies in it']}];
+    honestQ='In your last 20 customer conversations, how many times did the buyer bring up the problem you are solving without you prompting them? If the answer is fewer than 10: the problem may not be urgent enough in your current segment.';
+  }
+  document.getElementById('vc-signal').textContent=signal;
+  document.getElementById('vc-verdict').textContent=verdict;
+  document.getElementById('verdict-card').className='verdict-card '+vcClass;
+  document.getElementById('vc-diagnosis').textContent=diagnosis;
+  document.getElementById('lr-text').textContent=layer;
+  document.getElementById('protocol-content').innerHTML=protocol.map(function(w){return '<div class="p30-week"><div class="pw-num">'+w.week+'</div><ul class="pw-actions">'+w.actions.map(function(a){return '<li>'+a+'</li>';}).join('')+'</ul></div>';}).join('');
+  document.getElementById('honest-q').textContent=honestQ;
+  document.getElementById('diag-result').classList.add('visible');
+  document.getElementById('diag-result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function resetTool(){
+  crisisType='';
+  Object.keys(answers).forEach(function(k){delete answers[k];});
+  Object.keys(questionSets).forEach(function(k){var el=document.getElementById('ct-'+k);if(el)el.classList.remove('selected');});
+  document.getElementById('questions-section').style.display='none';
+  document.getElementById('diag-result').classList.remove('visible');
+  document.getElementById('q-container').innerHTML='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IF Instrument III — Quarterly Report Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0e0d0b;--ink2:#2a2520;--muted:#6b6560;--faint:#9a9590;--rule:#d8d4ce;--rule2:#e8e4de;--cream:#f5f2ed;--page:#ffffff;--accent:#8b2500;--blue:#1a3d78;--green:#1a6b3c;--gold:#a87c20;--serif:'Crimson Pro',Georgia,serif;--sans:'Source Sans 3',system-ui,sans-serif;--mono:'IBM Plex Mono','Courier New',monospace;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:11pt;scroll-behavior:smooth;}
+body{font-family:var(--sans);font-weight:300;line-height:1.7;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;min-height:100vh;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+nav{background:var(--cream);border-bottom:1.5px solid var(--ink);padding:.65rem 2rem;display:flex;align-items:center;gap:1.5rem;position:sticky;top:0;z-index:100;}
+.nb{text-decoration:none;display:flex;align-items:baseline;gap:.15rem;}
+.nb-inn{font-family:var(--serif);font-size:14.5pt;font-weight:700;color:var(--ink);}
+.nb-fri{font-family:var(--serif);font-size:14.5pt;font-weight:500;font-style:italic;color:var(--accent);}
+.nl{display:flex;gap:.4rem;margin-left:auto;flex-wrap:wrap;}
+.nl a{font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:.28rem .6rem;border:1px solid var(--rule);-webkit-tap-highlight-color:rgba(139,37,0,.15);transition:all .2s;}
+.nl a:hover,.nl a.active{color:var(--ink);border-color:var(--accent);background:#fff8f5;}
+.shell{max-width:860px;margin:0 auto;padding:3rem 2rem 5rem;}
+.inst-tag{font-family:var(--mono);font-size:7.5pt;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
+h1{font-family:var(--serif);font-size:26pt;font-weight:400;color:var(--ink);line-height:1.15;margin-bottom:.4rem;}
+.sub{font-family:var(--serif);font-size:13.5pt;font-style:italic;color:var(--muted);margin-bottom:2rem;}
+.view-toggle{display:flex;gap:0;margin-bottom:1.5rem;border:1.5px solid var(--ink);}
+.vt{flex:1;padding:.65rem;text-align:center;font-family:var(--mono);font-size:8pt;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;border:none;background:transparent;color:var(--muted);-webkit-tap-highlight-color:transparent;}
+.vt:hover{background:var(--rule2);color:var(--ink);}
+.vt.active{background:var(--ink);color:var(--cream);}
+.stage-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;}
+.stage-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:2rem;}
+.stage-btn{background:var(--page);border:1.5px solid var(--rule);padding:.85rem 1rem;cursor:pointer;-webkit-tap-highlight-color:rgba(168,124,32,.15);transition:all .2s;text-align:center;}
+.stage-btn:hover{border-color:var(--gold);background:#fdf6e8;}
+.stage-btn.active{background:#fdf6e8;border-color:var(--gold);border-bottom:3px solid var(--gold);}
+.sb-num{font-family:var(--mono);font-size:9pt;font-weight:500;color:var(--gold);margin-bottom:.2rem;}
+.sb-name{font-size:9pt;color:var(--ink2);}
+.sec{margin-bottom:2rem;}
+.sec-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;padding-bottom:.5rem;border-bottom:1.5px solid var(--rule);}
+.sh-n{font-family:var(--mono);font-size:9pt;font-weight:500;color:var(--gold);}
+.sh-t{font-family:var(--serif);font-size:14pt;font-weight:600;color:var(--ink);}
+.frow{margin-bottom:1.25rem;}
+label{display:block;font-family:var(--mono);font-size:7.5pt;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+input[type=text],input[type=number],select{width:100%;background:var(--page);border:1px solid var(--rule);color:var(--ink);font-family:var(--sans);font-size:10pt;padding:.65rem .85rem;transition:border-color .2s;}
+input:focus,select:focus{outline:none;border-color:var(--gold);}
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:.75rem;}
+.kpi-l{font-family:var(--mono);font-size:7.5pt;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;}
+.layer-grid{display:flex;flex-direction:column;gap:.5rem;}
+.layer-row{display:grid;grid-template-columns:2.5rem 1fr auto;align-items:center;gap:.75rem;background:var(--page);border:1px solid var(--rule);padding:.75rem 1rem;}
+.lr-n{font-family:var(--mono);font-size:9pt;color:var(--gold);font-weight:500;}
+.lr-name{font-size:10pt;font-weight:500;color:var(--ink);}
+.lr-sel{display:flex;gap:.35rem;flex-wrap:wrap;}
+.ls-btn{font-family:var(--mono);font-size:7pt;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .65rem;border:1px solid var(--rule);background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .2s;}
+.ls-btn:hover{border-color:var(--ink);}
+.ls-btn.active.s-red{background:#fdf0ec;border-color:var(--accent);color:var(--accent);font-weight:500;}
+.ls-btn.active.s-amber{background:#fdf6e8;border-color:var(--gold);color:var(--gold);font-weight:500;}
+.ls-btn.active.s-green{background:#eef7f2;border-color:var(--green);color:var(--green);font-weight:500;}
+textarea{width:100%;background:var(--page);border:1px solid var(--rule);color:var(--ink);font-family:var(--sans);font-size:11.5pt;line-height:1.6;padding:.85rem 1rem;resize:vertical;min-height:80px;margin-top:.35rem;}
+textarea:focus{outline:none;border-color:var(--gold);}
+textarea::placeholder{color:var(--faint);}
+.submit-btn{display:block;width:100%;background:var(--gold);color:var(--ink);font-family:var(--mono);font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;padding:.85rem 2rem;border:none;cursor:pointer;margin-top:2.5rem;transition:background .2s;font-weight:500;}
+.submit-btn:hover{background:#8a6510;}
+.report-card{display:none;margin-top:2.5rem;}
+.report-card.visible{display:block;animation:fadeIn .4s ease;}
+.rc-header{background:var(--cream);border:1.5px solid var(--ink);border-bottom:none;padding:2rem;}
+.rc-meta{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;margin-bottom:1.25rem;}
+.rc-qtr{font-family:var(--mono);font-size:7.5pt;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;}
+.rc-title{font-family:var(--serif);font-size:20pt;font-weight:600;color:var(--ink);}
+.rc-body{background:var(--page);border:1.5px solid var(--ink);padding:1.5rem;}
+.crl-progress{}
+.cp-label{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+.cp-track{display:flex;gap:2px;margin-bottom:.35rem;}
+.cp-step{flex:1;height:8px;background:var(--rule2);border-radius:1px;transition:background .3s;}
+.cp-step.done{background:var(--green);}
+.cp-step.current{background:var(--gold);}
+.cp-nums{display:flex;justify-content:space-between;font-family:var(--mono);font-size:6.5pt;color:var(--faint);}
+.rc-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:1.25rem;}
+.rc-kpi{background:var(--page);padding:.85rem 1rem;}
+.rk-l{font-family:var(--mono);font-size:6.5pt;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:.25rem;}
+.rk-v{font-family:var(--serif);font-size:16pt;font-weight:700;color:var(--ink);}
+.layer-scorecard{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.25rem;}
+.lsc-row{display:grid;grid-template-columns:2rem 1fr auto;align-items:center;gap:.75rem;padding:.5rem .75rem;background:var(--cream);border:1px solid var(--rule);}
+.lsc-n{font-family:var(--mono);font-size:8pt;color:var(--gold);font-weight:500;}
+.lsc-name{font-size:10pt;color:var(--ink2);}
+.lsc-badge{font-family:var(--mono);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;border:1px solid;white-space:nowrap;}
+.b-red{color:var(--accent);border-color:var(--accent);background:#fdf0ec;}
+.b-amber{color:var(--gold);border-color:var(--gold);background:#fdf6e8;}
+.b-green{color:var(--green);border-color:var(--green);background:#eef7f2;}
+.priorities{margin-bottom:1.25rem;}
+.pri-label{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;}
+.pri-item{font-size:10pt;color:var(--ink2);line-height:1.6;padding:.4rem 0 .4rem .9rem;border-bottom:1px dotted var(--rule);position:relative;}
+.pri-item::before{content:'\2192';position:absolute;left:0;font-family:var(--mono);font-size:9pt;color:var(--gold);}
+.pri-item:last-child{border:none;}
+.investor-note{display:none;background:var(--cream);border:1px solid var(--rule);padding:1.25rem;margin-bottom:1.25rem;}
+.investor-note.visible{display:block;}
+.in-label{font-family:var(--mono);font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem;}
+.investor-note p{font-size:10pt;line-height:1.7;color:var(--ink2);}
+.print-btn{font-family:var(--mono);font-size:7.5pt;letter-spacing:.12em;text-transform:uppercase;background:transparent;border:1px solid var(--rule);color:var(--muted);padding:.5rem 1rem;cursor:pointer;margin-top:1rem;transition:all .2s;}
+.print-btn:hover{border-color:var(--ink);color:var(--ink);}
+footer{border-top:1px solid var(--rule);padding:2rem;text-align:center;margin-top:3rem;}
+footer p{font-family:var(--mono);font-size:7pt;letter-spacing:.08em;color:var(--muted);line-height:1.9;}
+footer a{color:var(--accent);text-decoration:none;}
+@media print{nav,.view-toggle,.stage-row,.submit-btn,.print-btn{display:none;}}
+@media(max-width:620px){.kpi-row{grid-template-columns:1fr 1fr;}.rc-kpis{grid-template-columns:1fr 1fr;}.stage-row{grid-template-columns:1fr;}.layer-row{grid-template-columns:2rem 1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nb" href="index.html"><span class="nb-inn">Innovation</span><span class="nb-fri">&nbsp;Friction</span></a>
+  <div class="nl"><a href="index.html">Home</a><a href="instrument1.html">I</a><a href="instrument2.html">II</a><a href="instrument3.html" class="active">III</a><a href="instrument4.html">IV</a><a href="instrument5.html">V</a></div>
+</nav>
+<div class="shell">
+  <div class="inst-tag">Instrument III &middot; Quarterly Report Card</div>
+  <h1>Quarterly Report Card</h1>
+  <p class="sub">30 minutes. Every quarter. Every board meeting.</p>
+  <div class="view-toggle">
+    <button class="vt active" onclick="setView('founder')">Founder View</button>
+    <button class="vt" onclick="setView('investor')">Investor View</button>
+  </div>
+  <div class="stage-label">Your current commercial stage</div>
+  <div class="stage-row">
+    <div class="stage-btn active" onclick="setStage(0)"><div class="sb-num">CRL 1&ndash;4</div><div class="sb-name">Problem Validation</div></div>
+    <div class="stage-btn" onclick="setStage(1)"><div class="sb-num">CRL 5&ndash;7</div><div class="sb-name">Commercial Proof</div></div>
+    <div class="stage-btn" onclick="setStage(2)"><div class="sb-num">CRL 8&ndash;9</div><div class="sb-name">Scale Proof</div></div>
+  </div>
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n">01</span><span class="sh-t">Venture Details</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+      <div class="frow"><label>Company / Venture Name</label><input type="text" id="co-name" placeholder="Your company name"></div>
+      <div class="frow"><label>Quarter and Year</label><input type="text" id="qtr" placeholder="e.g. Q2 2026"></div>
+      <div class="frow"><label>Current CRL Level</label>
+        <select id="crl-sel">
+          <option value="1">CRL 1 &middot; Problem identified</option>
+          <option value="2">CRL 2 &middot; Pain validated</option>
+          <option value="3">CRL 3 &middot; Co-design partner</option>
+          <option value="4">CRL 4 &middot; Pilot completed</option>
+          <option value="5">CRL 5 &#9733; &middot; First revenue</option>
+          <option value="6">CRL 6 &middot; Repeatable sale</option>
+          <option value="7">CRL 7 &middot; Predictable pipeline</option>
+          <option value="8">CRL 8 &middot; Expansion revenue</option>
+          <option value="9">CRL 9 &middot; Category definition</option>
+        </select>
+      </div>
+      <div class="frow"><label>CRL Change This Quarter</label>
+        <select id="crl-change">
+          <option value="2">Advanced 2+ levels &mdash; ahead of plan</option>
+          <option value="1">Advanced 1 level &mdash; on track</option>
+          <option value="0">Held same level &mdash; blocked</option>
+          <option value="-1">Regressed &mdash; market/pivot change</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n">02</span><span class="sh-t">Five Failure Layer Status</span></div>
+    <div class="layer-grid">
+      <div class="layer-row"><div class="lr-n">L1</div><div class="lr-name">Problem &mdash; urgent funded pain confirmed</div><div class="lr-sel" id="l1"></div></div>
+      <div class="layer-row"><div class="lr-n">L2</div><div class="lr-name">Access &mdash; reachable before capital depleted</div><div class="lr-sel" id="l2"></div></div>
+      <div class="layer-row"><div class="lr-n">L3</div><div class="lr-name">Trust &mdash; reference customer reducing &mu;_human</div><div class="lr-sel" id="l3"></div></div>
+      <div class="layer-row"><div class="lr-n">L4</div><div class="lr-name">Process &mdash; procurement pathway cleared</div><div class="lr-sel" id="l4"></div></div>
+      <div class="layer-row"><div class="lr-n">L5</div><div class="lr-name">Adoption &mdash; post-signature usage confirmed</div><div class="lr-sel" id="l5"></div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n">03</span><span class="sh-t">Key Metrics This Quarter</span></div>
+    <div class="kpi-row">
+      <div><div class="kpi-l">Revenue (&euro;)</div><input type="number" id="kpi-rev" placeholder="0"></div>
+      <div><div class="kpi-l">Active Customers</div><input type="number" id="kpi-cust" placeholder="0"></div>
+      <div><div class="kpi-l">Pipeline (&euro;)</div><input type="number" id="kpi-pipe" placeholder="0"></div>
+    </div>
+    <div class="kpi-row">
+      <div><div class="kpi-l">Runway (months)</div><input type="number" id="kpi-run" placeholder="0"></div>
+      <div><div class="kpi-l">Burn Rate (&euro;/mo)</div><input type="number" id="kpi-burn" placeholder="0"></div>
+      <div><div class="kpi-l">Win Rate (%)</div><input type="number" id="kpi-wr" placeholder="0"></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-head"><span class="sh-n">04</span><span class="sh-t">Quarter in Summary</span></div>
+    <div class="frow"><label>Biggest friction eliminated this quarter</label><textarea id="n-win" placeholder="Which failure layer did you make the most progress on? What specifically changed?"></textarea></div>
+    <div class="frow"><label>Dominant friction remaining &mdash; what is blocking you most?</label><textarea id="n-block" placeholder="Which layer is your active constraint right now? What are the specific obstacles?"></textarea></div>
+    <div class="frow"><label>90-day priority &mdash; one sentence</label><input type="text" id="n-priority" placeholder="The single most important action in the next 90 days is..."></div>
+  </div>
+  <button class="submit-btn" onclick="generateReport()">Generate Report Card &rarr;</button>
+  <div class="report-card" id="report-card">
+    <div class="rc-header">
+      <div class="rc-meta">
+        <div>
+          <div class="rc-qtr" id="rc-qtr-label">&mdash;</div>
+          <div class="rc-title" id="rc-co-name">&mdash;</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--mono);font-size:9pt;color:var(--gold);font-weight:500;" id="rc-crl-label">CRL &mdash;</div>
+          <div style="font-family:var(--mono);font-size:7.5pt;color:var(--muted);margin-top:.2rem;">Innovation Friction Report Card</div>
+        </div>
+      </div>
+      <div class="crl-progress">
+        <div class="cp-label">CRL Progression</div>
+        <div class="cp-track" id="cp-track"></div>
+        <div class="cp-nums"><span>CRL 1</span><span>2</span><span>3</span><span>4</span><span>5&#9733;</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+      </div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-kpis" id="rc-kpis"></div>
+      <div style="margin-bottom:1.25rem;">
+        <div class="pri-label">Five Failure Layer Status</div>
+        <div class="layer-scorecard" id="rc-layers"></div>
+      </div>
+      <div class="priorities" id="rc-priorities"></div>
+      <div class="investor-note" id="investor-note">
+        <div class="in-label">Investor Summary</div>
+        <p id="investor-text"></p>
+      </div>
+      <button class="print-btn" onclick="window.print()">Print / Export &rarr;</button>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>&copy; 2026 Rajesh SHARMA &middot; Innovation Friction Framework &middot; <a href="index.html">innovationfriction.com</a><br>
+  <a href="mailto:raj@telsunventures.com">raj@telsunventures.com</a> &middot; <a href="if_index.html">&larr; All Instruments</a></p>
+</footer>
+<script>
+var currentView='founder', currentStage=0, layerStatus={};
+[1,2,3,4,5].forEach(function(i){
+  var el=document.getElementById('l'+i);
+  el.innerHTML='<button class="ls-btn s-red" onclick="setLayer('+i+',\'red\')">Active risk</button>'
+    +'<button class="ls-btn s-amber" onclick="setLayer('+i+',\'amber\')">Partial</button>'
+    +'<button class="ls-btn s-green" onclick="setLayer('+i+',\'green\')">Eliminated</button>';
+});
+function setLayer(n,val){layerStatus[n]=val;var el=document.getElementById('l'+n);el.querySelectorAll('.ls-btn').forEach(function(b){b.classList.remove('active');});el.querySelector('.s-'+val).classList.add('active');}
+function setView(v){currentView=v;document.querySelectorAll('.vt').forEach(function(b,i){b.classList.toggle('active',i===(v==='investor'?1:0));});var inv=document.getElementById('investor-note');if(inv)inv.classList.toggle('visible',v==='investor'&&document.getElementById('report-card').classList.contains('visible'));}
+function setStage(s){currentStage=s;document.querySelectorAll('.stage-btn').forEach(function(b,i){b.classList.toggle('active',i===s);});}
+function generateReport(){
+  var co=document.getElementById('co-name').value||'Your Venture';
+  var qtr=document.getElementById('qtr').value||'Q \u2014 \u2014\u2014';
+  var crl=+document.getElementById('crl-sel').value;
+  var crlChg=+document.getElementById('crl-change').value;
+  var rev=document.getElementById('kpi-rev').value;
+  var cust=document.getElementById('kpi-cust').value;
+  var pipe=document.getElementById('kpi-pipe').value;
+  var run=document.getElementById('kpi-run').value;
+  var burn=document.getElementById('kpi-burn').value;
+  var wr=document.getElementById('kpi-wr').value;
+  var nBlock=document.getElementById('n-block').value;
+  var nPri=document.getElementById('n-priority').value;
+  document.getElementById('rc-qtr-label').textContent='Innovation Friction Report Card \u00b7 '+qtr;
+  document.getElementById('rc-co-name').textContent=co;
+  document.getElementById('rc-crl-label').textContent='CRL '+crl+' \u00b7 '+(crlChg>0?'\u2191'+crlChg+' this quarter':crlChg<0?'\u2193 Regression':'Held');
+  var cpHtml='';for(var i=1;i<=9;i++){var c=i<crl?'done':i===crl?'current':'';cpHtml+='<div class="cp-step '+c+'"></div>';}
+  document.getElementById('cp-track').innerHTML=cpHtml;
+  var kpis=[{l:'Revenue',v:rev?'\u20ac'+Number(rev).toLocaleString():'\u2014'},{l:'Customers',v:cust||'\u2014'},{l:'Pipeline',v:pipe?'\u20ac'+Number(pipe).toLocaleString():'\u2014'}];
+  document.getElementById('rc-kpis').innerHTML=kpis.map(function(k){return '<div class="rc-kpi"><div class="rk-l">'+k.l+'</div><div class="rk-v">'+k.v+'</div></div>';}).join('');
+  var ln=['Problem','Access','Trust','Process','Adoption'];
+  document.getElementById('rc-layers').innerHTML=ln.map(function(n,i){var s=layerStatus[i+1]||'amber';var bc=s==='red'?'b-red':s==='amber'?'b-amber':'b-green';var bt=s==='red'?'ACTIVE RISK':s==='amber'?'IN PROGRESS':'ELIMINATED';return '<div class="lsc-row"><div class="lsc-n">L'+(i+1)+'</div><div class="lsc-name">'+n+'</div><div class="lsc-badge '+bc+'">'+bt+'</div></div>';}).join('');
+  var rl=[];Object.keys(layerStatus).forEach(function(k){if(layerStatus[k]==='red')rl.push(ln[+k-1]);});
+  var pris=[];if(nPri)pris.push(nPri);if(rl.length)pris.push('Critical: resolve active risk in \u2014 '+rl.join(', '));if(crl<5)pris.push('CRL 5 (first real revenue) is your primary milestone');if(run&&+run<12)pris.push('Runway below 12 months \u2014 capital efficiency critical');if(nBlock)pris.push('Unblock: '+nBlock.slice(0,120));
+  document.getElementById('rc-priorities').innerHTML='<div class="pri-label">90-Day Priorities</div>'+pris.slice(0,5).map(function(p){return '<div class="pri-item">'+p+'</div>';}).join('');
+  var invText=co+' is at CRL '+crl+' as of '+qtr+'. '+(crlChg>0?'Advanced '+crlChg+' level'+(crlChg>1?'s':'')+' this quarter.':crlChg===0?'CRL held this quarter.':'CRL regression this quarter.')+' '+(rev?'Revenue: \u20ac'+Number(rev).toLocaleString()+'. ':'Pre-revenue. ')+(run?'Runway: '+run+' months. ':'')+' Primary constraint: '+(nBlock?nBlock.slice(0,100):'in progress')+'. Focus: '+(nPri||'see priorities above')+'.';
+  document.getElementById('investor-text').textContent=invText;
+  var inv=document.getElementById('investor-note');inv.classList.toggle('visible',currentView==='investor');
+  document.getElementById('report-card').classList.add('visible');
+  document.getElementById('report-card').scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>
