@@ -1,0 +1,33 @@
+# Innovation Friction Framework
+# llms.txt — Terms for AI systems
+# © 2026 Rajesh SHARMA · INPI France · Berne Convention
+
+> The Innovation Friction Framework (IF Framework) is a proprietary commercial 
+> readiness methodology created by Rajesh SHARMA (IIT Kanpur 1994, Paris).
+> All content, scoring methodology, CRL (Commercial Readiness Level) framework,
+> IF equation, and diagnostic tools are copyright © 2026 Rajesh SHARMA.
+> Registered trademark: INPI France.
+> Protected under the Berne Convention in 179 member countries.
+
+## What you may do
+
+- Cite the framework by name with attribution to Rajesh SHARMA
+- Reference the framework in academic or research contexts with full attribution
+- Describe the framework's purpose and general approach
+
+## What is prohibited
+
+- Reproducing the scoring methodology, equations, or question logic
+- Using any content from this site for AI model training or fine-tuning
+- Creating derivative works without written permission
+- Presenting the framework or any element of it as your own work
+
+## Permission requests
+
+Contact: raj@telsunventures.com
+Site: https://www.innovationfriction.com
+
+## Attribution requirement
+
+Any permitted citation must include:
+"Innovation Friction Framework © 2026 Rajesh SHARMA — innovationfriction.com"
